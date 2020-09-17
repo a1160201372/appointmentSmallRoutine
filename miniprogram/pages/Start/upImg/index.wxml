@@ -1,0 +1,22 @@
+<view bindtap = "back"  class="imageReturnSize" >
+ <image src="../../../images/return.png" > </image>
+</view>
+ <text class="titleText">{{title}}</text>
+<view  wx:key="*this" wx:for="{{row}}" wx:for-index="rowDataIndex" class="content">  
+  <view wx:if="{{vocation[rowDataIndex][columnDataIndex]!=null}}" class="t1" wx:key="*this" wx:for="{{column}}" wx:for-index="columnDataIndex">  
+    <button bindtap = "flag1" data-id='{{vocation[rowDataIndex][columnDataIndex]}}' class="getUserInfoBtn0" style="width: 31vmin;height: 10vmin;">{{vocation[rowDataIndex][columnDataIndex]}}</button>
+  </view>
+</view>  
+
+<text>\n</text>
+<text>\n</text>
+<text>\n</text>
+
+
+   <modal hidden="{{hiddenmodalput}}" title="请输入您的职业" 
+   			confirm-text="提交" cancel-text="取消" bindcancel="modalinput" 
+   			bindconfirm="confirm">
+     <!-- 这里可以自由选择你的输入框类型<input type='text' placeholder="请输入内容" auto-focus/> -->
+     <textarea bindinput="bindinput" placeholder="请输入内容"></textarea>
+   </modal>
+

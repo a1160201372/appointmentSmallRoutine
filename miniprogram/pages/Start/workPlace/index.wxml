@@ -1,0 +1,14 @@
+<view bindtap = "back"  class="imageReturnSize" >
+ <image src="../../../images/return.png" > </image>
+</view>
+<!--标题-->
+<view>
+  <text>\n</text>
+
+  <text class="titleText">您的工作地点在哪里？</text>
+  <text>\n</text>
+</view>
+<!--pages/index/index.wxml-->
+<city-select 
+             catch:selectCommit="citySelectData"
+             ></city-select>

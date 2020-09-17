@@ -1,0 +1,21 @@
+page {
+  background: #ffffff;
+}
+.titleText{
+	font-size:17pt;
+	display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+.imageReturnSize{
+	display:flex;                    
+	margin-top: 10px;
+	margin-left: 10px;
+	
+	width:60rpx;
+	height:60rpx;
+ }
+ .imageReturnSize image { 
+	 width:50rpx;
+	 height:50rpx;
+	 }

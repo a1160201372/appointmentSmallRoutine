@@ -56,7 +56,7 @@
   </view>
 
   <view class="uploader">
-    <navigator url="../img/index" open-type="navigate" class="uploader-text">
+    <navigator url="../Start/grande/index" open-type="navigate" class="uploader-text">
       <text>下载图片</text>
     </navigator>
   </view>

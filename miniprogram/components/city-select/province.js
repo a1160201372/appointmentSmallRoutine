@@ -1,0 +1,36 @@
+export const province = [
+    {fullname: "山东省", id: "370000"},
+
+    /*
+    {fullname: "北京市", id: "110000"},
+    {fullname: "天津市", id: "120000"},
+    {fullname: "河北省", id: "130000"},
+    {fullname: "山西省", id: "140000"},
+    {fullname: "内蒙古自治区", id: "150000"},
+    {fullname: "辽宁省", id: "210000"},
+    {fullname: "吉林省", id: "220000"},
+    {fullname: "黑龙江省", id: "230000"},
+    {fullname: "上海市", id: "310000"},
+    {fullname: "江苏省", id: "320000"},
+    {fullname: "浙江省", id: "330000"},
+    {fullname: "安徽省", id: "340000"},
+    {fullname: "福建省", id: "350000"},
+    {fullname: "江西省", id: "360000"},
+
+    {fullname: "河南省", id: "410000"},
+    {fullname: "湖北省", id: "420000"},
+    {fullname: "湖南省", id: "430000"},
+    {fullname: "广东省", id: "440000"},
+    {fullname: "广西壮族自治区", id: "450000"},
+    {fullname: "海南省", id: "460000"},
+    {fullname: "重庆市", id: "500000"},
+    {fullname: "四川省", id: "510000"},
+    {fullname: "贵州省", id: "520000"},
+    {fullname: "云南省", id: "530000"},
+    {fullname: "西藏自治区", id: "540000"},
+    {fullname: "陕西省", id: "610000"},
+    {fullname: "甘肃省", id: "620000"},
+    {fullname: "青海省", id: "630000"},
+    {fullname: "宁夏回族自治区", id: "640000"},
+    {fullname: "新疆维吾尔自治区", id: "650000"}*/
+];

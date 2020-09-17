@@ -1,0 +1,48 @@
+page {
+  background: #d0f0e9;
+}
+.titleText{
+	margin-top: 20rpx ;
+	font-size:17pt;
+	display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+.wordChText{
+	font-size:15pt;
+	display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+.wordEnText{
+	font-size:11pt;
+	display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+.sexImg{
+	display:flex;                   
+	justify-content: center;       
+	
+}
+.imagesize{
+	display:flex;                    
+	justify-content: center;       
+ }
+ .imagesize image { 
+	 width:280rpx;
+	 height:300rpx;
+	 }
+
+	 .imageReturnSize{
+		display:flex;                    
+		margin-top: 10px;
+		margin-left: 10px;
+		
+		width:60rpx;
+		height:60rpx;
+	 }
+	 .imageReturnSize image { 
+		 width:50rpx;
+		 height:50rpx;
+		 }

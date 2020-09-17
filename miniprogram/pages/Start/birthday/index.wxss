@@ -1,0 +1,60 @@
+.color{
+	width: 100%; 
+	height: 50px;
+	color: #ffffff;
+	font-size:22pt;
+	text-align: center;
+	padding: 0 10px;
+	box-sizing: border-box;
+}
+
+picker-view-column{
+	margin: 0 10px;	
+		text-align: center;
+	font-size:18pt;
+	background: linear-gradient(to bottom,#f4f4f4, #ffffff,  #f4f4f4);
+}
+.titleText{
+	font-size:17pt;
+	display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+page {
+  background: #f4f4f4;
+}
+
+/* border-radius: 98rpx;是控制按钮边变圆 */
+.goodbutton {
+  margin-top: 30px;
+  width: 80%;
+  background-color:#E83090;
+  color: white;
+  border-radius: 98rpx;
+  background: bg_red;
+}
+ 
+/* 按下变颜色 */
+.hover {
+  background: #FF69B4;
+}
+.imagesize{
+	display:flex;                    
+	justify-content: center;       
+ }
+ .imagesize image { 
+	 width:200rpx;
+	 height:200rpx;
+}
+.imageReturnSize{
+	display:flex;                    
+	margin-top: 10px;
+	margin-left: 10px;
+	
+	width:60rpx;
+	height:60rpx;
+ }
+ .imageReturnSize image { 
+	 width:50rpx;
+	 height:50rpx;
+	 }

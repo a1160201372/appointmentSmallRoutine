@@ -1,0 +1,21 @@
+<view bindtap = "back"  class="imageReturnSize" >
+ <image src="../../../images/return.png" > </image>
+</view>
+<!--标题-->
+<view>
+  <text class="titleText">{{title}}</text>
+  <!--
+<image src="{{genderImg}}"></image>
+-->
+<text>\n</text>
+<view class='imagesize'>
+  <image src="../../../images/man.png" class='in-image' > </image>
+</view>
+<text>\n</text>
+</view>
+
+<view wx:for="{{option}}" wx:key="*this">
+  <button bindtap = "flag1" style="width:450rpx" class='goodbutton'  hover-class="hover">{{option[index]}}</button>
+</view>
+<text>\n</text>
+<text>\n</text>

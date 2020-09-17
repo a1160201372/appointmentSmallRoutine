@@ -1,0 +1,47 @@
+.titleText{
+	font-size:17pt;
+	display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+page {
+  background: #eeffeb;
+}
+.content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20rpx;
+	margin-left: 0rpx;
+}
+
+.t1{
+  height: 20px;
+  width: 500px;
+  background-color: #eeffeb;
+	margin-left: 0rpx;
+	margin-top: 40rpx;
+	
+}
+
+.getUserInfoBtn0 {
+	display:block;
+
+margin:0 auto;
+	border: 1px solid #ffe1e1; 
+	font-size: 10pt;
+	background-color: rgb(255, 255, 255);
+	border-radius: 30px;
+
+}
+.imageReturnSize{
+	display:flex;                    
+	margin-top: 10px;
+	margin-left: 10px;
+	
+	width:60rpx;
+	height:60rpx;
+ }
+ .imageReturnSize image { 
+	 width:50rpx;
+	 height:50rpx;
+	 }

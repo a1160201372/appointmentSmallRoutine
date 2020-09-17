@@ -1,0 +1,39 @@
+<view>
+    <view class="areaContainer" catchtap>
+        <view class="areaHead">
+            <block wx:for="{{_selectList}}" wx:key="index">
+                <view catchtap="_selectHead"
+                      data-level="{{index}}"
+                      wx:if="{{item}}"
+                      class="areaHeadItem pressLighter {{_activeTab==index&&'areaHeadItemChecked'}}">
+                    {{_userSelect.length>=index+1?_userSelect[index].name:option[index]}}
+                </view>
+            </block>
+            <text style="flex: 1"/>
+        </view>
+        <swiper class="areaBody"
+                current="{{_activeTab}}"
+                bindchange="_tapSwiper">
+            <block wx:for="{{_selectList}}"
+                   wx:if="{{item}}"
+                   wx:key="index"
+                   wx:for-index="level">
+                <swiper-item>
+                    <scroll-view scroll-y="true">
+                        <view class="itemContainer">
+                            <block wx:for="{{item}}" wx:key="id">
+                                <text class="areaBodyItem pressLighter"
+                                      catchtap="_selectItem"
+                                      data-id="{{item.id}}"
+                                      data-name="{{item.fullname}}"
+                                      data-level="{{level}}"
+                                >{{item.fullname}}
+                                </text>
+                            </block>
+                        </view>
+                    </scroll-view>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+</view>

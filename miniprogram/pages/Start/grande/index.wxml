@@ -1,0 +1,25 @@
+
+ <!--标题-->
+<view>
+  <text class="titleText">\n您或他（他）是男神还是女神？</text>
+</view>
+<text>\n</text>
+<!--男神-->
+<view bindtap = "man">
+<view class='imagesize'>
+  <image src="../../../images/man.png" class='in-image' > </image>
+</view>
+<text class="wordChText">男神</text>
+  <text class="wordEnText">man</text>
+</view>
+<text class="titleText">\n</text>
+  <text class="titleText">\n</text>
+
+<!--女神-->
+<view  bindtap = "woman">
+<view class='imagesize'>
+  <image src="../../../images/woman.png" class='in-image' > </image>
+</view> 
+ <text class="wordChText">女神</text>
+  <text class="wordEnText">woman</text>
+</view>
