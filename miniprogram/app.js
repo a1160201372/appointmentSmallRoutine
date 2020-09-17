@@ -1,5 +1,9 @@
 //app.js
 App({
+  globalData:{
+    globalGrande:null,
+    openid: null
+  },
   onLaunch: function () {
     
     if (!wx.cloud) {

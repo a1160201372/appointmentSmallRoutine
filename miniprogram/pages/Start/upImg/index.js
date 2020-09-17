@@ -1,6 +1,6 @@
 Page({
   data: {
-    title:"请问您的职业？",
+    title:"请上传您的正面照",
     vocation:[["市场/销售","医生","律师",],
               ["教师","幼师","设计师"],
               ["程序员","策划推广","客服人员"],
@@ -12,8 +12,7 @@ Page({
     hiddenmodalput:true,
     vocationSave:"",
     column:[0,1,2],//列
-    row:[0,1,2,3,4,5,6
-          ]//行
+    row:[0,1,2,3,4,5,6]//行
   },
   bindinput:function(e){
     this.setData({

@@ -491,7 +491,9 @@ var all=this.data.Array;
     })
   },
   next:function(){
-   
+    wx.redirectTo({//跳转
+      url: '../upImg/index'
+    })
   }
   
 

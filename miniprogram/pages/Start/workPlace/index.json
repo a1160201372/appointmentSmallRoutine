@@ -1,5 +1,6 @@
 {
   "usingComponents": {
     "city-select": "/components/city-select/city-select"
-  }
+  },
+  "navigationBarTitleText": "初次注册"
 }

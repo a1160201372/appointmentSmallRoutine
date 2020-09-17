@@ -1,3 +1,4 @@
+const app = getApp()
 Page({
   data: {
     title:"您的身高（cm）：",
@@ -6,9 +7,17 @@ Page({
     img:"",
   },
   onLoad:function(){
+    if(app.globalData.globalGrande==1)
+    {
     this.setData({
-      img:"../../../images/marryTimeMan.png"
+      img:"../../../images/heightMan.png"
     })
+    }
+    else{
+      this.setData({
+        img:"../../../images/heightWoman.png"
+      })
+    }
   },
   flag1:function(e){
     var id = e.currentTarget.dataset.id;

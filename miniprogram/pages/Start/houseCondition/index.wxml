@@ -10,7 +10,7 @@
 -->
 <text>\n</text>
 <view class='imagesize'>
-  <image src="../../../images/man.png" class='in-image' > </image>
+  <image src="{{img}}" class='in-image' > </image>
 </view>
 <text>\n</text>
 </view>

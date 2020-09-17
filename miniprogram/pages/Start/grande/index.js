@@ -1,4 +1,5 @@
 const app = getApp()
+
 Page({
   data: {
     text: "你好",
@@ -37,6 +38,7 @@ Page({
       console.log('123');
       var onOff = this.data.onOff;
       this.setData({text:"hello",onOff:!onOff});
+      app.globalData.globalGrande=1
       wx.redirectTo({//跳转
         url: '../birthday/index'
       })
@@ -49,7 +51,8 @@ Page({
     console.log('123');
     var onOff = this.data.onOff;
     this.setData({text:"hello",onOff:!onOff});
-    wx.navigateTo({//跳转
+    app.globalData.globalGrande=2
+    wx.redirectTo({//跳转
       url: '../birthday/index'
     })
 }

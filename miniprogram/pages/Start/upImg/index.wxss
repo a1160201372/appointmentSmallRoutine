@@ -45,3 +45,14 @@ margin:0 auto;
 	 width:50rpx;
 	 height:50rpx;
 	 }
+	 .imagesize{
+		display:flex;                    
+		justify-content: center;       
+
+		
+	 }
+	 .imagesize image { 
+		 width:200rpx;
+		 height:200rpx;
+		 background-color: rgb(255, 244, 244);
+		 }

@@ -6,9 +6,19 @@ Page({
     img:"",
   },
   onLoad:function(){
+
+    if(app.globalData.globalGrande==1)
+    {
     this.setData({
       img:"../../../images/educationMan.png"
     })
+    }
+    else{
+      this.setData({
+        img:"../../../images/educationWoman.png"
+      })
+    }
+
   },
   flag1:function(){//女性
     console.log('123');

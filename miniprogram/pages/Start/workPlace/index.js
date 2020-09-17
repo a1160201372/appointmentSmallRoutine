@@ -1,7 +1,21 @@
+const app = getApp()
 Page({
 	data: {
-			citySelectOnShow: false
+			citySelectOnShow: false,
+			img:""
 	},
+	onLoad:function(){
+    if(app.globalData.globalGrande==1){
+      this.setData({
+        img:"../../../images/workPlaceMan.png"
+      })
+      }
+      else{
+        this.setData({
+          img:"../../../images/workPlaceWoman.png"
+        })
+      }
+  },
 	citySelectData(e) {
 			console.log("测试",e.detail);
 		  wx.redirectTo({//跳转

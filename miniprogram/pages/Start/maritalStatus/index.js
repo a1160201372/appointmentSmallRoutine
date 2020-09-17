@@ -7,9 +7,19 @@ Page({
     img:"",
   },
   onLoad:function(){
+    if(app.globalData.globalGrande==1){
     this.setData({
       img:"../../../images/marryMan.png"
     })
+    }
+    else{
+      this.setData({
+        img:"../../../images/marryWoman.png"
+      })
+    }
+    
+
+
   },
   back:function(){//下一步
     wx.redirectTo({//跳转

@@ -2,6 +2,7 @@ const date = new Date()
 const years = []
 const months = []
 const days = []
+var app = getApp()
 
 for (let i = 1950; i <= date.getFullYear(); i++) {
   years.push(i)
@@ -28,9 +29,17 @@ Page({
    
   },
   onLoad:function(){
+    if(app.globalData.globalGrande==1)
+    {
     this.setData({
       img:"../../../images/birthdayman.png"
     })
+    }
+    else{
+      this.setData({
+        img:"../../../images/birthdayWoman.png"
+      })
+    }
   },
   bindChange: function(e) {
     const val = e.detail.value

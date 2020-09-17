@@ -1,6 +1,4 @@
-<view bindtap = "back"  class="imageReturnSize" >
- <image src="../../../images/return.png" > </image>
-</view>
+<text>\n</text>
  <text class="titleText">{{title}}</text>
 <view  wx:key="*this" wx:for="{{row}}" wx:for-index="rowDataIndex" class="content">  
   <view wx:if="{{vocation[rowDataIndex][columnDataIndex]!=null}}" class="t1" wx:key="*this" wx:for="{{column}}" wx:for-index="columnDataIndex">  

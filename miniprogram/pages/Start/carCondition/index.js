@@ -2,7 +2,21 @@ const app = getApp()
 Page({
   data: {
     title:"选择您的购车情况",
-    option:["无车","已购车-经济型","已购车-中档型","已购车-豪华型","单位用车","需要时购置"]
+    option:["无车","已购车-经济型","已购车-中档型","已购车-豪华型","单位用车","需要时购置"],
+    img:"",
+  },
+  onLoad:function(){
+    if(app.globalData.globalGrande==1)
+    {
+    this.setData({
+      img:"../../../images/carMan.png"
+    })
+    }
+    else{
+      this.setData({
+        img:"../../../images/carWoman.png"
+      })
+    }
   },
   flag1:function(){//女性
     console.log('123');

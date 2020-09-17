@@ -7,14 +7,20 @@ Page({
     img:""
   },
   onLoad:function(){
-    this.setData({
-      img:"../../../images/marryTimeMan.png"
-    })
+    if(app.globalData.globalGrande==1){
+      this.setData({
+        img:"../../../images/marryTimeMan.png"
+      })
+      }
+      else{
+        this.setData({
+          img:"../../../images/marryTimeWoman.png"
+        })
+      }
   },
-  flag1:function(){//女性
+  flag1:function(){
     console.log('123');
-    var onOff = this.data.onOff;
-    this.setData({text:"hello",onOff:!onOff});
+
     wx.redirectTo({//跳转
       url: '../workPlace/index'
     })
