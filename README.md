@@ -10,3 +10,12 @@
 
 - [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
 
+
+实现功能：
+  实现相亲的功能。
+当前版本号：1.0.1
+
+
+版本日志：
+1.0.1： 完成了初次注册时的信息填写，（完成了这一部分的界面设计）
+
