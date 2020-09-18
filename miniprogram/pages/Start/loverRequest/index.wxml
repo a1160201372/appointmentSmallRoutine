@@ -103,7 +103,7 @@
 <view wx:if="{{type}}" class="dialog_screen" bindtap="hideModal"></view>
 <view wx:if="{{type}}" animation="{{animationData}}" class="dialog_attr_box" >
   <view style='background:white;position: relative;overflow: hidden;'>
-  <view class='dialog_title'>{{typeTile[type-1]}}</view>
+  <view class='dialog_title'>{{checkTile[type-1]}}</view>
   <checkbox-group  bindchange="{{typebind[1][type-1]}}">
   <view  wx:key="*this" wx:for="{{row}}" wx:for-index="rowDataIndex" class="content">  
    
@@ -118,7 +118,7 @@
   </view>
 
 </view>  
-<button bindtap="{{typebind[2][type-1]}}" style="width:450rpx" class='unlimitedButton'  hover-class="unlimitedButtonHover">不限</button>
+<button bindtap="{{typebind[2][type-1]}}" style="width:450rpx" class='unlimitedButton'  hover-class="unlimitedButtonHover">完成</button>
 </checkbox-group>
 <text>\n</text>
 

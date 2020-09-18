@@ -1,74 +1,96 @@
+const app = getApp()
 Page({
   data: {
     title:"请上传您的正面照",
-    vocation:[["市场/销售","医生","律师",],
-              ["教师","幼师","设计师"],
-              ["程序员","策划推广","客服人员"],
-              ["空姐","护士","服务员"],
-              ["营业员","导游","记者"],
-              ["摄影师","文员/秘书","行政人事"],
-              ["其他"]
-            ],
-    hiddenmodalput:true,
-    vocationSave:"",
-    column:[0,1,2],//列
-    row:[0,1,2,3,4,5,6]//行
-  },
-  bindinput:function(e){
-    this.setData({
-      vocationSave: e.detail.value
-  });
 
-  },
-  confirm:function(e){
-    //逻辑操作
+    headImg:"../../../images/add.png",
 
-    //跳转
-    wx.navigateTo({//跳转
-      url: '../income/index'
-    })
-    console.log("保存",this.data.vocationSave);
-  },
-  modalinput:function(e){
-    this.setData({
-      hiddenmodalput:true
-    });
-  },
-  flag1:function(e){
-    var id = e.currentTarget.dataset.id;
-    var  tmp="选择的职业为："+id
-    if(id=="其他"){
-      this.setData({
-        hiddenmodalput:false
-      });
-    }
+    //文件名
+    upHeadImg:"",//临时地址
+    HeadImgMane:"",//上传文件名
     
-    else{
-    wx.showModal({
-      title: '是否保存',
-      content: tmp,
-      confirmText:"保存",
+  },
+  //按键进入
+  upImg:function(){
+   const that=this;
+
+
+    //选择图片3
+    that.doChooseHeadImg();
+   // this.data.upHeadImg = that.doChooseHeadImg();
+    console.log('选择',  this.data.upHeadImg)
+
+   
+/*
+    console.log('上传', this.upHeadImg)
+  
+    //上传图片
+  wx.showLoading({
+    title: '保存中',
+  })
+  that.doUpHeadImg( this.upHeadImg,app.globalData.openid+"Head.png");
+  */
+  },
+
+
+  UpHeadImg:function(){
+   
+  },
+
+  doChooseHeadImg:function(){
+    const that=this
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
       success (res) {
-        if (res.confirm) {//保存
-        
-          console.log("点击",id);
+        // tempFilePath可以作为img标签的src属性显示图片
+        const tempFilePaths = res.tempFilePaths[0]
+        console.log(tempFilePaths);
+        that.data.upHeadImg=tempFilePaths
 
-          wx.redirectTo({//跳转
-            url: '../income/index'
-          })
-
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
+        that.setData({
+          headImg:tempFilePaths
+        })
+        wx.showLoading({
+          title: '保存中',
+        })
+        that.doUpHeadImg(tempFilePaths,app.globalData.openid+"Head.png")
+     
       }
     })
-
-    }
-
   },
-  back:function(){//下一步
-    wx.redirectTo({//跳转
-      url: '../loverRequest/index'
+  doUpHeadImg:function(FilePath,name){
+    console.log('上传1',FilePath)
+    console.log('上传2', name)
+    wx.cloud.uploadFile({
+      cloudPath: name,
+      filePath: FilePath, // 文件路径
+    }).then(res => {
+      wx.hideLoading()
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+        duration: 2000
+      })
+      setTimeout(function () {
+        wx.redirectTo({//跳转
+          url: '../../main/Main/index'
+        })
+
+      }, 2000)
+    
+      // get resource ID
+      console.log(res.fileID)
+    }).catch(error => {
+      // handle error
+      wx.hideLoading()
+
+      wx.showToast({
+        title: '保存失败',
+        icon: 'loading',
+        duration: 2000
+      })
     })
-  },
+  }
 })

@@ -54,5 +54,4 @@ margin:0 auto;
 	 .imagesize image { 
 		 width:200rpx;
 		 height:200rpx;
-		 background-color: rgb(255, 244, 244);
 		 }

@@ -158,7 +158,7 @@ background-color: rgb(228, 228, 228);
   display: flex;
   align-items: center;
   padding: 10px;
-  background: #80cbc4;
+  background: #48cec0;
   color: white;
 }
 
@@ -175,7 +175,7 @@ background-color: rgb(228, 228, 228);
 		font-size:13pt;
   width: 3000px;
   background-color: #fc4cb2;
-  color: rgb(255, 255, 255);
+  color: rgb(250, 250, 250);
   border-radius: 98rpx;
   background: bg_red;
 }
@@ -194,7 +194,7 @@ background-color: rgb(228, 228, 228);
 }
 /* 按下变颜色 */
 .unlimitedButtonHover {
-  background: #81c2ff;
+  background: #94bee6;
 }
 .imageReturnSize{
 	display:flex;                    

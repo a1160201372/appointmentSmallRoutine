@@ -4,5 +4,5 @@
  <text class="titleText">{{title}}</text>
  <text>\n</text>
  <view class='imagesize'>
-  <image src='../../../images/add.png' class='in-image' > </image>
+  <image bindtap="upImg" src='{{headImg}}' class='in-image' > </image>
 </view>

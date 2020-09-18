@@ -8,7 +8,7 @@ Page({
     salaryIndex: [0, 0],
     education:["不限","初中","高中","大专","本科","硕士","博士"],
     heightArray: [],
-    pickName:["不限","婚况","最低学历","最低月薪","房子","车子"],
+    pickName:["婚况","最低学历","最低月薪","房子","车子"],
     heightIndex: [0, 0],
     //婚况 房子 车子
     typebind:[["bindMarry","bindHouse","bindCar"],//点击选项
@@ -19,21 +19,26 @@ Page({
     typeTile:["婚况","房子","车子"],//前面名字
     typeInfo:[["未填写"],["未填写"],["未填写"],
     ],//后面的数组名字
+    checkTile:["婚况(随时保存)","房子（随时保存）","车子（随时保存）"],//前面名字
 
     Array:[
-      [{value:"1",name:'未婚',checked:false},{value:"2",name:'离异',checked:false},
-      {value:"3",name:'丧偶',checked:false}],
+      [{value:"1",name:'不限',checked:false},{value:"2",name:'离异',checked:false},
+      {value:"3",name:'丧偶',checked:false},{value:"4",name:'未婚',checked:false}],
 
-      [{value:"1",name:'已购房{有贷款}',checked:false},{value:"2",name:'已购房{无贷款}',checked:false},
-      {value:"3",name:'有能力购房',checked:false},{value:"4",name:'希望对方解决',checked:false},
-      {value:"5",name:'希望双方解决',checked:false},{value:"6",name:'与父母同住',checked:false},
-      {value:"7",name:'独自租房',checked:false},{value:"8",name:'与人合租',checked:false},
-      {value:"9",name:'住亲朋家',checked:false},{value:"10",name:'住单位房',checked:false},],
+      [{value:"1",name:'不限',checked:false},
+      {value:"2",name:'已购房-有贷款',checked:false},{value:"3",name:'已购房-无贷款',checked:false},
+      {value:"4",name:'有能力购房',checked:false},{value:"5",name:'希望对方解决',checked:false},
+      {value:"6",name:'希望双方解决',checked:false},{value:"7",name:'与父母同住',checked:false},
+     {value:"8",name:'与人合租',checked:false},
+      {value:"9",name:'住亲朋家',checked:false},{value:"10",name:'住单位房',checked:false},
+       {value:"11",name:'独自租房',checked:false},],
 
-      [
-        {value:"1",name:'无车',checked:false}, {value:"2",name:'已购车-经济型',checked:false}, 
+      [  {value:"1",name:'不限',checked:false},
+        {value:"2",name:'已购车-经济型',checked:false}, 
         {value:"3",name:'已购车-中档型',checked:false},{value:"4",name:'已购车-豪华型',checked:false},
-         {value:"5",name:'单位用车',checked:false}, {value:"6",name:'需要时购置',checked:false},
+         {value:"5",name:'单位用车',checked:false}, {value:"6",name:'需要时购置',checked:false}, 
+         {value:"7",name:'无车',checked:false},
+      
       ]
     ],
   
@@ -63,7 +68,7 @@ Page({
     var Info = this.data.typeInfo
     console.log('次数',arrayNum);
   //处理变量
-    for(let i=0;i<arrayNum;i++){
+    for(let i=1;i<arrayNum;i++){
       items[i].checked = false
     }
     Info[Falg]='不限'
@@ -73,16 +78,16 @@ Page({
       Array:all,
       typeInfo:Info
     })
-    this.hideModal()
+   
   },
   unButtonMarry:function(e){
-    this.unlimitedButton(e,3,0)
+    this.hideModal()
   },
   unButtonHouse:function(e){
-    this.unlimitedButton(e,10,1)
+    this.hideModal()
   },
   unButtonCar:function(e){ 
-    this.unlimitedButton(e,6,2)
+    this.hideModal()
   },
   checkMarry:function(e){
   
@@ -106,22 +111,37 @@ Page({
     }
       var j =0;
       Info[0]=""
-    for(let i=0;i<3;i++){
+    for(let i=0;i<4;i++){
       console.log('items',all[0][i].checked);
  
       if(all[0][i].checked==true){
         //Info[0][j]=all[0][i].name
-        Info[0]=Info[0].concat(all[0][i].name+',')
+        if(Info[0].length!=0)
+         Info[0]=Info[0].concat('，')
+        Info[0]=Info[0].concat(all[0][i].name)
         console.log('concat',Info[0]);
         j++
       }
     }
     console.log('items',Info[0]);
-    
     this.setData({
       Array:all,
       typeInfo:Info
     })
+    console.log('测试',values[0]);
+    if(all[0][0].checked==true){
+     this.unlimitedButton(e,4,0) 
+     //显示提醒
+     if(values[0]==1&&values.length>1)
+     {
+      wx.showToast({
+        title:  '请去掉“不限”后，再选其他项',
+        icon: 'none',
+        duration: 2000
+      })
+     }
+    }
+   
     
   },
   bindPickerChangeIncome:function(e){
@@ -148,27 +168,38 @@ Page({
         }
       }
     }
-
     var j =0;
-      Info[1]=""
-    for(let i=0;i<10;i++){
-      console.log('items',all[1][i].checked);
- 
-      if(all[1][i].checked==true){
-        //Info[0][j]=all[0][i].name
-     
-          Info[1]=Info[1].concat(all[1][i].name+'，')
+    Info[1]=""
+  for(let i=0;i<11;i++){
+    console.log('items',all[1][i].checked);
 
-        console.log('concat',Info[1]);
-        j++
-      }
+    if(all[1][i].checked==true){
+      //Info[0][j]=all[0][i].name
+      if(Info[1].length!=0)
+        Info[1]=Info[1].concat('，')
+      Info[1]=Info[1].concat(all[1][i].name)
+      console.log('concat',Info[1]);
+      j++
     }
-    console.log('items',Info[1]);
-    
-    this.setData({
-      Array:all,
-      typeInfo:Info
+  }
+  console.log('items',Info[1]);
+  this.setData({
+    Array:all,
+    typeInfo:Info
+  })
+  console.log('测试',values[1]);
+  if(all[1][0].checked==true){
+   this.unlimitedButton(e,11,1) 
+   //显示提醒
+   if(values[0]==1&&values.length>1)
+   {
+    wx.showToast({
+      title:  '请去掉“不限”后，再选其他项',
+      icon: 'none',
+      duration: 2000
     })
+   }
+  }
   
 
   },
@@ -178,7 +209,6 @@ Page({
     var all = this.data.Array
     const values = e.detail.value
     var Info = this.data.typeInfo
- 
 
 
     console.log('items1',items);
@@ -190,32 +220,44 @@ Page({
       for (let j = 0, lenJ = values.length; j < lenJ; ++j) {
         if (items[i].value === values[j]) {
           items[i].checked = true
-          console.log('numm',i);
           break
         }
       }
     }
-
     var j =0;
-    Info[2]=""
-  for(let i=0;i<6;i++){
-    console.log('items',all[2][i].checked);
+      Info[2]=""
+    for(let i=0;i<6;i++){
+      
+     // if()
+      
+      if(all[2][i].checked==true){
 
-    if(all[2][i].checked==true){
-   
-   
-        Info[2]=Info[2].concat(all[2][i].name+'，')
+        if(Info[2].length!=0)
+          Info[2]=Info[2].concat('，')
+        Info[2]=Info[2].concat(all[2][i].name)
 
-      console.log('concat',Info[2]);
-      j++
+        console.log('concat',Info[2]);
+        j++
+      }
     }
-  }
-  console.log('items',Info[2]);
-  
-  this.setData({
-    Array:all,
-    typeInfo:Info
-  })
+    console.log('items',Info[1]);
+    this.setData({
+      Array:all,
+      typeInfo:Info
+    })
+    console.log('测试',values[1]);
+    if(all[2][0].checked==true){
+     this.unlimitedButton(e,6,2) 
+     //显示提醒
+     if(values[0]==1&&values.length>1)
+     {
+      wx.showToast({
+        title: '请去掉“不限”后，再选其他项',
+        icon: 'none',
+        duration: 2000
+      })
+     }
+    }
   
   },
  

@@ -1,12 +1,14 @@
 {
   "pages": [
- 
+    
     "pages/Start/grande/index",
+    "pages/Start/upImg/index",
+    "pages/main/Main/index",
     "pages/Start/loverRequest/index",
     "pages/Start/vocation/index",
     "pages/Start/heightAndWeight/index",
     "pages/Start/workPlace/index",
-    "pages/Start/upImg/index",
+   
     "pages/Start/maritalStatus/index",
     "pages/Start/birthday/index",
     "pages/Start/education/index",

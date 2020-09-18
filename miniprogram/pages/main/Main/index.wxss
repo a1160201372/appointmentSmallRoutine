@@ -1,0 +1,6 @@
+.titleText{
+	font-size:17pt;
+	display: flex;
+  align-items: center;
+  justify-content: center; 
+}
