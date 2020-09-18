@@ -6,23 +6,27 @@ Page({
     animationData: '',
     salaryArray: [],
     salaryIndex: [0, 0],
-    education:["初中","高中","大专","本科","硕士","博士"],
+    education:["不限","初中","高中","大专","本科","硕士","博士"],
     heightArray: [],
-    pickName:["婚况","最低学历","最低月薪","房子","车子"],
+    pickName:["不限","婚况","最低学历","最低月薪","房子","车子"],
     heightIndex: [0, 0],
     //婚况 房子 车子
-    typebind:[["bindMarry","bindHouse","bindCar"],
-              ["checkMarry","checkHouse","checkCar",]],//点击函数
+    typebind:[["bindMarry","bindHouse","bindCar"],//点击选项
+              ["checkMarry","checkHouse","checkCar",],//改变函数
+              ["unButtonMarry","unButtonHouse","unButtonCar",]//不限函数
+            ],
+
     typeTile:["婚况","房子","车子"],//前面名字
-    typeInfo:["未填写","未填写","未填写"],//后面的数组名字
+    typeInfo:[["未填写"],["未填写"],["未填写"],
+    ],//后面的数组名字
 
     Array:[
       [{value:"1",name:'未婚',checked:false},{value:"2",name:'离异',checked:false},
       {value:"3",name:'丧偶',checked:false}],
 
       [{value:"1",name:'已购房{有贷款}',checked:false},{value:"2",name:'已购房{无贷款}',checked:false},
-      {value:"3",name:'有能力购房',checked:false},{value:"4",name:'无房希望对方解决',checked:false},
-      {value:"5",name:'无房希望双方解决',checked:false},{value:"6",name:'与父母同住',checked:false},
+      {value:"3",name:'有能力购房',checked:false},{value:"4",name:'希望对方解决',checked:false},
+      {value:"5",name:'希望双方解决',checked:false},{value:"6",name:'与父母同住',checked:false},
       {value:"7",name:'独自租房',checked:false},{value:"8",name:'与人合租',checked:false},
       {value:"9",name:'住亲朋家',checked:false},{value:"10",name:'住单位房',checked:false},],
 
@@ -36,9 +40,9 @@ Page({
 
     marryIndex:[1,2,3,4,5,6,7,8,9,10,11,12,13],
 
-    educationArray:["初中","高中","大专","本科","硕士","博士"],//学历
+    educationArray:["不限","初中","高中","大专","本科","硕士","博士"],//学历
     educationIndex:0,
-    incomeArray:["1千以下","1~2千","2~3千","3~4千","4~8千","8千~1万","1~2万","2~5万","五万以上"],//月薪
+    incomeArray:["不限","1千以下","1~2千","2~3千","3~4千","4~8千","8千~1万","1~2万","2~5万","五万以上"],//月薪
     incomeIndex:0,
 
     column:[0,1],//列
@@ -48,23 +52,46 @@ Page({
 
     seleted : "",
   },
+
+
+  //处理不限按钮的函数
+  unlimitedButton:function(e,arrayNum,Falg){
+    //读取变量
+    var items = this.data.Array[Falg]//
+    var all = this.data.Array
+    const values = e.detail.value
+    var Info = this.data.typeInfo
+    console.log('次数',arrayNum);
+  //处理变量
+    for(let i=0;i<arrayNum;i++){
+      items[i].checked = false
+    }
+    Info[Falg]='不限'
+    all[Falg]=items
+    //渲染变量
+    this.setData({
+      Array:all,
+      typeInfo:Info
+    })
+    this.hideModal()
+  },
+  unButtonMarry:function(e){
+    this.unlimitedButton(e,3,0)
+  },
+  unButtonHouse:function(e){
+    this.unlimitedButton(e,10,1)
+  },
+  unButtonCar:function(e){ 
+    this.unlimitedButton(e,6,2)
+  },
   checkMarry:function(e){
   
     var items = this.data.Array[0]
     var all = this.data.Array
     const values = e.detail.value
     var Info = this.data.typeInfo
-    if(values.length==0)
-    {
-      Info[0]="未填写"
-        this.setData({
-          typeInfo:Info
-        })
-    }
-    else{
 
-    console.log('items1',items);
-    console.log('values1',values);
+
   
     for (let i = 0, lenI = items.length; i < lenI; ++i) {
       items[i].checked = false
@@ -77,36 +104,38 @@ Page({
         }
       }
     }
-
+      var j =0;
+      Info[0]=""
     for(let i=0;i<3;i++){
-      all[0]=items
+      console.log('items',all[0][i].checked);
+ 
+      if(all[0][i].checked==true){
+        //Info[0][j]=all[0][i].name
+        Info[0]=Info[0].concat(all[0][i].name+',')
+        console.log('concat',Info[0]);
+        j++
+      }
     }
-    console.log('items',all);
-    Info[0]="已填写"
+    console.log('items',Info[0]);
+    
     this.setData({
       Array:all,
       typeInfo:Info
     })
-  }
+    
+  },
+  bindPickerChangeIncome:function(e){
+    this.setData({
+      incomeIndex:e.detail.value
+    })
   },
   checkHouse:function(e){
-  
     var items = this.data.Array[1]
     var all = this.data.Array
     const values = e.detail.value
     var Info = this.data.typeInfo
+ 
 
-    if(values.length==0)
-    {
-      Info[1]="未填写"
-        this.setData({
-          typeInfo:Info
-        })
-    }
-    else{
-
-    console.log('items1',items);
-    console.log('values1',values);
   
     for (let i = 0, lenI = items.length; i < lenI; ++i) {
       items[i].checked = false
@@ -120,16 +149,28 @@ Page({
       }
     }
 
+    var j =0;
+      Info[1]=""
     for(let i=0;i<10;i++){
-      all[1]=items
+      console.log('items',all[1][i].checked);
+ 
+      if(all[1][i].checked==true){
+        //Info[0][j]=all[0][i].name
+     
+          Info[1]=Info[1].concat(all[1][i].name+'，')
+
+        console.log('concat',Info[1]);
+        j++
+      }
     }
-    console.log('items',all);
-    Info[1]="已填写"
+    console.log('items',Info[1]);
+    
     this.setData({
       Array:all,
       typeInfo:Info
     })
-  }
+  
+
   },
   checkCar:function(e){
   
@@ -137,14 +178,8 @@ Page({
     var all = this.data.Array
     const values = e.detail.value
     var Info = this.data.typeInfo
-    if(values.length==0)
-    {
-      Info[2]="未填写"
-        this.setData({
-          typeInfo:Info
-        })
-    }
-    else{
+ 
+
 
     console.log('items1',items);
     console.log('values1',values);
@@ -161,16 +196,27 @@ Page({
       }
     }
 
-    for(let i=0;i<3;i++){
-      all[2]=items
+    var j =0;
+    Info[2]=""
+  for(let i=0;i<6;i++){
+    console.log('items',all[2][i].checked);
+
+    if(all[2][i].checked==true){
+   
+   
+        Info[2]=Info[2].concat(all[2][i].name+'，')
+
+      console.log('concat',Info[2]);
+      j++
     }
-    console.log('items',all);
-    Info[2]="已填写"
-    this.setData({
-      Array:all,
-      typeInfo:Info
-    })
   }
+  console.log('items',Info[2]);
+  
+  this.setData({
+    Array:all,
+    typeInfo:Info
+  })
+  
   },
  
   hideModal: function () {
@@ -240,47 +286,13 @@ Page({
     })
   }
   },//滑动列时触发该事件
-  bindMultiPickerColumnChange(e) {/*
-    let currentColunm = e.detail.column; 
-    var currentClounmIndex = e.detail.value; 
-    let data = {
-      salaryArray: this.data.salaryArray, 
-      salaryIndex: this.data.salaryIndex 
-    }
-    
-    if(currentColunm==0)
-    {
-      console.log('前', currentClounmIndex, '后', this.data.salaryIndex[1]);
-      if(currentClounmIndex>this.data.salaryIndex[1])//需要修改2列
-      {
-       
-        data.salaryIndex[currentColunm] = currentClounmIndex
-        data.salaryIndex[1] = currentClounmIndex;
-        this.setData(data)
-      }
-      else{
-        this.setData({    
-          salaryIndex:[currentClounmIndex,data.salaryIndex[1]]
-        })
-      }
-    }
-    if(currentColunm==1)
-    {
-      if(currentClounmIndex<this.data.salaryIndex[0])//需要修改2列
-      {
-        data.salaryIndex[currentColunm] = currentClounmIndex
-        data.salaryIndex[0] = currentClounmIndex;
-        this.setData(data)
-      }
-      else{
-        this.setData({    
-          salaryIndex:[data.salaryIndex[1],currentClounmIndex]
-        })
-      }
-    }
-
-    console.log('修改的列为', currentColunm, '，值为', currentClounmIndex);
-   */
+  bindMultiPickerColumnChange(e) {
+ 
+  },
+  bindPickerChangeEducation:function(e) {
+    this.setData({
+      educationIndex:e.detail.value
+    })
   },
    //确定时触发该事件
   bindMultiPickerChangeHeight(e) {
@@ -444,47 +456,6 @@ Page({
     }.bind(this), 200)
   },
 
-  save:function(e){
-var tmp=this.data.tmpMarry;
-var all=this.data.Array;
-
-
-
-
-
-
-  
-    console.log('items',items);
-/*
-    for(;i<3;i++)//检测是否为零
-    {
-      if((i+1)==tmp[j])
-      {
-        console.log('tmp'+'_'+i,tmp[j]);
-        console.log('i',i);
-        console.log('all',all[0][tmp[j]-1]);
-      
-        all[0][tmp[j]-1].checked=false
-        j++;
-      }
-      else{
-        console.log('tmp',tmp[j]);
-        console.log('i',i);
-        console.log('all',all[0][tmp[j]-1]);
-        all[0][tmp[j]-1]=false
-      }
-     
-      
-      
-      //if()
-     
-
-    }
-  */
-    this.setData({
-      Array:all
-    })
-  },
   back:function(){
     wx.redirectTo({//跳转
       url: '../carCondition/index'

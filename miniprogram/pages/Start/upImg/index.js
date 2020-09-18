@@ -68,7 +68,7 @@ Page({
   },
   back:function(){//下一步
     wx.redirectTo({//跳转
-      url: '../heightAndWeight/index'
+      url: '../loverRequest/index'
     })
   },
 })

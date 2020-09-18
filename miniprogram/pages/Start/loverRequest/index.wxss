@@ -27,6 +27,8 @@ page {
 .item-right {
   position: relative;
   align-items:center;
+
+  
 }
 .divLine{
   background: #E0E3DA;
@@ -36,11 +38,24 @@ page {
  .pick{
 
   height: 80rpx;
+ 
+}
+.text1{
+  height: 50rpx;
+  width: 150rpx;
+}
+
+.text1::after {
+  content: '* ';
+
+  color: red;
 
 }
-.text1::after {
-	content: '* ';
-	color: red;
+.text11::after {
+  content: '* ';
+
+  color: red;
+
 }
 .radio-group {
   display: flex;
@@ -167,6 +182,19 @@ background-color: rgb(228, 228, 228);
 /* 按下变颜色 */
 .hover {
   background: #FF69B4;
+}
+.unlimitedButton {
+	margin-top: 15px;
+		font-size:13pt;
+  width: 3000px;
+  background-color: #19a9ec;
+  color: rgb(255, 255, 255);
+  /*border-radius: 98rpx;*/
+  background: bg_red;
+}
+/* 按下变颜色 */
+.unlimitedButtonHover {
+  background: #81c2ff;
 }
 .imageReturnSize{
 	display:flex;                    

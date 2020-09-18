@@ -11,11 +11,11 @@
   <picker class="pick" name="place" mode="region" value="{{region}}" bindchange="bindPickChangeHabitation" custom-item="不限">
     <view class='flex-wrp-row item'>
     <view class='item-left flex-wrp-row'>
-      <text class='text1'>工作地区</text>
+      <text class='text11'>工作地区</text>
 
       </view>
        <view class='item-right flex-wrp-row'>
-      <text class='text'>{{region[0]}}，{{region[1]}}，{{region[2]}}</text>
+      <text >{{region[0]}}，{{region[1]}}，{{region[2]}}</text>
     </view>
     </view>
   </picker>
@@ -26,7 +26,7 @@
   <picker mode="multiSelector" header-text="年龄范围" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{salaryIndex}}" range="{{salaryArray}}">
     <view class='flex-wrp-row item'>
     <view class='item-left flex-wrp-row'>
-      <text class='text1'>年龄范围</text>
+      <text class='text11'>年龄范围</text>
 
       </view>
        <view class='item-right flex-wrp-row'>
@@ -41,7 +41,7 @@
   <picker mode="multiSelector" header-text="年龄范围" bindchange="bindMultiPickerChangeHeight" bindcolumnchange="bindMultiPickerColumnChangeHeight" value="{{heightIndex}}" range="{{heightArray}}">
     <view class='flex-wrp-row item'>
     <view class='item-left flex-wrp-row'>
-      <text class='text1'>身高范围</text>
+      <text class='text11'>身高范围</text>
 
       </view>
        <view class='item-right flex-wrp-row'>
@@ -68,7 +68,7 @@
 <view class="divLine"></view>  <!-- 分割线 学历-->
 
 <view>
-  <picker mode="selector" header-text="{{pickName[2]}}" bindchange="bindPickerChangeEducation"  value="{{incomeIndex}}" range="{{incomeArray}}">
+  <picker mode="selector" header-text="{{pickName[2]}}" bindchange="bindPickerChangeIncome"  value="{{incomeIndex}}" range="{{incomeArray}}">
     <view class='flex-wrp-row item'>
     <view class='item-left flex-wrp-row'>
       <text class='text1'>{{pickName[2]}}</text>
@@ -85,11 +85,12 @@
 <view wx:for="{{typeTile}}" wx:for-index="typeIndex">
 <view bindtap="{{typebind[0][typeIndex]}}" class='flex-wrp-row item'>
     <view class='item-left flex-wrp-row'>
-      <text class='text1'>{{typeTile[typeIndex]}}</text>
+      <text decode="{{true}}" space="{{true}}" class='text1'>{{typeTile[typeIndex]}} </text>
 
       </view>
        <view  class='item-right flex-wrp-row'>
         {{typeInfo[typeIndex]}}
+
     </view>
     </view>
 <view class="divLine"></view>  <!-- 分割线 婚况-->
@@ -117,6 +118,7 @@
   </view>
 
 </view>  
+<button bindtap="{{typebind[2][type-1]}}" style="width:450rpx" class='unlimitedButton'  hover-class="unlimitedButtonHover">不限</button>
 </checkbox-group>
 <text>\n</text>
 
@@ -125,7 +127,7 @@
   </view> 
 </view>
 <!-- 弹出框 end -->
-
+<text>\n</text>
 <button bindtap="next" style="width:450rpx" class='goodbutton'  hover-class="hover">下一步</button>
 
 

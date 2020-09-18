@@ -1,3 +1,6 @@
+<view bindtap = "back"  class="imageReturnSize" >
+ <image src="../../../images/return.png" > </image>
+</view>
 <text>\n</text>
  <text class="titleText">{{title}}</text>
 <view  wx:key="*this" wx:for="{{row}}" wx:for-index="rowDataIndex" class="content">  
