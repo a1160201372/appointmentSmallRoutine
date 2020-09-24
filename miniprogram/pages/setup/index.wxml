@@ -1,0 +1,130 @@
+  
+  <form bindsubmit='formSubmit'>
+
+          <scroll-view
+ scroll-x scroll-y
+  refresher-enabled="{{true}}"
+  refresher-threshold="{{100}}"
+  refresher-default-style="white"
+  refresher-background="lightgreen"
+  refresher-triggered="{{triggered}}"
+  bindrefresherpulling="onPulling"
+  bindrefresherrefresh="onRefresh"
+  bindrefresherrestore="onRestore"
+  bindrefresherabort="onAbort"
+>
+<view class="main1"> 
+
+  <view class='top'><text class='top_name'>基本信息</text></view>
+  <picker class="pick" name="sex" header-text="" bindchange="bindPickerChangeSex" value="{{sexFlag}}" range="{{sex}}">
+    <view class='flex-wrp-row item'>
+    <view class='item-left flex-wrp-row'>
+      <text class='text'>{{basicInfo[0]}}</text>
+      </view>
+       <view class='item-right flex-wrp-row'>
+      <text class='text'>{{sex[sexFlag]}}</text>
+    </view>
+    </view>
+  </picker>
+  <view class="divLine"></view>  <!-- 分割线 -->
+  <picker class="pick" name="age" mode="date" value="{{date}}" start="1950-09-01" end="2020-12-1" bindchange="bindPickChangeBirthday" fields = "month">
+    <view class='flex-wrp-row item'>
+    <view class='item-left flex-wrp-row'>
+      <text class='text'>{{basicInfo[1]}}</text>
+      </view>
+       <view class='item-right flex-wrp-row'>
+      <text class='text'>{{date}}</text>
+    </view>
+    </view>
+  </picker>
+  <view class="divLine"></view>  <!-- 分割线 -->
+  <view class="section">
+    <picker class="pick"  name="education" header-text="" bindchange="bindPickerChangeEducation" value="{{educationNum}}" range="{{array}}">
+  
+      <view class='flex-wrp-row item'>
+    <view class='item-left flex-wrp-row'>
+      <text class='text'>{{basicInfo[2]}}</text>
+      </view>
+       <view class='item-right flex-wrp-row'>
+      <text class='text'> {{array[educationNum]}}</text>
+    </view>
+    </view>
+
+    </picker>
+  </view>
+  <view class="divLine"></view>  <!-- 分割线 -->
+  <view class="section">
+  <picker class="pick" name="place" mode="region" value="{{region}}" bindchange="bindPickChangeHabitation" >
+    <view class='flex-wrp-row item'>
+    <view class='item-left flex-wrp-row'>
+      <text class='text'>{{basicInfo[3]}}</text>
+      </view>
+       <view class='item-right flex-wrp-row'>
+      <text class='text'>{{region[0]}}，{{region[1]}}，{{region[2]}}</text>
+    </view>
+    </view>
+  </picker>
+</view>
+<view class="divLine"></view>  <!-- 分割线 -->
+<view>
+  <picker  name="telephone" name="height" class="pick" header-text="" bindchange="bindPickerChangeHeight" value="{{height_num}}" range="{{height_array}}">
+    <view class='flex-wrp-row item'>
+    <view class='item-left flex-wrp-row'>
+      <text class='text'>{{basicInfo[4]}}</text>
+      </view>
+       <view class='item-right flex-wrp-row'>
+      <text class='text'>{{height_array[height_num]}}</text>
+    </view>
+    </view>
+  </picker>
+  </view>
+  <view class="divLine"></view>  <!-- 分割线 -->
+  <view class='flex-wrp-row item'>
+    <view class='item-left flex-wrp-row'>
+      <text class='text'>{{basicInfo[5]}}</text>
+      </view>
+       <view class='item-right flex-wrp-row'>
+      <view class='text'>  <input name="vocation" type="inputText" class="inputText"  placeholder-style="color:#F76260" bindinput="bindKeyProfession" placeholder="请填写" value="{{telValue}}" /></view>
+    </view>
+    </view>
+    <view class="divLine"></view>  <!-- 分割线 -->
+</view>
+
+
+<!--miniprogram/pages/fb/fb.wxml-->
+
+
+<view class='pages'>
+  <view class='top'><text class='top_name'>设定头像(头像必须是正面照)</text></view>
+  <!-- 图片 -->
+  <view class="images_box">
+   
+    <view class='img-box' bindtap='addPic1' wx:if="{{imgbox.length<9}}">
+      <image class='img' src='{{head}}'></image>   
+    </view>
+  </view>
+</view>
+<view class='pages'>
+  <view class='top'><text class='top_name'>生活照片</text></view>
+  <!-- 图片 -->
+  <view class="images_box">
+    <block wx:key="imgbox" wx:for="{{imgbox}}">
+      <view class='img-box'>
+        <image class='img' src='{{item}}'></image>
+        <view class='img-delect' data-deindex='{{index}}' bindtap='imgDelete1'>
+          <image class='img' src='../../../image/delect.png'></image>   
+        </view>
+      </view>
+    </block>
+    <view class='img-box' bindtap='addPic1' wx:if="{{imgbox.length<9}}" bindload="onImageLoad" > 
+    
+    </view>
+  </view>
+</view>
+
+  </scroll-view>
+
+
+<button style='position:fixed;width:100%;bottom:0' type="primary" formType="submit">保存</button>
+</form>
+

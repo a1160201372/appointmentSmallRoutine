@@ -1,6 +1,6 @@
 {
   "pages": [
-    
+    "pages/main/mine/index",
     "pages/Start/grande/index",
     "pages/Start/upImg/index",
     "pages/main/Main/index",
@@ -8,7 +8,6 @@
     "pages/Start/vocation/index",
     "pages/Start/heightAndWeight/index",
     "pages/Start/workPlace/index",
-   
     "pages/Start/maritalStatus/index",
     "pages/Start/birthday/index",
     "pages/Start/education/index",
@@ -24,8 +23,31 @@
     "pages/openapi/callback/callback",
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
-    "pages/im/room/room"
+    "pages/im/room/room",
+   
+    "pages/main/meet/index"
   ],
+  "tabBar": {
+    "custom": true,
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/main/mine/index",
+        "iconPath": "images/tab/icon_component.png",
+        "selectedIconPath": "images/tab/icon_component_HL.png",
+        "text": "组件"
+      },
+      {
+        "pagePath": "pages/main/meet/index",
+        "iconPath": "images/tab/icon_API.png",
+        "selectedIconPath": "images/tab/icon_API_HL.png",
+        "text": "接口"
+      }
+    ]
+  },
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
