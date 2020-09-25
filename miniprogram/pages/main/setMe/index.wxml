@@ -1,14 +1,15 @@
 <!--miniprogram/pages/main/setMe/index.wxml-->
 
 <form bindsubmit='formSubmit'>
-  <view class="main1"> 
 
-<view class='top'><text class='top_name'>基本信息</text></view>
+<view class="main1">
+
+<view class='basicInfo-text'><text>基本信息</text></view>
+
 <view class="divLine"></view>  <!-- 分割线 -->
-
 <picker  name="sex" header-text="" bindchange="bindPickerChangeSex" value="{{sexFlag}}" range="{{sex}}">
     <view  class="pick">
-    <view  class='pickLift-view'>
+    <view  class='pickLiftMust-view'>
       <text class='text'>{{basicInfo[0]}}</text>
       </view>
        <view class='pickRight-view'>
@@ -16,12 +17,10 @@
     </view>
     </view>
   </picker>
-
-
 <view class="divLine"></view>  <!-- 分割线 -->
 <picker  name="age" mode="date" value="{{date}}" start="1950-09-01" end="2020-12-1" bindchange="bindPickChangeBirthday" fields = "month">
   <view class="pick">
-<view class='pickLift-view'>
+<view class='pickLiftMust-view'>
     <text class='text'>{{basicInfo[1]}}</text>
     </view>
  <view class='pickRight-view'>
@@ -30,60 +29,89 @@
   </view>
 </picker>
 <view class="divLine"></view>  <!-- 分割线 -->
-<view class="section">
-  <picker name="education" header-text="" bindchange="bindPickerChangeEducation" value="{{educationNum}}" range="{{array}}">
 
-    <view class="pick">
-<view class='pickLift-view'>
-    <text class='text'>{{basicInfo[2]}}</text>
+<!--单选选择器-->
+<view wx:if="{{index<5}}" wx:for="{{singlePick}}" >
+  <picker   header-text="" data-index="{{index}}" bindchange="{{singlePickChangeFunction[0]}}" value="{{singlePickFlag[index]}}" range="{{singlePickRange[index]}}">
+    <view  class="pick">
+    <view  class='pickLiftMust-view'>
+      <text class='text'>{{item}}</text>
+      </view>
+       <view class='pickRight-view'>
+      <text class='text'>{{singlePickRange[index][singlePickFlag[index]]}}</text>
     </view>
- <view class='pickRight-view'>
-    <text class='text'> {{array[educationNum]}}</text>
-  </view>
-  </view>
-
+    </view>
   </picker>
+  <view class="divLine"></view>  <!-- 分割线 -->
 </view>
-<view class="divLine"></view>  <!-- 分割线 -->
-<view class="section">
-<picker name="place" mode="region" value="{{region}}" bindchange="bindPickChangeHabitation" >
-  <view class="pick">
-<view class='pickLift-view'>
-    <text class='text'>{{basicInfo[3]}}</text>
+<view class='pickend'>
+<view class='pickLiftMust-view'>
+    <text class='text'>职业</text>
     </view>
- <view class='pickRight-view'>
-    <text class='text'>{{region[0]}}，{{region[1]}}，{{region[2]}}</text>
+  <view class='pickRight-view'>
+    <input name="vocation" type="inputText" class="inputText"  placeholder-style="color:#F76260" bindinput="bindKeyProfession" placeholder="请填写" value="{{telValue}}" />
   </view>
-  </view>
-</picker>
 </view>
-<view class="divLine"></view>  <!-- 分割线 -->
-<view>
-<picker  name="telephone" name="height" header-text="" bindchange="bindPickerChangeHeight" value="{{height_num}}" range="{{height_array}}">
-  <view class="pick">
-<view class='pickLift-view'>
-    <text class='text'>{{basicInfo[4]}}</text>
-    </view>
- <view class='pickRight-view'>
-    <text class='text'>{{height_array[height_num]}}</text>
-  </view>
-  </view>
-</picker>
 </view>
-<view class="divLine"></view>  <!-- 分割线 -->
 
+<view class="main1">
+  <view class='basicInfo-text'><text>联系方式</text></view>
+  <view class="divLine"></view>  <!-- 分割线 -->
 <view class='pick'>
-<view class='pickLift-view'>
-    <text class='text'>{{basicInfo[5]}}</text>
+<view class='pickLiftMust-view'>
+    <text class='text'>手机号</text>
     </view>
   <view class='pickRight-view'>
     <input name="vocation" type="inputText" class="inputText"  placeholder-style="color:#F76260" bindinput="bindKeyProfession" placeholder="请填写" value="{{telValue}}" />
   </view>
 </view>
   <view class="divLine"></view>  <!-- 分割线 -->
+  <view class='pickend'>
+<view class='pickLiftMust-view'>
+    <text class='text'>微信号</text>
+    </view>
+  <view class='pickRight-view'>
+    <input name="vocation" type="inputText" class="inputText"  placeholder-style="color:#F76260" bindinput="bindKeyProfession" placeholder="请填写" value="{{telValue}}" />
+  </view>
+</view>
+  <view class="divLine"></view>  <!-- 分割线 -->
+
 </view>
 
-
+<view class="main1">
+  <view class='basicInfo-text'><text>资产情况</text></view>
+<view class="divLine"></view>  <!-- 分割线 -->
+<view wx:if="{{index>=5}}" wx:for="{{singlePick}}" >
+  <picker   header-text="" data-index="{{index}}" bindchange="{{singlePickChangeFunction[0]}}" value="{{singlePickFlag[index]}}" range="{{singlePickRange[index]}}">
+    <view  class="pick">
+    <view  class='pickLiftMust-view'>
+      <text class='text'>{{item}}</text>
+      </view>
+       <view class='pickRight-view'>
+      <text class='text'>{{singlePickRange[index][singlePickFlag[index]]}}</text>
+    </view>
+    </view>
+  </picker>
+  <view class="divLine"></view>  <!-- 分割线 -->
+</view>
+</view>
+<view class="main1">
+  <view class='basicInfo-text'><text>择偶条件</text></view>
+<view class="divLine"></view>  <!-- 分割线 -->
+<view wx:if="{{index>7}}" wx:for="{{singlePick}}" >
+  <picker   header-text="" data-index="{{index}}" bindchange="{{singlePickChangeFunction[0]}}" value="{{singlePickFlag[index]}}" range="{{singlePickRange[index]}}">
+    <view  class="pick">
+    <view  class='pickLiftMust-view'>
+      <text class='text'>{{item}}</text>
+      </view>
+       <view class='pickRight-view'>
+      <text class='text'>{{singlePickRange[index][singlePickFlag[index]]}}</text>
+    </view>
+    </view>
+  </picker>
+  <view class="divLine"></view>  <!-- 分割线 -->
+</view>
+</view>
 
 </form>
 

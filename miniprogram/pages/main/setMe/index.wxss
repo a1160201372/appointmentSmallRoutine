@@ -1,20 +1,30 @@
-.top{
-  width: 100%;
+page {
+  background: #f0fafa;
+}
+.basicInfo-text{
+ 
+  border-top-left-radius: 10px 10px;
+  border-top-right-radius: 10px 10px;
   height: 90rpx;
   overflow: hidden;
   margin: auto;
   font-size: 50rpx;
   background-color: white;
   border-left: 8rpx solid rgb(245, 110, 193);
- 
   border-left-style:groove;
   display: flex; /*设置显示样式**/
   align-items: center; /**子view垂直居中*/
-
-
-
 }
+.basicInfo-text::after{
+  content:"(带*为必填项)";
+  font-size: 20px;
+  color: rgb(255, 0, 0);
+}
+
 .main1{
+  
+  width: 700rpx;
+  margin-left: 20rpx;
   margin-top: 30rpx;
 }
 .pick{
@@ -25,6 +35,27 @@
   display:flex;      
   flex-direction: row;
 }
+.pickend{
+  border-bottom-left-radius: 10px 10px;
+  border-bottom-right-radius: 10px 10px;
+  background-color: rgb(255, 255, 255);
+  padding: 20rpx;
+  position: relative;
+  line-height: 60rpx;
+  display:flex;      
+  flex-direction: row;
+}
+
+.pickLiftMust-view{
+  flex: 1; /* 重要 */
+  align-items:center;
+
+  
+}
+.pickLiftMust-view::after{
+  content: " *";
+  color: rgb(255, 0, 0);
+}
 
 .pickLift-view{
   flex: 1; /* 重要 */
@@ -32,13 +63,16 @@
 
   
 }
+
+
+
 .pickRight-view{
   position: relative;
  align-items:center;
 }
 .divLine{
   background: #E0E3DA;
-  width: 700rpx;
+  width: 660rpx;
   height: 5rpx;
   margin-left: 20rpx;
  }

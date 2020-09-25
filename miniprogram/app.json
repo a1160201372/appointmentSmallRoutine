@@ -1,8 +1,8 @@
 {
   "pages": [
-    
-    "pages/main/setMe/index",
     "pages/main/mine/index",
+    "pages/main/setMe/index",
+    
     "pages/Start/grande/index",
     "pages/Start/upImg/index",
     "pages/main/Main/index",
