@@ -32,6 +32,7 @@ Component({
     scrollTop: 0,
     scrollToMessage: '',
     hasKeyboard: false,
+    date :""
   },
 
   methods: {
@@ -49,8 +50,38 @@ Component({
         ...criteria,
       }
     },
+     formatTime:function(date) {
+     // var publishTime = parseInt(string),//必须对传入的字符串做格式化，否则getDate将无法转换数据
+        //    date = getDate(publishTime), //转化为标准时间格式：Thu Sep 06 2018 18:47:00 GMT+0800 (中国标准时间）
+          var  Y = date.getFullYear();
+          var  M = date.getMonth() + 1;
+          var D = date.getDate();
+          var H = date.getHours();
+          var m = date.getMinutes();
+          var s = date.getSeconds();
+         // 获取date 中的 年 月 日 时 分 秒
+      // 对 月 日 时 分 秒 小于10时, 加0显示 例如: 09-09 09:01
+      if (M < 10) {
+            M = '0' + M;
+      }
+      if (D < 10) {
+            D = '0' + D;
+      }
+      if (H < 10) {
+            H = '0' + H;
+      }
+      if (m < 10) {
+            m = '0' + m;
+      }
+      if (s < 10) {
+            s = '0' + s;
+      }
+      
+       return Y+'-'+M+'-'+D+' '+H+':'+m
+},
 
     async initRoom() {
+      //初始化
       this.try(async () => {
         await this.initOpenID()
 
@@ -61,7 +92,10 @@ Component({
         const _ = db.command
 
         const { data: initList } = await db.collection(collection).where(this.mergeCommonCriteria()).orderBy('sendTimeTS', 'desc').get()
+        for(var i=0;i<initList.length;i++){
+          initList[i].data=this.formatTime(initList[i].sendTime)
 
+        }
         console.log('init query chats', initList)
 
         this.setData({
@@ -156,6 +190,7 @@ Component({
       }
     },
 //发送文字
+
     async onConfirmSendText(e) {
       this.try(async () => {
         if (!e.detail.value) {
@@ -175,14 +210,9 @@ Component({
           nickName: this.data.nickName,
           msgType: 'text',
           textContent: e.detail.value,
-          sendTime: new Date(),
+          sendTime: db.serverDate(),
           sendTimeTS: Date.now(), // fallback
-        }
-
-    
-       
-
-
+        }   
         this.setData({
           textInputValue: '',
           chats: [

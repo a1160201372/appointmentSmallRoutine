@@ -1,13 +1,16 @@
 {
   "pages": [
+    "pages/main/meet/index",
+    "pages/chat/room/room",
+   
     "pages/certification/realname/face/index",
     "pages/main/Main/index",
     "pages/Start/upImg/index",
     
-    "pages/main/meet/index",
+   
     "pages/main/blindCard/index",
 
-    "pages/chat/room/room",
+
     "pages/auditor/blindCard/index",
     "pages/main/mine/index",
     "pages/Start/grande/index",

@@ -1,4 +1,4 @@
-
+<button bindtap="ceshi">测试</button>
 
 <view style=" height: 100%;" class="all-view">
   <view>

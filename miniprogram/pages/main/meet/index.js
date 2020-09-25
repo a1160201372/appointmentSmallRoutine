@@ -106,6 +106,21 @@ this.readMineID()
     }
   },
   ceshi:function(){
+    console.log("测试")
+    wx.request({
+      url: 'http://quan.suning.com/getSysTime.do', //仅为示例，并非真实的接口地址
+      data: {
+        x: '',
+        y: ''
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        console.log("时间格式",res.data.sysTime2)
+        console.log("时间戳",Number(res.data.sysTime1))
+      }
+    })
     /*
     wx.navigateTo({
       url: '../blindCard/index',
