@@ -20,7 +20,7 @@ Page({
     weight_num:10,
 
     basicInfo:["性别","年龄","身高","体重","民族","学历","婚姻情况","居住地","职业"],
-
+    workPlace:["","","",""],
     singlePick:["身高","体重","民族","学历","婚姻状况","月薪","购房情况","购车情况"],
     singlePickRange:[
       [],//身高
@@ -39,8 +39,6 @@ Page({
 
     singlePickChangeFunction:["bindPickerChangeHeight"],
     singlePickFlag:[3,9,0,0,0,0,0,0],//单项选择器的标志
-
-
     educationNum:0,
     bindKeyProfession:'',
     imgArray:[],
@@ -49,11 +47,8 @@ Page({
     tempFilePaths1:[],
     stampImg:"",
     openID:"",
-    type:0,
     head:"",
-    pickTmp:["","",""],
-    pickFlag:false,
-    saveFlag:false,
+ 
   },
   //隐藏遮罩
   hideModal: function() {
@@ -170,6 +165,7 @@ Page({
     })
   },
   bindKeyProfession:function(e){
+    console.log(e.detail.value)
     this.data.bindKeyProfession = e.detail.value;
   },
   /**
@@ -238,5 +234,31 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  //居住地
+  placeFunction:function(e){
+    this.showPopup(e)
+  },
+  //保存按钮
+  formSubmit:function(e){
+    console.log(e)
+    wx.showLoading({title: '保存中', mask: true});
+    setTimeout(function () {
+      wx.hideLoading()
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+        duration: 2000
+      })
+    }, 2000)
+  },
+  citySelectData(e) {
+    console.log("测试",e.detail.data);
+    var tmp=["","","",""]
+    //tmp[0]=
+    this.setData({
+      workPlace:e.detail.data
+    })
+    this.hideModal()
+  },
 })

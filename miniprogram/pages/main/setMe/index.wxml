@@ -29,7 +29,15 @@
   </view>
 </picker>
 <view class="divLine"></view>  <!-- 分割线 -->
-
+<view class="pick" bindtap="placeFunction">
+<view class='pickLiftMust-view'>
+    <text class='text'>居住地</text>
+    </view>
+ <view class='pickRight-view'>
+    <text class='text'>{{workPlace[0].name}}-{{workPlace[1].name}}-{{workPlace[2].name}}-{{workPlace[3].name}}</text>
+  </view>
+  </view>
+<view class="divLine"></view>  <!-- 分割线 -->
 <!--单选选择器-->
 <view wx:if="{{index<5}}" wx:for="{{singlePick}}" >
   <picker   header-text="" data-index="{{index}}" bindchange="{{singlePickChangeFunction[0]}}" value="{{singlePickFlag[index]}}" range="{{singlePickRange[index]}}">
@@ -49,7 +57,7 @@
     <text class='text'>职业</text>
     </view>
   <view class='pickRight-view'>
-    <input name="vocation" type="inputText" class="inputText"  placeholder-style="color:#F76260" bindinput="bindKeyProfession" placeholder="请填写" value="{{telValue}}" />
+    <input name="vocation" class="inputText" bindinput="bindKeyProfession" placeholder="请填写" value="{{vocationMine}}" />
   </view>
 </view>
 </view>
@@ -94,44 +102,42 @@
   </picker>
   <view class="divLine"></view>  <!-- 分割线 -->
 </view>
-</view>
-<view class="main1">
-  <view class='basicInfo-text'><text>择偶条件</text></view>
-<view class="divLine"></view>  <!-- 分割线 -->
-<view wx:if="{{index>7}}" wx:for="{{singlePick}}" >
-  <picker   header-text="" data-index="{{index}}" bindchange="{{singlePickChangeFunction[0]}}" value="{{singlePickFlag[index]}}" range="{{singlePickRange[index]}}">
-    <view  class="pick">
-    <view  class='pickLiftMust-view'>
-      <text class='text'>{{item}}</text>
-      </view>
-       <view class='pickRight-view'>
-      <text class='text'>{{singlePickRange[index][singlePickFlag[index]]}}</text>
-    </view>
-    </view>
-  </picker>
-  <view class="divLine"></view>  <!-- 分割线 -->
-</view>
+<text>\n</text>
 </view>
 
+<view class="main1">
+  <view class='basicInfo-text'><text>择偶要求</text></view>
+
+  
+</view>
+
+<view class="main1">
+  <view class='basicInfo-text'><text>自我介绍</text></view>
+  <view>
+  <textarea class="inputText1" style="width:300px; height:100px;border:solid 1px #858585;" bindinput="bindinput" placeholder="请再次填写自我介绍"></textarea>
+</view>
+
+<text>\n</text>
+</view>
+<text>\n\n\n\n</text>
+<button style='width:100%;bottom:0' type="primary"  class="share-btn" formType="submit">保存</button>
 </form>
 
 
-<!--
+
+
 <view wx:if="{{type}}" class="dialog_screen" bindtap="hideModal"></view>
 
 <view wx:if="{{type}}" animation="{{animationData}}" class="dialog_attr_box" >
   
-  <view class='dialog_title'>{{basicInfo[type-1]}}</view>
-  
-  <picker-view wx:if="{{type==1}}" indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{sexFlag}}" bindchange="bindPickerChangeSex" bindpickend="pickFunctionEnd"
-  bindpickstart="pickFunctionStart">
-    <picker-view-column>
-        <view wx:for="{{sex}}" wx:key="{{sex}}" style="line-height: 50px; text-align: center;">{{item}}</view>
-      </picker-view-column>
-      </picker-view>
+ 
+
+  <!--pages/index/index.wxml-->
+<city-select 
+             catch:selectCommit="citySelectData"
+             ></city-select>
 
 <button bindtap="save" style="width:450rpx" class='goodbutton'  hover-class="hover">保存</button>
 <text>\n</text>
 
 </view>
--->

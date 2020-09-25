@@ -1,4 +1,7 @@
 {
-  "usingComponents": {},
+
+  "usingComponents": {
+    "city-select": "/components/city-select/city-select"
+  },
   "navigationBarBackgroundColor": "#FFFFFF"
 }

@@ -5,33 +5,38 @@ page {
  
   border-top-left-radius: 10px 10px;
   border-top-right-radius: 10px 10px;
-  height: 90rpx;
+  height: 70rpx;
   overflow: hidden;
   margin: auto;
-  font-size: 50rpx;
+  font-size: 30rpx;
   background-color: white;
-  border-left: 8rpx solid rgb(245, 110, 193);
-  border-left-style:groove;
+  /**border-left: 8rpx solid rgb(245, 110, 193);*/
+
   display: flex; /*设置显示样式**/
   align-items: center; /**子view垂直居中*/
-}
-.basicInfo-text::after{
-  content:"(带*为必填项)";
-  font-size: 20px;
-  color: rgb(255, 0, 0);
+  justify-content: center;
 }
 
+
 .main1{
-  
+  border-left: 8rpx solid rgb(245, 110, 193);
+  border-right: 8rpx solid rgb(245, 110, 193);
+  border-top: 8rpx solid rgb(245, 110, 193);
+  border-bottom: 8rpx solid rgb(245, 110, 193);
+
+  background-color: rgb(255, 255, 255);
   width: 700rpx;
   margin-left: 20rpx;
   margin-top: 30rpx;
+  border-radius: 30rpx;
 }
 .pick{
+
+
   background-color: rgb(255, 255, 255);
   padding: 20rpx;
   position: relative;
-  line-height: 60rpx;
+  line-height: 30rpx;
   display:flex;      
   flex-direction: row;
 }
@@ -41,7 +46,7 @@ page {
   background-color: rgb(255, 255, 255);
   padding: 20rpx;
   position: relative;
-  line-height: 60rpx;
+  line-height: 30rpx;
   display:flex;      
   flex-direction: row;
 }
@@ -82,6 +87,17 @@ page {
 
 .inputText{
   text-align: right;
+  
+ 
+  margin: 0 0 3px 18px;
+  width: 200px;
+  
+  min-height: 0.8rem;
+}
+.inputText1{
+  text-align: left;
+  margin-left: 50rpx;
+
 }
 
 
@@ -130,4 +146,13 @@ page {
 /* 按下变颜色 */
 .hover {
   background: #FF69B4;
+}
+.share-btn
+{
+  z-index: 100;
+
+background-color: green;
+color:rgb(219, 230, 219);
+position:fixed;
+bottom:0;
 }

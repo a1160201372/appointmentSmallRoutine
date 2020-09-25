@@ -40,7 +40,8 @@ Component({
             let that = this;
             let regionId = e.target.dataset.id;
             let level = Number(e.target.dataset.level);
-            console.log(level, this.data._userSelect.length);
+           
+          //  console.log(level, this.data._userSelect.length);
             if (level !== this.data._userSelect.length) {
                 this._refreshSelect(level)
             }
@@ -61,7 +62,6 @@ Component({
                         _selectList: that.data._selectList.concat(res.result),
                         _activeTab: that.data._selectList.length,
                     })
-                    console.log(that.data);
                 })
 
         },

@@ -12,7 +12,7 @@ Page({
     nickName:"空白",
     examineStatus:false,
     myAccount: ["微信号", "手机号", "意见反馈"],
-    set:["手机认证","实名认证",""],
+    set:["手机认证","实名认证","设置"],
     pickFunction:["meFunction"],
   },
   //修改个人资料
@@ -39,6 +39,12 @@ Page({
           url: '../../Start/loverRequest/index',
         })
         break;
+        case 2:
+          console.log("设置")
+          wx.navigateTo({
+            url: '../setLoverRequest/index',
+          })
+          break;
     }
   },
   /**
