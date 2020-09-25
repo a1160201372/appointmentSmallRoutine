@@ -1,0 +1,99 @@
+.top{
+  width: 100%;
+  height: 90rpx;
+  overflow: hidden;
+  margin: auto;
+  font-size: 50rpx;
+  background-color: white;
+  border-left: 8rpx solid rgb(245, 110, 193);
+ 
+  border-left-style:groove;
+  display: flex; /*设置显示样式**/
+  align-items: center; /**子view垂直居中*/
+
+
+
+}
+.main1{
+  margin-top: 30rpx;
+}
+.pick{
+  background-color: rgb(255, 255, 255);
+  padding: 20rpx;
+  position: relative;
+  line-height: 60rpx;
+  display:flex;      
+  flex-direction: row;
+}
+
+.pickLift-view{
+  flex: 1; /* 重要 */
+  align-items:center;
+
+  
+}
+.pickRight-view{
+  position: relative;
+ align-items:center;
+}
+.divLine{
+  background: #E0E3DA;
+  width: 700rpx;
+  height: 5rpx;
+  margin-left: 20rpx;
+ }
+
+
+
+
+.inputText{
+  text-align: right;
+}
+
+
+.dialog_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.2;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff;
+}
+
+.dialog_attr_box {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+  background: #fff;
+  padding-top: 1px;
+}
+.dialog_title {
+  font-size: 16px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: #48cec0;
+  color: white;
+}
+
+.goodbutton {
+	margin-top: 15px;
+		font-size:13pt;
+  width: 3000px;
+  background-color: #fc4cb2;
+  color: rgb(250, 250, 250);
+  border-radius: 98rpx;
+  background: bg_red;
+}
+/* 按下变颜色 */
+.hover {
+  background: #FF69B4;
+}

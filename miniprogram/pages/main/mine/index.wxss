@@ -1,1 +1,157 @@
 /* miniprogram/pages/main/mine/index.wxss */
+page {
+  background-image: url(https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1320491610,1751286583&fm=26&gp=0.jpg);
+}
+.view-background {
+ 
+
+  
+  height: auto;
+  width:auto;
+
+}
+.head-background {
+  top: 500rpx;
+  left: 500rpx;
+  height: 300rpx;
+  
+  border-radius: 40rpx;
+  background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600937008483&di=5e1b3955e3b522a0b221616ee4dfda6c&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fd000baa1cd11728bb8fb7eb7c8fcc3cec2fd2c55.jpg);
+}
+
+.user-avatar {
+  margin-left: 15rpx;
+  z-index: 0;
+position:fixed;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  overflow:hidden;
+}
+.mod-text{
+  position: fixed;
+  margin-top: 10rpx;
+  display: inline-flex;
+  margin-left: 470rpx;
+  line-height: 30px;
+
+  border-radius: 40rpx;
+
+  font-size: 34rpx;
+  white-space: nowrap;
+  color: #220114;
+  background-color: rgb(243, 173, 82);
+}
+.head-text{
+  margin-top: 60rpx;
+  position: fixed;
+  margin-left: 20rpx;
+  text-align: center;
+  top:  60rpx;
+  left: 150rpx;
+  font-size:20px;      /*设置文字字号*/
+  color:rgb(255, 255, 255);           /*设置文字颜色*/
+  font-weight:bold;    /*设置字体加粗*/
+  font-family:"宋体";   /*设置字体为宋体*/
+}
+
+.imageReturnSize{
+  display:flex;         
+ 
+	margin-top: 10px;
+  margin-left: 5px;
+  
+
+
+ }
+ .typeNumText{
+  display:block;
+ 
+  font-size:18px;      /*设置文字字号*/
+  margin-left: 20px;
+  line-height: 20rpx;
+
+ }
+ .typeInfoText{
+  display:block;
+  font-size:15px;      /*设置文字字号*/
+  line-height: 17rpx;
+  color: #3f3f3f;
+ 
+ }
+
+
+.content {
+  line-height: 30rpx;
+	margin-left: 50rpx;
+}
+.item_view{
+ 
+  align-items: center;
+  justify-content: center;
+  
+}.text_num{
+  margin-left: 15rpx;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+
+  line-height: 70px;
+  
+
+  background-color: rgb(187, 186, 186);
+  opacity: 0.5;
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  z-index: 100;
+  position: fixed;
+}
+/**mine.wxss**/
+
+
+
+
+
+.profile, .account {
+  display: flex;
+  padding: 30rpx;
+  align-items: center;
+  flex-direction: row;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.profile-item, .account-item {
+  flex: 1;
+  font-size: 35rpx;
+}
+
+.profile-arrow, .account-arrow {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.account-wrapper {
+  
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 20rpx;
+  margin-top: 90rpx;
+}
+.account-wrapper1 {
+  
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 20rpx;
+  margin-top: 50rpx;
+}
+
+.btn-quit {
+  
+  width: 300rpx;
+}
+.modily-text{
+  /**display: flex;*/
+  width: 100%;
+  margin-top: 60px;
+background-color: gold;
+  margin-left: 520rpx;
+}
+

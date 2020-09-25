@@ -1,5 +1,7 @@
 {
   "pages": [
+    
+    "pages/main/setMe/index",
     "pages/main/mine/index",
     "pages/Start/grande/index",
     "pages/Start/upImg/index",
@@ -24,8 +26,8 @@
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
     "pages/im/room/room",
-   
     "pages/main/meet/index"
+  
   ],
   "tabBar": {
     "custom": true,

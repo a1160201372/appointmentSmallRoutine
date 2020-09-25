@@ -1,2 +1,54 @@
-<!--miniprogram/pages/main/mine/index.wxml-->
-<text>miniprogram/pages/main/mine/index.wxml</text>
+
+
+<text> \n</text>
+<view class="head-background">
+  <text> \n</text>
+  <view  class='item_view'> 
+    
+     <image class="user-avatar" bindtap='seeMe' src='{{urlImage}}'>  </image>
+     <text hidden="{{examineStatus}}" class='text_num'>未审核</text>
+  </view>
+  <text>\n\n</text>
+  <text bindtap="modilyFunction" class="modily-text">修改个人资料 ></text>
+   <!--  <navigator class="mod-text"  url="../users/Setup/index" >修改资料</navigator> -->
+     
+    
+    
+    <view class="imageReturnSize">
+  <view class="content">
+    <text decode="{{true}}" class="typeNumText">
+     {{loveMeNum}}  </text>
+    <text class="typeInfoText">
+      我喜欢的
+    </text>
+
+  </view>
+  <view class="content">
+    <text decode="{{true}}" class="typeNumText">
+      {{loveOtherNum}}   </text>
+    <text class="typeInfoText">
+      喜欢我的
+    </text>
+  </view>
+</view>
+
+<view class="account-wrapper">
+		<view bindtap="{{pickFunction[0]}}" data-index="{{index}}" class="account" wx:for="{{set}}">
+			<view class="account-item"> {{item}} </view>
+			<image class="account-arrow" src="../../../images/arrow.png"></image>
+		</view>
+  </view>
+
+<view class="account-wrapper1">
+		<view class="account" wx:for="{{myAccount}}">
+			<view class="account-item"> {{item}} </view>
+			<image class="account-arrow" src="../../../images/arrow.png"></image>
+		</view>
+  </view>
+
+</view>
+
+
+
+
+

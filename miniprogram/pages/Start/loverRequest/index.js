@@ -262,6 +262,7 @@ Page({
   },
  
   hideModal: function () {
+    
     this.setData({
       type: false,
     })
