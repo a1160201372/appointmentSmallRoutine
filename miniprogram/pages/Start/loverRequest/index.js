@@ -478,6 +478,7 @@ Page({
       })
     }.bind(this), 200)
   },
+  
   hideModal: function() {
     // 隐藏遮罩层
     var animation = wx.createAnimation({

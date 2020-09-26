@@ -7,9 +7,11 @@ Page({
     timer:'',//定义定时器形参，为空字符在这里插入代码片
   },
   onLoad:function(){
+ 
     wx.cloud.callFunction({
       name: 'login',
       data: {},
+      
       success: res => {
         console.log('[云函数] [login] user openid: ', res.result.openid)
         app.globalData.openid = res.result.openid
@@ -21,6 +23,7 @@ Page({
       }
     })
   },
+
   onHide: function () { 
     var that = this;
     clearInterval(that.data.timer); //页面跳转到其它页面后,为隐藏状态，需要清除定时器

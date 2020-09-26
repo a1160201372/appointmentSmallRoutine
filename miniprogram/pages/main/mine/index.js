@@ -1,5 +1,5 @@
 // miniprogram/pages/main/mine/index.js
-
+var app = getApp();
 Page({
 
   /**
@@ -12,7 +12,7 @@ Page({
     nickName:"空白",
     examineStatus:false,
     myAccount: ["微信号", "手机号", "意见反馈"],
-    set:["手机认证","实名认证","设置"],
+    set:["手机认证","实名认证"],
     pickFunction:["meFunction"],
   },
   //修改个人资料
@@ -29,15 +29,15 @@ Page({
     switch(flag){
       case 0:
         console.log("本人")
-        wx.navigateTo({
+      /*  wx.navigateTo({
           url: '../setMe/index',
-        })
+        })*/
         break;
       case 1:
         console.log("择偶")
-        wx.navigateTo({
+      /*  wx.navigateTo({
           url: '../../Start/loverRequest/index',
-        })
+        })*/
         break;
         case 2:
           console.log("设置")
@@ -66,6 +66,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    //设置头像
+
+console.log(app.globalData); // 调用全局变量
+//先给全局变量赋值
+
+    var tmp=app.globalData.headImage
+    console.log("tmp",tmp)
+    this.setData({
+      urlImage:tmp
+    })
     if (typeof this.getTabBar === 'function' &&
     this.getTabBar()) {
     this.getTabBar().setData({

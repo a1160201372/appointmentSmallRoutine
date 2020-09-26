@@ -3,5 +3,6 @@
   "usingComponents": {
     "city-select": "/components/city-select/city-select"
   },
-  "navigationBarBackgroundColor": "#FFFFFF"
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTitleText": "资料设置"
 }

@@ -57,7 +57,7 @@
     <text class='text'>职业</text>
     </view>
   <view class='pickRight-view'>
-    <input name="vocation" class="inputText" bindinput="bindKeyProfession" placeholder="请填写" value="{{vocationMine}}" />
+    <input name="vocation" class="inputText" data-index="1" bindinput="bindKeyProfession" placeholder="请填写" value="{{vocationMine}}" />
   </view>
 </view>
 </view>
@@ -70,7 +70,7 @@
     <text class='text'>手机号</text>
     </view>
   <view class='pickRight-view'>
-    <input name="vocation" type="inputText" class="inputText"  placeholder-style="color:#F76260" bindinput="bindKeyProfession" placeholder="请填写" value="{{telValue}}" />
+    <input name="vocation" data-index="2" type="inputText" class="inputText"  placeholder-style="color:#F76260" bindinput="bindKeyProfession" placeholder="请填写" value="{{telValue}}" />
   </view>
 </view>
   <view class="divLine"></view>  <!-- 分割线 -->
@@ -79,7 +79,7 @@
     <text class='text'>微信号</text>
     </view>
   <view class='pickRight-view'>
-    <input name="vocation" type="inputText" class="inputText"  placeholder-style="color:#F76260" bindinput="bindKeyProfession" placeholder="请填写" value="{{telValue}}" />
+    <input name="vocation" type="inputText" data-index="3" class="inputText"  placeholder-style="color:#F76260" bindinput="bindKeyProfession" placeholder="请填写" value="{{telValue}}" />
   </view>
 </view>
   <view class="divLine"></view>  <!-- 分割线 -->
@@ -89,7 +89,7 @@
 <view class="main1">
   <view class='basicInfo-text'><text>资产情况</text></view>
 <view class="divLine"></view>  <!-- 分割线 -->
-<view wx:if="{{index>=5}}" wx:for="{{singlePick}}" >
+<view wx:if="{{index>=5&&index<8}}" wx:for="{{singlePick}}" >
   <picker   header-text="" data-index="{{index}}" bindchange="{{singlePickChangeFunction[0]}}" value="{{singlePickFlag[index]}}" range="{{singlePickRange[index]}}">
     <view  class="pick">
     <view  class='pickLiftMust-view'>
@@ -108,14 +108,115 @@
 <view class="main1">
   <view class='basicInfo-text'><text>择偶要求</text></view>
 
-  
+  <picker name="place" mode="region" value="{{PlaceOther}}" bindchange="bindPickChangePlaceOther" custom-item="不限">
+    <view class='pick'>
+    <view class='pickLiftMust-view'>
+      <text class='text11'>工作地区</text>
+
+      </view>
+       <view class='pickRight-view'>
+      <text >{{PlaceOther[0]}}，{{PlaceOther[1]}}，{{PlaceOther[2]}}</text>
+    </view>
+    </view>
+  </picker>
+  <view class="divLine"></view>  <!-- 分割线 -->
+
+  <picker mode="multiSelector" header-text="年龄范围" bindchange="bindMultiPickerChange" value="{{ageFlagOther}}" 
+  range="{{ageArrayOther}}">
+    <view class='pick'>
+    <view class='pickLiftMust-view'>
+
+      <text class='text11'>年龄范围</text>
+
+      </view>
+      <view class='pickRight-view'>
+        　{{ageArrayOther[0][ageFlagOther[0]]}}-{{ageArrayOther[1][ageFlagOther[1]]}}
+    </view>
+    </view>
+  </picker>
+  <view class="divLine"></view>  <!-- 分割线 -->
+  <picker mode="multiSelector" header-text="年龄范围" bindchange="bindMultiPickerChangeHeight"  value="{{heightFlagOther}}" range="{{heightArrayOther}}">
+    <view class='pick'>
+    <view class='pickLiftMust-view'>
+      <text class='text11'>身高范围</text>
+
+      </view>
+      <view class='pickRight-view'>
+        　{{heightArrayOther[0][heightFlagOther[0]]}}-{{heightArrayOther[1][heightFlagOther[1]]}}
+    </view>
+    </view>
+  </picker>
+  <view class="divLine"></view>  <!-- 分割线 -->
+  <view wx:if="{{index>7}}" wx:for="{{singlePick}}" >
+  <picker   header-text="" data-index="{{index}}" bindchange="{{singlePickChangeFunction[0]}}" value="{{singlePickFlag[index]}}" range="{{singlePickRange[index]}}">
+    <view  class="pick">
+    <view  class='pickLiftMust-view'>
+      <text class='text'>{{item}}</text>
+      </view>
+       <view class='pickRight-view'>
+      <text>{{singlePickRange[index][singlePickFlag[index]]}}</text>
+    </view>
+    </view>
+  </picker>
+  <view class="divLine"></view>  <!-- 分割线 -->
+
+
+</view>
+<view wx:for="{{typeTile}}" wx:for-index="typeIndex">
+<view bindtap="{{typebind[0][typeIndex]}}" class='flex-wrp-row item'>
+    <view class='item-left flex-wrp-row'>
+      <text decode="{{true}}" space="{{true}}" class='text1'>{{typeTile[typeIndex]}} </text>
+
+      </view>
+       <view  class='item-right flex-wrp-row'>
+        {{typeInfo[typeIndex]}}
+
+    </view>
+    </view>
+<view class="divLine"></view>  <!-- 分割线 婚况-->
+
+</view>
+
+
 </view>
 
 <view class="main1">
   <view class='basicInfo-text'><text>自我介绍</text></view>
   <view>
-  <textarea class="inputText1" style="width:300px; height:100px;border:solid 1px #858585;" bindinput="bindinput" placeholder="请再次填写自我介绍"></textarea>
+  <textarea class="inputText1" style="width:300px; height:100px;border:solid 1px #858585;" bindinput="bindinputMyself" placeholder="请再次填写自我介绍"></textarea>
 </view>
+
+<text>\n</text>
+</view>
+
+<view class="main1">
+  <view class='basicInfo-text'><text>生活照片</text>
+    <text>(第一张图片将默认为头像)</text></view>
+  
+
+ 
+    <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+          
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files">
+                    <block wx:for="{{photos}}" wx:for-item="image">
+                      <view class="weui-uploader__file">
+                        <image bindtouchstart="handleTouchStart"  bindtouchend="handleTouchEnd"  class="weui-uploader__img" 
+                        src="{{image}}" data-src="{{image}}" bindlongtap="deleteImage" bindtap="previewImage"></image>
+                      </view>
+                    </block>
+                  </view>
+                  <view wx:if="{{photos.length<6}}" class="weui-uploader__input-box">
+                    <view  class="weui-uploader__input" bindtap="chooseImage"></view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
 
 <text>\n</text>
 </view>
@@ -125,10 +226,40 @@
 
 
 
-
-<view wx:if="{{type}}" class="dialog_screen" bindtap="hideModal"></view>
+ <!-- 弹出框 start -->
+ <view wx:if="{{type}}" class="dialog_screen" bindtap="hideModal"></view>
 
 <view wx:if="{{type}}" animation="{{animationData}}" class="dialog_attr_box" >
+  
+  <view style='background:white;position: relative;overflow: hidden;'>
+  <view class='dialog_title'>{{checkTile[type-1]}}</view>
+  <checkbox-group  bindchange="{{typebind[1][type-1]}}">
+  <view  wx:key="*this" wx:for="{{row}}" wx:for-index="rowDataIndex" class="content">  
+   
+  <view wx:if="{{Array[type-1][rowDataIndex*2+columnDataIndex]!=null}}" class="t1" wx:key="*this" wx:for="{{column}}" wx:for-index="columnDataIndex">  
+    
+
+
+      <text  decode = "{{true}}"> &emsp; </text>
+    <checkbox  checked="{{Array[type-1][rowDataIndex*2+columnDataIndex].checked}}"  value="{{marryIndex[rowDataIndex*2+columnDataIndex]}}" />{{Array[type-1][rowDataIndex*2+columnDataIndex].name}}
+    
+
+  </view>
+
+</view>  
+
+</checkbox-group>
+<text>\n</text>
+
+<!--<button bindtap="save" style="width:450rpx" class='goodbutton'  hover-class="hover">保存</button>-->
+<text>\n</text>
+  </view> 
+</view>
+<!-- 弹出框 end -->
+
+<view wx:if="{{type1}}" class="dialog_screen" bindtap="hideModal"></view>
+
+<view wx:if="{{type1}}" animation="{{animationData}}" class="dialog_attr_box" >
   
  
 
@@ -137,7 +268,7 @@
              catch:selectCommit="citySelectData"
              ></city-select>
 
-<button bindtap="save" style="width:450rpx" class='goodbutton'  hover-class="hover">保存</button>
+
 <text>\n</text>
 
 </view>

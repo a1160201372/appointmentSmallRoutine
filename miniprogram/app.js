@@ -1,6 +1,7 @@
 //app.js
 App({
   globalData:{
+    headImage:'1',
     globalGrande:null,
     openid: null
   },

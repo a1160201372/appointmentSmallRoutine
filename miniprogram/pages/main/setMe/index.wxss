@@ -1,3 +1,4 @@
+@import "../../common/weui.wxss";
 page {
   background: #f0fafa;
 }
@@ -11,6 +12,7 @@ page {
   font-size: 30rpx;
   background-color: white;
   /**border-left: 8rpx solid rgb(245, 110, 193);*/
+
 
   display: flex; /*设置显示样式**/
   align-items: center; /**子view垂直居中*/
@@ -33,10 +35,13 @@ page {
 .pick{
 
 
-  background-color: rgb(255, 255, 255);
+ 
+    display: flex;
+ 
   padding: 20rpx;
   position: relative;
   line-height: 30rpx;
+ 
   display:flex;      
   flex-direction: row;
 }
@@ -44,24 +49,32 @@ page {
   border-bottom-left-radius: 10px 10px;
   border-bottom-right-radius: 10px 10px;
   background-color: rgb(255, 255, 255);
+
   padding: 20rpx;
   position: relative;
-  line-height: 30rpx;
+  line-height: 50rpx;
   display:flex;      
   flex-direction: row;
 }
 
 .pickLiftMust-view{
   flex: 1; /* 重要 */
-  align-items:center;
 
+  flex-direction: row;
+  
   
 }
 .pickLiftMust-view::after{
-  content: " *";
+  content: " * ";
   color: rgb(255, 0, 0);
 }
-
+.content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20rpx;
+  margin-left: 0rpx;
+  
+}
 .pickLift-view{
   flex: 1; /* 重要 */
   align-items:center;
@@ -74,6 +87,10 @@ page {
 .pickRight-view{
   position: relative;
  align-items:center;
+ word-break:break-all;
+ word-wrap: break-word;
+ white-space: pre-line;
+
 }
 .divLine{
   background: #E0E3DA;
@@ -155,4 +172,43 @@ background-color: green;
 color:rgb(219, 230, 219);
 position:fixed;
 bottom:0;
+}
+.t1{
+  
+  font-size: 16px;
+  height: 20px;
+  width: 450px;
+
+	margin-left: 50rpx;
+	margin-top: 40rpx;
+	
+}
+.text1{
+  height: 50rpx;
+  width: 150rpx;
+}
+.flex-wrp-row {
+ 
+  display: flex;
+  flex-direction: row;
+}
+.item {
+
+  padding: 20rpx;
+  position: relative;
+}
+ 
+
+.item-left {
+
+   flex: 1; /* 重要 */
+   align-items:center;
+}
+ 
+.item-right {
+
+  position: relative;
+  align-items:center;
+
+  
 }
