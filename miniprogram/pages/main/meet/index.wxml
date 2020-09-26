@@ -1,2 +1,32 @@
-<!--miniprogram/pages/main/meet/index.wxml-->
-<text>miniprogram/pages/main/meet/index.wxml</text>
+
+
+<view style=" height: 100%;" class="all-view">
+  <view>
+    <swiper class="swiper_box" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{false}}" duration="{{duration}}" circular='true'>
+      <block wx:for="{{imgUrls}}" wx:key="{{imgUrls}}">
+ 
+        <swiper-item>
+          <image src="{{item}}"  mode="aspectFit" />
+        </swiper-item>
+      </block>
+    </swiper>
+</view>
+
+
+  
+<view class="user-view" wx:for="{{user}}" >
+    <view>
+      <image mode="aspectFill" class="userInfo"   src='{{user[index].urlImage}}'>  </image>
+        <text class="textNameInfo">{{user[index].name}} </text>
+        
+        <text >\n</text>
+   
+      <text class="textUserInfo">{{user[index].age}}岁  | {{user[index].height}}cm |  {{user[index].education}}  |  {{user[index].income}}
+      </text>
+    </view>
+    <text>\n</text>
+    <view class="divLine"></view>  <!-- 分割线 -->
+</view>
+<text>\n\n\n\n</text>
+
+</view>

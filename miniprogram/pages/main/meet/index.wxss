@@ -1,1 +1,81 @@
-/* miniprogram/pages/main/meet/index.wxss */
+.intro {
+  margin: 30rpx;
+  text-align: center;
+}
+.swiper-item{
+  width: 100%;
+  display: block;
+  height: 150rpx;
+}
+.swiper_box {
+  background-color: rgb(214, 214, 214);
+    width: 100%;
+}
+swiper-item image {
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+}
+.circle{
+ 
+  width: 70px;
+  height: 70px;
+  border: 0 solid #ffffff;
+  border-radius: 250px; 
+ font-size:0;
+}
+.image{
+top: 20rpx;
+margin-left: -22rpx;
+
+ display: flex;
+ width: 135rpx;
+  height: 135rpx;
+}
+
+
+.btn3 {
+width: 30%;
+margin-top: 20rpx;
+background-color: rgba(57, 163, 233, 0.767);
+color: white;
+border-radius: 40rpx;
+}
+.adduserorder{
+margin-top: 50rpx;
+display: flex;
+flex-direction:row;
+justify-content:flex-end;
+}
+.userInfo{
+  width: 700rpx;
+   height: 700rpx;
+   border-radius: 40rpx;
+   
+  object-fit: cover;
+}
+.user-view{
+  margin-top: 60rpx;
+  margin-left: 25rpx;
+}
+.all-view{
+  height:120rpx;
+
+}
+.divLine{
+  background: #E0E3DA;
+  width: 660rpx;
+  height: 5rpx;
+  margin-left: 20rpx;
+ }
+ .textNameInfo{
+
+font-weight: bold;
+
+ }
+
+ .textUserInfo{
+  color: rgb(138, 138, 138);
+  font-size: 13px;
+ }
