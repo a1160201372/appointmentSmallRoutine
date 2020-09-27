@@ -1,25 +1,24 @@
 const app = getApp()
-
+const db = wx.cloud.database()//初始化数据库
 Page({
   data: {
-    text: "你好",
-    onOff: false,
     timer:'',//定义定时器形参，为空字符在这里插入代码片
   },
-  onLoad:function(){
- 
+  //直接显示
+  onShow: function () {
     wx.cloud.callFunction({
       name: 'login',
       data: {},
-      
       success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
         app.globalData.openid = res.result.openid
       },
       fail: err => {
-
         console.error('[云函数] [login] 调用失败', err)
-     
+        wx.showModal({
+          showCancel:false,
+          title: '提示',
+          content:"读取用户信息错误，请检查您的网络状态。"
+        })
       }
     })
   },
@@ -35,43 +34,63 @@ Page({
       var that=this;
       clearInterval(that.data.timer); //页面未加载时，需要清除定时器
     },
-       /**
-     * 定时器函数--每隔一秒循环执行函数体
-     */
-    loop: function(e) {
-        var that = this;
-        var count = 0
-        var i = setInterval(function() {
-            count++
-            if (count >= 0) {
-            console.log(count)
-            }
-            if (count >= 6) {
-            clearInterval(i)
-            }
-        }, 1000) //定时器每秒执行一次
-        that.setData({timer:i})//给定时器赋值,在该页面跳转到其它页面后,在onHide和onUnload中清除该值
-      },
   man:function(){//男性
-      console.log('123');
+      console.log('男性');
       var onOff = this.data.onOff;
-      this.setData({text:"hello",onOff:!onOff});
+     
       app.globalData.globalGrande=1
+      //this.upDataGande(0)
       wx.redirectTo({//跳转
         url: '../birthday/index'
       })
   },
- 
-
-    
-    
   woman:function(){//女性
-    console.log('123');
+    console.log('女性');
     var onOff = this.data.onOff;
-    this.setData({text:"hello",onOff:!onOff});
+ 
     app.globalData.globalGrande=2
+    //this.upDataGande(1)
     wx.redirectTo({//跳转
       url: '../birthday/index'
     })
+},
+
+upDataGande:function(sex){
+  console.log("函数")
+  const db = wx.cloud.database()
+  db.collection('userInfo').where({
+    _openid: '{openid}'
+  }).get({
+    success:function(res){
+
+      console.log(res.data.length)
+      if(res.data.length==0){
+        console.log("函数1")
+        db.collection('userInfo').add({
+          // data 字段表示需新增的 JSON 数据
+          data: {
+            grande:sex,
+          }
+        })
+      }
+      else{//已经存在
+        console.log("进入")
+        db.collection('userInfo').doc(res.data[0]._id).update({
+          data:{
+            grande:sex
+          },
+          success: function(res) {
+            console.log("成功",res)
+          },
+          fail: function(res) {
+            console.log("失败")
+          }
+        })
+      }
+    },
+    fail:function(){
+      console.log("数据库加载失败")
+    }
+  })
 }
 })

@@ -107,7 +107,7 @@
 
 <view class="main1">
   <view class='basicInfo-text'><text>择偶要求</text></view>
-
+  <view class="divLine"></view>  <!-- 分割线 -->
   <picker name="place" mode="region" value="{{PlaceOther}}" bindchange="bindPickChangePlaceOther" custom-item="不限">
     <view class='pick'>
     <view class='pickLiftMust-view'>
@@ -123,28 +123,33 @@
 
   <picker mode="multiSelector" header-text="年龄范围" bindchange="bindMultiPickerChange" value="{{ageFlagOther}}" 
   range="{{ageArrayOther}}">
+   
+
     <view class='pick'>
     <view class='pickLiftMust-view'>
-
       <text class='text11'>年龄范围</text>
 
       </view>
-      <view class='pickRight-view'>
-        　{{ageArrayOther[0][ageFlagOther[0]]}}-{{ageArrayOther[1][ageFlagOther[1]]}}
+       <view class='pickRight-view'>
+      <text >　{{ageArrayOther[0][ageFlagOther[0]]}}-{{ageArrayOther[1][ageFlagOther[1]]}}</text>
     </view>
     </view>
+
   </picker>
   <view class="divLine"></view>  <!-- 分割线 -->
   <picker mode="multiSelector" header-text="年龄范围" bindchange="bindMultiPickerChangeHeight"  value="{{heightFlagOther}}" range="{{heightArrayOther}}">
+  
+
     <view class='pick'>
     <view class='pickLiftMust-view'>
       <text class='text11'>身高范围</text>
 
       </view>
-      <view class='pickRight-view'>
-        　{{heightArrayOther[0][heightFlagOther[0]]}}-{{heightArrayOther[1][heightFlagOther[1]]}}
+       <view class='pickRight-view'>
+      <text >　　{{heightArrayOther[0][heightFlagOther[0]]}}-{{heightArrayOther[1][heightFlagOther[1]]}}</text>
     </view>
     </view>
+    
   </picker>
   <view class="divLine"></view>  <!-- 分割线 -->
   <view wx:if="{{index>7}}" wx:for="{{singlePick}}" >
@@ -173,6 +178,8 @@
 
     </view>
     </view>
+
+    
 <view class="divLine"></view>  <!-- 分割线 婚况-->
 
 </view>

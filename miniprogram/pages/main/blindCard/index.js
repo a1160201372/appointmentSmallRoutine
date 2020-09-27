@@ -5,7 +5,24 @@ Page({
    * 页面的初始数据
    */
   data: {
+    imgUrls: [//推荐栏图片
+      'cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/ouFO65Ypkw2b-YDuoJ7tl3sKXV_gHead.png',
+      'cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/ouFO65Ypkw2b-YDuoJ7tl3sKXV_gHead.png',
+      'cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/ouFO65Ypkw2b-YDuoJ7tl3sKXV_gHead.png',
+      'cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/ouFO65Ypkw2b-YDuoJ7tl3sKXV_gHead.png',
+    ],
 
+    indicatorDots: true, //是否显示面板指示点
+    autoplay: true, //是否自动切换
+    interval: 3000, //自动切换时间间隔,3s
+    duration: 1000, //  滑动动画时长1s
+
+
+    user:"程序员（ID:3365）",
+    userID:"ID:3365",
+    userBiceInfo:["169cm","60Kg","未婚"],
+    loverInfo:["25-30岁","162cm-192cm","未婚"],
+    acceptanceSelf:"该用户没有写自我介绍。",
   },
 
   /**

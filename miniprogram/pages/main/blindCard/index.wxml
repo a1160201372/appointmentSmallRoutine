@@ -1,2 +1,59 @@
 <!--miniprogram/pages/main/blindCard/index.wxml-->
-<text>miniprogram/pages/main/blindCard/index.wxml</text>
+  <view>
+    <swiper class="swiper_box" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{false}}" duration="{{duration}}" circular='true'>
+      <block wx:for="{{imgUrls}}" wx:key="{{imgUrls}}">
+        <swiper-item>
+          <image mode="aspectFill" src="{{item}}"  class="indexSlide" />
+        </swiper-item>
+      </block>
+    </swiper>
+</view>
+
+
+  <text  class="textNameInfo">{{user}} </text>
+  
+  
+<button style="width:250rpx" class='goodbutton' hover-class="hover">发消息</button>
+<view class="divLine"></view>  <!-- 分割线 婚况-->
+
+<view  style="width:700rpx" class="condition-view">
+  <!--个人资料-->
+  <view class="main1"> 
+    <view   class='top1'><text class='top_name' decode="{{true}}">&nbsp;&nbsp;基本信息</text></view>
+    <block wx:for="{{userBiceInfo}}" >
+      <text style="height:15px" class="userInfo ">
+            {{item}}
+      </text>
+      </block>
+  <text>\n\n</text>
+
+  </view>
+  <!--择偶要求-->
+  <view style="width:700rpx" class="main1" > 
+    <view   class='top1'><text class='top_name' decode="{{true}}">&nbsp;&nbsp;择偶要求</text></view>
+    <block wx:for="{{loverInfo}}" >
+      <text style="height:15px" class="userInfoOthers ">
+            {{item}}
+      </text>
+      </block>
+  
+      <text>\n\n</text>
+  </view>
+
+  <view style="width:700rpx" class="main1" > 
+    <view   class='top1'><text class='top_name' decode="{{true}}">&nbsp;&nbsp;自我介绍</text></view>
+    
+      <text style="height:15px" class="userInfo ">
+            {{acceptanceSelf}}
+      </text>
+    
+  
+      <text>\n\n</text>
+  </view>
+
+  <text>\n\n\n</text>
+</view>
+
+
+
+

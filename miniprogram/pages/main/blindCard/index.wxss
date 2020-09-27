@@ -1,1 +1,111 @@
 /* miniprogram/pages/main/blindCard/index.wxss */
+.swiper_box {
+
+  width: 700rpx;
+  height: 700rpx;
+  border-radius: 40rpx;
+  margin-top: 10px;
+  border-top-right-radius: 40rpx;
+}
+.indexSlide{
+  width: 650rpx;
+   height: 650rpx;
+   border-radius: 40rpx;
+   margin-left:50rpx;
+  object-fit: cover;
+}
+.textNameInfo{
+
+  font-weight: bold;
+  margin-left: 50rpx;
+
+   }
+   
+   .goodbutton {
+    margin-top: 5px;
+    font-size:12pt;
+    background-color: rgb(253, 253, 255);
+    color: rgb(53, 64, 218);
+    border-radius: 98rpx;
+
+    border-left: 2px solid rgb(245, 110, 193);
+    border-right: 2px solid rgb(245, 110, 193);
+    border-top: 2px solid rgb(245, 110, 193);
+    border-bottom: 2px solid rgb(245, 110, 193);
+
+
+  }
+   
+  /* 按下变颜色 */
+  .hover {
+    background: #FF69B4;
+  }
+  .divLine{
+    margin-top: 10px;
+    background: #E0E3DA;
+    width: 660rpx;
+    height: 5rpx;
+    margin-left: 20rpx;
+   }
+   .top{
+    width: 100%;
+    overflow: hidden;
+    margin: auto;
+
+    border-left: 8rpx solid rgb(248, 162, 248);
+    border-bottom: 3px solid rgba(117, 116, 116, 0.527);
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  .top1{
+    width: 100%;
+    overflow: hidden;
+    margin: auto;
+
+   
+    border-bottom: 3px solid rgba(117, 116, 116, 0.527);
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  .userInfo{
+    font-size: 12px;
+    padding: 12rpx 20rpx;
+    border: 1rpx solid #f7abab;
+    margin: 8rpx 10rpx;
+    display: inline-block;
+    line-height: 5px;
+
+    border-radius: 98rpx;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(250, 214, 248);
+  }
+  .userInfoOthers{
+    font-size: 12px;
+    padding: 12rpx 20rpx;
+    
+    margin: 8rpx 10rpx;
+    display: inline-block;
+    line-height: 5px;
+
+    border-radius: 98rpx;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(167, 193, 250);
+  }
+.condition-view{
+  margin-left: 20rpx;
+  
+}
+.main1{
+  border-left: 8rpx solid rgb(245, 110, 193);
+  border-right: 8rpx solid rgb(245, 110, 193);
+  border-top: 8rpx solid rgb(245, 110, 193);
+  border-bottom: 8rpx solid rgb(245, 110, 193);
+
+  background-color: rgb(255, 255, 255);
+  width: 700rpx;
+
+  margin-top: 30rpx;
+  border-radius: 30rpx;
+}

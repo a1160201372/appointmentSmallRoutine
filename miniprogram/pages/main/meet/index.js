@@ -92,5 +92,10 @@ Page({
       })
 
     }, 1000)
+  },
+  ceshi:function(){
+    wx.navigateTo({
+      url: '../blindCard/index',
+    })
   }
 })

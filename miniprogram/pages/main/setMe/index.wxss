@@ -9,7 +9,7 @@ page {
   height: 70rpx;
   overflow: hidden;
   margin: auto;
-  font-size: 30rpx;
+
   background-color: white;
   /**border-left: 8rpx solid rgb(245, 110, 193);*/
 

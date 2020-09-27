@@ -1,9 +1,11 @@
 {
   "pages": [
+
+    "pages/Start/grande/index",
+    "pages/main/blindCard/index",
+    "pages/main/setMe/index",
     "pages/main/meet/index",
     "pages/main/mine/index",
-    "pages/main/setMe/index",
-    "pages/Start/grande/index",
     "pages/Start/upImg/index",
     "pages/main/Main/index",
     "pages/Start/loverRequest/index",
@@ -25,8 +27,8 @@
     "pages/openapi/callback/callback",
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
-    "pages/im/room/room",
-    "pages/main/blindCard/index"
+    "pages/im/room/room"
+   
   ],
   "tabBar": {
     "custom": true,

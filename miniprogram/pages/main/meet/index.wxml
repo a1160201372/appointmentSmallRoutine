@@ -15,7 +15,7 @@
 
   
 <view class="user-view" wx:for="{{user}}" >
-    <view>
+    <view bindtap="ceshi">
       <image mode="aspectFill" class="userInfo"   src='{{user[index].urlImage}}'>  </image>
         <text class="textNameInfo">{{user[index].name}} </text>
         

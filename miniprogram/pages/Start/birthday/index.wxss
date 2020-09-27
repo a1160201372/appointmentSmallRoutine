@@ -58,3 +58,7 @@ page {
 	 width:50rpx;
 	 height:50rpx;
 	 }
+	 .intro {
+		margin: 30px;
+		text-align: center;
+	}
