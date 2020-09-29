@@ -15,5 +15,5 @@
 <text>\n</text>
 </view>
 <view wx:for="{{option}}" wx:key="*this">
-  <button bindtap = "flag1" style="width:450rpx" class='goodbutton'  hover-class="hover">{{option[index]}}</button>
+  <button bindtap = "flag1" style="width:450rpx" data-index="{{index}}" class='goodbutton'  hover-class="hover">{{option[index]}}</button>
 </view>

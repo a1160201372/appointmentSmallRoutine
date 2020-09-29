@@ -1,7 +1,6 @@
 // miniprogram/pages/main/mine/index.js
 var app = getApp();
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -10,7 +9,7 @@ Page({
     loveMeNum:4,//我喜欢的人数
     loveOtherNum:44,//喜欢我的用户
     nickName:"空白",
-    examineStatus:false,
+    examineStatus:2,
     myAccount: ["微信号", "手机号", "意见反馈"],
     set:["手机认证","实名认证"],
     pickFunction:["meFunction"],
@@ -66,16 +65,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    //设置头像
-
-console.log(app.globalData); // 调用全局变量
-//先给全局变量赋值
-
-    var tmp=app.globalData.headImage
-    console.log("tmp",tmp)
-    this.setData({
-      urlImage:tmp
-    })
+    //设置头像以及审核状态
+    this.readExamineStatus("userID")
+    this.readImage("userPhotos")
+    //设置底部导航栏
     if (typeof this.getTabBar === 'function' &&
     this.getTabBar()) {
     this.getTabBar().setData({
@@ -117,5 +110,44 @@ console.log(app.globalData); // 调用全局变量
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  readImage:function(Database){
+   var that=this
+    const db = wx.cloud.database()
+ 
+    db.collection(Database).where({
+      _openid: '{openid}'
+    }).get({
+      success:function(res){
+        var Img=	"cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[0]
+        that.setData({
+          urlImage:Img
+        })
+        console.log("数据库里的数据",res.data[0].timeStamp)
+      },
+      fail:function(e){
+        console.log("数据库加载失败",e)
+      }
+    })
+  },
+  readExamineStatus:function(Database){
+    var that=this
+     const db = wx.cloud.database()
+  
+     db.collection(Database).where({
+       _openid: '{openid}'
+     }).get({
+       success:function(res){
+       
+        that.setData({
+          examineStatus:res.data[0].review[0]
+         })
+         console.log("数据库里的数据",res.data[0].review[0])
+       },
+       fail:function(e){
+         console.log("数据库加载失败",e)
+       }
+     })
+   }
+
 })

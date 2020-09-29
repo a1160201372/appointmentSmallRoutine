@@ -45,18 +45,6 @@ page {
   width: 150rpx;
 }
 
-.text1::after {
-  content: '* ';
-
-  color: red;
-
-}
-.text11::after {
-  content: '* ';
-
-  color: red;
-
-}
 .radio-group {
   display: flex;
   flex-direction: column;

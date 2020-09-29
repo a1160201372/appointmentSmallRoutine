@@ -1,7 +1,5 @@
 
 Page({
-
-
   data:{
     imgbox: [],//选择图片
     fileIDs: [],//上传云存储后的返回值
@@ -28,8 +26,6 @@ Page({
     openID:"",
     head:"",
   },
- 
-
 // 删除照片 &&
 /*
 imgDelete1: function (e) {

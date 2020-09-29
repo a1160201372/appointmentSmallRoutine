@@ -1,20 +1,25 @@
 {
   "pages": [
-
-    "pages/Start/grande/index",
-    "pages/main/blindCard/index",
     "pages/main/setMe/index",
-    "pages/main/meet/index",
-    "pages/main/mine/index",
     "pages/Start/upImg/index",
-    "pages/main/Main/index",
+  
     "pages/Start/loverRequest/index",
+    "pages/Start/carCondition/index",
+    "pages/Start/houseCondition/index",
+    "pages/Start/income/index",
     "pages/Start/vocation/index",
     "pages/Start/heightAndWeight/index",
-    "pages/Start/workPlace/index",
-    "pages/Start/maritalStatus/index",
-    "pages/Start/birthday/index",
     "pages/Start/education/index",
+    "pages/Start/workPlace/index",
+    "pages/Start/marryTime/index",
+    "pages/Start/maritalStatus/index",
+    "pages/Start/grande/index",
+    "pages/main/blindCard/index",
+  
+    "pages/main/meet/index",
+    "pages/main/mine/index",
+    "pages/main/Main/index",
+    "pages/Start/birthday/index",
     "pages/index/index",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
@@ -27,8 +32,8 @@
     "pages/openapi/callback/callback",
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
-    "pages/im/room/room"
-   
+    "pages/im/room/room",
+    "pages/loadingInterface/index"
   ],
   "tabBar": {
     "custom": true,

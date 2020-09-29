@@ -6,7 +6,7 @@
   <view  class='item_view'> 
     
      <image class="user-avatar" bindtap='seeMe' src='{{urlImage}}'>  </image>
-     <text hidden="{{examineStatus}}" class='text_num'>未审核</text>
+     <text hidden="{{examineStatus!=1}}" class='text_num'>未审核</text>
   </view>
   <text>\n\n</text>
   <text bindtap="modilyFunction" class="modily-text">修改个人资料 ></text>

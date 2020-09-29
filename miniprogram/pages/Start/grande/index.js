@@ -1,12 +1,11 @@
 const app = getApp()
-const db = wx.cloud.database()//初始化数据库
 Page({
   data: {
     timer:'',//定义定时器形参，为空字符在这里插入代码片
   },
   //直接显示
   onShow: function () {
-    wx.cloud.callFunction({
+  /*  wx.cloud.callFunction({
       name: 'login',
       data: {},
       success: res => {
@@ -20,7 +19,7 @@ Page({
           content:"读取用户信息错误，请检查您的网络状态。"
         })
       }
-    })
+    })*/
   },
 
   onHide: function () { 
@@ -39,7 +38,7 @@ Page({
       var onOff = this.data.onOff;
      
       app.globalData.globalGrande=1
-      //this.upDataGande(0)
+      this.upDataGande(0)
       wx.redirectTo({//跳转
         url: '../birthday/index'
       })
@@ -49,7 +48,7 @@ Page({
     var onOff = this.data.onOff;
  
     app.globalData.globalGrande=2
-    //this.upDataGande(1)
+    this.upDataGande(1)
     wx.redirectTo({//跳转
       url: '../birthday/index'
     })
@@ -74,7 +73,8 @@ upDataGande:function(sex){
         })
       }
       else{//已经存在
-        console.log("进入")
+        console.log("进入",res.data[0]._id)
+        app.globalData.openid = res.data[0]._openid
         db.collection('userInfo').doc(res.data[0]._id).update({
           data:{
             grande:sex
@@ -83,13 +83,13 @@ upDataGande:function(sex){
             console.log("成功",res)
           },
           fail: function(res) {
-            console.log("失败")
+            console.log("失败",res)
           }
         })
       }
     },
-    fail:function(){
-      console.log("数据库加载失败")
+    fail:function(e){
+      console.log("数据库加载失败",e)
     }
   })
 }

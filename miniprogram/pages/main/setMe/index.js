@@ -1,11 +1,13 @@
 const  app = getApp()
 // miniprogram/pages/main/setMe/index.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
+    vocationMine:"",
+    introduceMine:"",
+    vocationDefault:"",
     photos: [],//生活照片
     headImage:"",
     imgbox: [],//选择图片
@@ -14,14 +16,13 @@ Page({
     array:['请选择','高中及以下','专科','本科'],
     region: ['山东省', '济南市', '市中心'],
     sex:['男','女'],
-    sexFlag:0,
+    sexFlag:2,
     customItem: '全部',
-    date: '1990-01',
+    date: '',
     height_array:[],
     height_num:10,
     weight_array:[],
     weight_num:10,
-
     basicInfo:["性别","年龄","身高","体重","民族","学历","婚姻情况","居住地","职业"],
     workPlace:["","","",""],
     singlePick:["身高","体重","民族","学历","婚姻状况","月薪","购房情况","购车情况","最低学历","最低月薪"],
@@ -34,18 +35,19 @@ Page({
      "俄罗斯族","鄂温克族","德昂族","保安族","裕固族","京族","塔塔尔族","独龙族","鄂伦春族","赫哲族","门巴族","珞巴族","基诺族"],//民族
      ["初中","高中","大专","本科","硕士","博士"],//学历
      ["未婚","离异","丧偶"],//婚姻状况
+
      ["1千以下","1~2千","2~3千","3~4千","4~8千","8千~1万","1~2万","2~5万","五万以上"],//月薪
-     ["已购房{有贷款}","已购房{无贷款}","有能力购房","无房","无房希望对方解决","无房希望双方解决","与父母同住","独自租房","与人合租","住亲朋家","住单位房"],//购房情况
+     ["已购房(有贷款)","已购房(无贷款)","有能力购房","无房","无房希望对方解决","无房希望双方解决","与父母同住","独自租房","与人合租","住亲朋家","住单位房"],//购房情况
      ["无车","已购车-经济型","已购车-中档型","已购车-豪华型","单位用车","需要时购置"],
      ["不限","初中","高中","大专","本科","硕士","博士"],//学历择偶
      ["不限","1千以下","1~2千","2~3千","3~4千","4~8千","8千~1万","1~2万","2~5万","五万以上"],//月薪择偶
     ],
-
+    vocationDefault:"",
     singlePickChangeFunction:["bindPickerChangeHeight"],
     singlePickFlag:[3,9,0,0,0,0,0,0,0,0],//单项选择器的标志
 
 
-    PlaceOther:['山东省', '济南市', '市中心'],
+    PlaceOther:[],//择偶条件 工作范围
     ageArrayOther:[[],[]],
     ageFlagOther: [0, 0],
 
@@ -54,7 +56,6 @@ Page({
     Array:[
       [{value:"1",name:'不限',checked:false},{value:"2",name:'离异',checked:false},
       {value:"3",name:'丧偶',checked:false},{value:"4",name:'未婚',checked:false}],
-
       [{value:"1",name:'不限',checked:false},
       {value:"2",name:'已购房-有贷款',checked:false},{value:"3",name:'已购房-无贷款',checked:false},
       {value:"4",name:'有能力购房',checked:false},{value:"5",name:'希望对方解决',checked:false},
@@ -97,6 +98,7 @@ Page({
   },
   bindinputMyself:function(e){
     console.log(e.detail)
+    this.data.introduceMine=e.detail.value
   },
   //年龄范围（前）
   bindMultiPickerChange(e) {
@@ -590,7 +592,8 @@ unButtonCar:function(e){
     var num=e.currentTarget.dataset.index
     var tmp=this.data.singlePickFlag
 
-    tmp[num]=e.detail.value
+    tmp[num]=Number(e.detail.value)
+    console.log("变化",tmp)
 
     this.setData({
       singlePickFlag:tmp
@@ -602,10 +605,21 @@ unButtonCar:function(e){
     })
   },
   bindKeyProfession:function(e){
-    console.log(e)
-    console.log("ID",e.target.dataset.index)
-
-    this.data.bindKeyProfession = e.detail.value;
+    console.log(e.detail.value)
+    console.log("ID",e.target.dataset.index)  
+    var flag=Number(e.target.dataset.index)
+    switch(flag){
+      case 1:
+        this.data.vocationMine = e.detail.value;
+        break;
+      case 2:
+        this.data.vocationMine = e.detail.value;
+        break;
+      case 3:
+        this.data.vocationMine = e.detail.value;
+        break;
+    }
+  
   },
   /**
    * 生命周期函数--监听页面加载
@@ -625,9 +639,8 @@ unButtonCar:function(e){
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(app)
+  //设置需要的数组
     var tmp=this.data.singlePickRange;
-
     var age=[[],[]]
     var height=[[],[]]
     for(var i=18;i<90;i++)
@@ -641,7 +654,7 @@ unButtonCar:function(e){
       height[1]=height[1].concat(i+1+"cm");
     }
 
-    for(var i=150;i<210;i++)
+    for(var i=140;i<210;i++)
     {
       tmp[0]= tmp[0].concat(i+"cm");
     }
@@ -654,6 +667,14 @@ unButtonCar:function(e){
       ageArrayOther:age,
       heightArrayOther:height
     })
+    //设置基本信息
+  //  this.readBasicInfo()
+    //设置择偶信息
+   // this.readOtherInfo()
+    //读取自我介绍
+  //  this.readIntroduceSelf()
+    //阅读相册
+    this.readImage()
   },
 
   /**
@@ -696,8 +717,46 @@ unButtonCar:function(e){
   },
   //保存按钮
   formSubmit:function(e){
-    console.log(e)
-    wx.showLoading({title: '保存中', mask: true});
+    var singlepick=this.data.singlePickFlag
+    var bathday=[0,0,0]
+    var ageOtherTmp=this.data.ageFlagOther
+    var heightOtherTmp=this.data.heightFlagOther
+    var typeInfoTmp=this.data.typeInfo
+    ageOtherTmp[0]=ageOtherTmp[0]+18
+    ageOtherTmp[1]=ageOtherTmp[1]+19
+    heightOtherTmp[0]=heightOtherTmp[0]+140
+    heightOtherTmp[1]=heightOtherTmp[1]+141
+
+    bathday[0]=Number(e.detail.value.age.slice(0,4))
+    bathday[1]=Number(e.detail.value.age.slice(5,7))
+    bathday[2]=Number(e.detail.value.age.slice(8,10))
+
+    //console.log(ageOtherTmp)//工作
+    //console.log(heightOtherTmp)//工作
+    //console.log(e.detail.value.age)//年龄
+    //console.log(bathday)//年龄
+    console.log(this.data.introduceMine)//工作地点
+    //console.log(this.data.vocationMine)//身高
+    //检查数据
+    if(this.checkData()==true){//数据合法
+      //基本信息和资产
+      /*  this.writeBasicInfo(Number(e.detail.value.sex),bathday,this.data.workPlace,singlepick[0],singlepick[1],singlepick[2],singlepick[3],singlepick[4],this.data.vocationMine,
+        singlepick[5],singlepick[6],singlepick[7],//资产情况
+      )*/
+      //择偶要求
+     /* this.writeOtherInfo(this.data.PlaceOther,ageOtherTmp,heightOtherTmp,
+      singlepick[8],singlepick[9],typeInfoTmp[0],typeInfoTmp[1],typeInfoTmp[2]
+      )*/
+      //自我介绍
+     /* this.writeIntroduceSelf(this.data.introduceMine)*/
+      //处理照片
+
+    }
+
+    //保存基本信息
+
+
+   /* wx.showLoading({title: '保存中', mask: true});
     app.globalData.headImage = this.data.photos[0]
     setTimeout(function () {
       wx.hideLoading()
@@ -706,7 +765,14 @@ unButtonCar:function(e){
         icon: 'success',
         duration: 2000
       })
-    }, 2000)
+    }, 2000)*/
+  },
+  checkData:function(){
+    console.log("检查数据合法性",this.data.vocationMine)
+    if(this.data.vocationMine=="")
+      return false
+    else
+      return true
   },
   citySelectData(e) {
     console.log("测试",e.detail.data);
@@ -717,4 +783,340 @@ unButtonCar:function(e){
     })
     this.hideModal()
   },
+//阅读基本信息
+  readBasicInfo:function(){
+    var that=this
+    const db = wx.cloud.database()
+    db.collection('userInfo').where({
+      _openid: '{openid}'
+    }).get({
+      success:function(res){
+        console.log(res.data.length)
+        if(res.data.length==0){
+          console.log("数据丢失，请重新输入您的信息")
+         /* db.collection('userInfo').add({
+            // data 字段表示需新增的 JSON 数据
+            data: {
+              grande:0,
+              bathday:[2000,1,1],
+              car:0,
+              education:0,
+              grande:0,
+              height:160,
+              house:0,
+              inCome:0,
+              marryStatus:0,
+              marryTime:0,
+            
+            }
+          })*/
+        }
+        else{//已经存在
+          var tmp=that.data.singlePickFlag
+          tmp[0]=res.data[0].height-150
+          //tmp[1]=res.data[0].height-150  //体重
+           //tmp[2]=res.data[0].height-150  //民族
+           tmp[3]=res.data[0].education   //学历
+           tmp[4]=res.data[0].marryStatus //婚况
+           tmp[5]=res.data[0].inCome //月薪
+           tmp[6]=res.data[0].house //购房
+           tmp[7]=res.data[0].car //购车
+          console.log(res.data[0].height)
+          that.setData({
+            sexFlag:res.data[0].grande,
+            date:res.data[0].bathday[0]+'-'+res.data[0].bathday[1]+'-'+res.data[0].bathday[2],
+            workPlace:res.data[0].workPlace,
+            singlePickFlag:tmp,
+            vocationMine:res.data[0].vocation
+          })
+        }
+      },
+      fail:function(e){
+        console.log("数据库加载失败",e)
+      }
+    })
+  },
+  //阅读择偶信息
+  readOtherInfo:function(){
+    var that=this
+    const db = wx.cloud.database()
+    db.collection('userOther').where({
+      _openid: '{openid}'
+    }).get({
+      success:function(res){
+        console.log(res.data.length)
+        if(res.data.length==0){
+          console.log("数据丢失，请重新输入您的信息")
+        }
+        else{//已经存在
+          var singleFlagTmp=that.data.singlePickFlag
+          var ageTmp=[0,0]
+          var heightTmp=[0,0]
+          var typeInfoTmp=that.data.typeInfo
+          ageTmp[0]=res.data[0].age[0]-18
+          ageTmp[1]=res.data[0].age[1]-19
+          heightTmp[0]=res.data[0].height[0]-140
+          heightTmp[1]=res.data[0].height[1]-141
+          singleFlagTmp[8]=res.data[0].ed //最低学历
+          singleFlagTmp[9]=res.data[0].inCome //最低收入
+          typeInfoTmp[0]=res.data[0].marry //婚况
+          typeInfoTmp[1]=res.data[0].house //房子
+          typeInfoTmp[2]=res.data[0].car //车子
+          console.log(res.data[0].age[0])
+          that.setData({
+            PlaceOther:res.data[0].workPlace,
+            ageFlagOther:ageTmp,
+            heightFlagOther:heightTmp,
+            singlePickFlag:singleFlagTmp,
+            typeInfo:typeInfoTmp
+          })
+        }
+      },
+      fail:function(e){
+        console.log("数据库加载失败",e)
+      }
+    })
+  },
+  //阅读自我介绍
+  readIntroduceSelf:function(){
+  var that=this
+    const db = wx.cloud.database()
+    db.collection('userIntroduce').where({
+      _openid: '{openid}'
+    }).get({
+      success:function(res){
+        console.log("自我介绍",res.data.length)
+        if(res.data.length==0){
+          db.collection('userIntroduce').add({
+            // data 字段表示需新增的 JSON 数据
+            data: {
+              Introduce:'',
+            }
+          })
+        }
+        else{//已经存在 
+          app.globalData.openid = res.data[0]._openid
+          that.setData({
+            introduceMine:res.data[0].Introduce
+          })
+        }
+      },
+      fail:function(e){
+        console.log("数据库加载失败",e)
+      }
+    })
+  },
+  //阅读相册(未完成 有Bug)
+  readImage:function(){
+    var that=this
+    const db = wx.cloud.database()
+    db.collection('userPhotos').where({
+      _openid: '{openid}'
+    }).get({
+      success:function(res){
+        console.log("自我介绍",res.data.length)
+        var fileTmp=[]
+        if(res.data.length==0){
+          console.log("当前照片为空，请至少上传一张照片")
+        }
+        else{//已经存在 
+        
+          console.log("照片",res.data[0].fileID[0])
+          let Tmp=res.data[0].fileID
+          for(var i=0;i<res.data.length;i++)
+          {
+            //下载图片
+            wx.cloud.downloadFile({
+              fileID: "cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[i],
+              success: res => {
+                console.log("Tmp",i)
+                // get temp file path
+                console.log("res",res.tempFilePath)
+                this.fileTmp=this.fileTmp.concat(res.tempFilePath)
+             
+              },
+              fail: err => {
+                // handle error
+              }
+            })
+
+       
+
+          }
+          console.log(";i",fileTmp)
+          console.log("照片",fileTmp)
+        }
+      },
+      fail:function(e){
+        console.log("数据库加载失败",e)
+      }
+    })
+
+
+    var tmp=["https://6365-ceshi-fdybb-1302833646.tcb.qcloud.la/ouFO65Ypkw2b-YDuoJ7tl3sKXV_g1601263978000_0.png?sign=d619564ac90f6c3ce5dd7b4220967882&t=1601276745"]
+ 
+  },
+  //保存基本信息和资产情况
+  writeBasicInfo:function(sex,age,workPlace,height,weight,Nation,educational,marryStatus,vocation,
+                          inCome,house,car){
+    console.log("函数")
+    const db = wx.cloud.database()
+    db.collection('userInfo').where({
+      _openid: '{openid}'
+    }).get({
+      success:function(res){
+  
+        console.log(res.data.length)
+        if(res.data.length==0){
+          console.log("函数1")
+          db.collection('userInfo').add({
+            // data 字段表示需新增的 JSON 数据
+            data: {
+              grande:sex,
+              bathday:age,
+              workPlace:workPlace,
+              height:height+140,
+              //体重
+              //民族
+              ed:educational,
+              marryStatus:marryStatus,
+              vocation:vocation,
+              inCome:inCome,
+              house:house,
+              car:car,
+            }
+          })
+        }
+        else{//已经存在
+          console.log("进入",res.data[0]._id)
+          app.globalData.openid = res.data[0]._openid
+          db.collection('userInfo').doc(res.data[0]._id).update({
+            data: {
+              grande:sex,
+              bathday:age,
+              workPlace:workPlace,
+              height:height+140,
+              //体重
+              //民族
+              ed:educational,
+              marryStatus:marryStatus,
+              vocation:vocation,
+              inCome:inCome,
+              house:house,
+              car:car,
+
+            },
+            success: function(res) {
+              console.log("成功",res)
+            },
+            fail: function(res) {
+              console.log("失败",res)
+            }
+          })
+        }
+      },
+      fail:function(e){
+        console.log("数据库加载失败",e)
+      }
+    })
+  },
+  //保存择偶条件
+  writeOtherInfo:function(
+    workPlace,age,height,educational,inCome,marry,house,car
+  ){
+  console.log("函数")
+  const db = wx.cloud.database()
+  db.collection('userOther').where({
+    _openid: '{openid}'
+  }).get({
+    success:function(res){
+
+      console.log(res.data.length)
+      if(res.data.length==0){
+        console.log("函数1")
+        db.collection('userOther').add({
+          // data 字段表示需新增的 JSON 数据
+          data: {
+            workPlace:workPlace,
+            age:age,
+            height:height,
+            ed:educational,
+            inCome:inCome,
+            marry:marry,
+            house:house,
+            car:car,
+          }
+        })
+      }
+      else{//已经存在
+        console.log("进入",res.data[0]._id)
+        app.globalData.openid = res.data[0]._openid
+        db.collection('userOther').doc(res.data[0]._id).update({
+          data: {
+            workPlace:workPlace,
+            age:age,
+            height:height,
+            ed:educational,
+            inCome:inCome,
+            marry:marry,
+            house:house,
+            car:car,
+          },
+          success: function(res) {
+            console.log("成功",res)
+          },
+          fail: function(res) {
+            console.log("失败",res)
+          }
+        })
+      }
+    },
+    fail:function(e){
+      console.log("数据库加载失败",e)
+    }
+  })
+  },
+   //保存自我介绍
+   writeIntroduceSelf:function(
+   text
+  ){
+  console.log("函数")
+  const db = wx.cloud.database()
+  db.collection('userIntroduce').where({
+    _openid: '{openid}'
+  }).get({
+    success:function(res){
+
+      console.log(res.data.length)
+      if(res.data.length==0){
+        console.log("函数1")
+        db.collection('userIntroduce').add({
+          // data 字段表示需新增的 JSON 数据
+          data: {
+            Introduce:text
+          }
+        })
+      }
+      else{//已经存在
+        console.log("进入",res.data[0]._id)
+        app.globalData.openid = res.data[0]._openid
+        db.collection('userIntroduce').doc(res.data[0]._id).update({
+          data: {
+            Introduce:text
+          },
+          success: function(res) {
+            console.log("成功",res)
+          },
+          fail: function(res) {
+            console.log("失败",res)
+          }
+        })
+      }
+    },
+    fail:function(e){
+      console.log("数据库加载失败",e)
+    }
+  })
+  },
+
 })

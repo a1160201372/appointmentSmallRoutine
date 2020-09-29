@@ -20,17 +20,53 @@ Page({
     }
 
   },
-  flag1:function(){//女性
-    console.log('123');
-    var onOff = this.data.onOff;
-    this.setData({text:"hello",onOff:!onOff});
-    wx.redirectTo({//跳转
+  flag1:function(e){//下一步
+ 
+    console.log(this.data.option[e.target.dataset.index])
+    this.upDataGande(e.target.dataset.index)
+
+  /*  wx.redirectTo({//跳转
       url: '../heightAndWeight/index'
-    })
+    })*/
 },
-back:function(){//下一步
+back:function(){//上一步
   wx.redirectTo({//跳转
     url: '../workPlace/index'
   })
 },
+upDataGande:function(flag){
+  const db = wx.cloud.database()
+  db.collection('userInfo').where({
+    _openid: '{openid}'
+  }).get({
+    success:function(res){
+
+      console.log(res.data.length)
+      if(res.data.length==0){
+     
+        console.log("失败")
+      }
+      else{//已经存在
+        console.log("进入")
+        db.collection('userInfo').doc(res.data[0]._id).update({
+          data:{
+            education:flag
+          },
+          success: function(res) {
+            console.log("成功",res)
+             wx.redirectTo({//跳转
+              url: '../heightAndWeight/index'
+            })
+          },
+          fail: function(res) {
+            console.log("失败")
+          }
+        })
+      }
+    },
+    fail:function(){
+      console.log("数据库加载失败")
+    }
+  })
+}
 })

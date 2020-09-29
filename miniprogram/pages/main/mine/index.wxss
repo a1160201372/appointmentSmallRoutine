@@ -21,6 +21,7 @@ page {
 
 .user-avatar {
   margin-left: 15rpx;
+ 
   z-index: 0;
 position:fixed;
   width: 140rpx;
@@ -89,7 +90,7 @@ position:fixed;
  
   align-items: center;
   justify-content: center;
-  
+
 }.text_num{
   margin-left: 15rpx;
   width: 140rpx;

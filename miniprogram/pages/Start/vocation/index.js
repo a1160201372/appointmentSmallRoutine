@@ -37,6 +37,7 @@ Page({
     });
   },
   flag1:function(e){
+    var that=this
     var id = e.currentTarget.dataset.id;
     var  tmp="选择的职业为："+id
     if(id=="其他"){
@@ -46,6 +47,7 @@ Page({
     }
     
     else{
+  
     wx.showModal({
       title: '是否保存',
       content: tmp,
@@ -54,10 +56,10 @@ Page({
         if (res.confirm) {//保存
         
           console.log("点击",id);
-
-          wx.redirectTo({//跳转
+          that.upDataGande(id)
+       /*   wx.redirectTo({//跳转
             url: '../income/index'
-          })
+          })*/
 
         } else if (res.cancel) {
           console.log('用户点击取消')
@@ -73,4 +75,39 @@ Page({
       url: '../heightAndWeight/index'
     })
   },
+  upDataGande:function(flag){
+    const db = wx.cloud.database()
+    db.collection('userInfo').where({
+      _openid: '{openid}'
+    }).get({
+      success:function(res){
+  
+        console.log(res.data.length)
+        if(res.data.length==0){
+       
+          console.log("失败")
+        }
+        else{//已经存在
+          console.log("进入")
+          db.collection('userInfo').doc(res.data[0]._id).update({
+            data:{
+              vocation:flag
+            },
+            success: function(res) {
+              console.log("成功",res)
+               wx.redirectTo({//跳转
+                url: '../income/index'
+              })
+            },
+            fail: function(res) {
+              console.log("失败")
+            }
+          })
+        }
+      },
+      fail:function(){
+        console.log("数据库加载失败")
+      }
+    })
+  }
 })

@@ -18,7 +18,7 @@
     </view>
   </picker>
 <view class="divLine"></view>  <!-- 分割线 -->
-<picker  name="age" mode="date" value="{{date}}" start="1950-09-01" end="2020-12-1" bindchange="bindPickChangeBirthday" fields = "month">
+<picker  name="age" mode="date" value="{{date}}" start="1950-09-01" end="2020-12-01" bindchange="bindPickChangeBirthday" fields = "day">
   <view class="pick">
 <view class='pickLiftMust-view'>
     <text class='text'>{{basicInfo[1]}}</text>
@@ -62,8 +62,9 @@
 </view>
 </view>
 
+
 <view class="main1">
-  <view class='basicInfo-text'><text>联系方式</text></view>
+  <view class='basicInfo-text'><text>联系方式(暂时不可用)</text></view>
   <view class="divLine"></view>  <!-- 分割线 -->
 <view class='pick'>
 <view class='pickLiftMust-view'>
@@ -85,6 +86,7 @@
   <view class="divLine"></view>  <!-- 分割线 -->
 
 </view>
+ 
 
 <view class="main1">
   <view class='basicInfo-text'><text>资产情况</text></view>
@@ -190,7 +192,7 @@
 <view class="main1">
   <view class='basicInfo-text'><text>自我介绍</text></view>
   <view>
-  <textarea class="inputText1" style="width:300px; height:100px;border:solid 1px #858585;" bindinput="bindinputMyself" placeholder="请再次填写自我介绍"></textarea>
+  <textarea class="inputText1" style="width:300px; height:100px;border:solid 1px #858585;" bindinput="bindinputMyself" value="{{introduceMine}}" placeholder="请填写自我介绍"></textarea>
 </view>
 
 <text>\n</text>

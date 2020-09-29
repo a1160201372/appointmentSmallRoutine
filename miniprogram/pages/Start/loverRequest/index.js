@@ -1,3 +1,4 @@
+const app = getApp()
 Page({
   data: {
     title:"设置您的择偶要求",
@@ -17,8 +18,7 @@ Page({
             ],
 
     typeTile:["婚况","房子","车子"],//前面名字
-    typeInfo:[["未填写"],["未填写"],["未填写"],
-    ],//后面的数组名字
+    typeInfo:["不限","不限","不限"],//后面的数组名字
     checkTile:["婚况(随时保存)","房子（随时保存）","车子（随时保存）"],//前面名字
 
     Array:[
@@ -506,10 +506,98 @@ Page({
     })
   },
   next:function(){
-    wx.redirectTo({//跳转
-      url: '../upImg/index'
+
+    var age=[0,0];
+    var height=[0,0];
+    
+    age[0]= this.data.salaryIndex[0]+18
+    age[1]= this.data.salaryIndex[1]+19
+    //heightIndex
+    height[0]=this.data.heightIndex[0]+140
+    height[1]=this.data.heightIndex[1]+141
+//需要保存的数据
+    console.log(this.data.region)//工作地点 
+    console.log(age)//年龄范围
+    console.log(height)//身高范围
+    console.log(this.data.educationIndex)//最低学历
+    console.log(this.data.incomeIndex)//最低月薪*/
+    console.log(this.data.typeInfo[0])//婚况
+    console.log(this.data.typeInfo[1])//房子
+    console.log(this.data.typeInfo[2])//车子
+
+    this.upDataGande(
+      this.data.region,age,height,this.data.educationIndex,
+      this.data.incomeIndex,this.data.typeInfo[0],
+      this.data.typeInfo[1],this.data.typeInfo[2]
+    )
+
+
+  
+  },
+
+  upDataGande:function(work,age,height,ed,inCome,marry,house,car){
+    const db = wx.cloud.database()
+    db.collection('userOther').where({
+      _openid: '{openid}'
+    }).get({
+      success:function(res){
+        //app.globalData.openid = res.data[0]._openid
+       // console.log("OPENID",res.data[0]._openid)
+        if(res.data.length==0){
+       
+          db.collection('userOther').add({
+            // data 字段表示需新增的 JSON 数据
+            data:{
+              //work,age,height,ed,inCome,marry,house,car
+              workPlace:work,
+              age:age,
+              height:height,
+              ed:ed,
+              inCome:inCome,
+              marry:marry,
+              house:house,
+              car:car
+            },
+            success: function(res) {
+              console.log("成功",res)
+               wx.redirectTo({//跳转
+                url: '../upImg/index'
+              })
+            },
+            fail: function(res) {
+              console.log("失败")
+            }
+          })
+        }
+        else{//已经存在
+          console.log("进入")
+          db.collection('userOther').doc(res.data[0]._id).update({
+            data:{
+              //work,age,height,ed,inCome,marry,house,car
+              workPlace:work,
+              age:age,
+              height:height,
+              ed:ed,
+              inCome:inCome,
+              marry:marry,
+              house:house,
+              car:car
+            },
+            success: function(res) {
+              console.log("成功",res)
+               wx.redirectTo({//跳转
+                url: '../upImg/index'
+              })
+            },
+            fail: function(res) {
+              console.log("失败")
+            }
+          })
+        }
+      },
+      fail:function(){
+        console.log("数据库加载失败")
+      }
     })
   }
-  
-
 })
