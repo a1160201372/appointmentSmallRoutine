@@ -211,10 +211,11 @@
           
                 <view class="weui-uploader__bd">
                   <view class="weui-uploader__files">
-                    <block wx:for="{{photos}}" wx:for-item="image">
+                    <block wx:for="{{photos}}" wx:for-item="image" wx:for-index="PhIndex">
                       <view class="weui-uploader__file">
                         <image bindtouchstart="handleTouchStart"  bindtouchend="handleTouchEnd"  class="weui-uploader__img" 
-                        src="{{image}}" data-src="{{image}}" bindlongtap="deleteImage" bindtap="previewImage"></image>
+                        src="{{image}}" data-src="{{image}}" bindlongtap="deleteImage" 
+                        data-index="{{PhIndex}}" bindtap="previewImage"></image>
                       </view>
                     </block>
                   </view>

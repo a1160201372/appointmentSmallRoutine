@@ -162,13 +162,18 @@ Page({
   },
   //长按删除图片
   deleteImage:function(e){
-console.log("长按")
+console.log("长按",e.currentTarget.dataset.index)
+var that=this
+var photo=this.data.photos
 wx.showModal({
-  title: '是否删除图片？',
-  content: "注意图片删除后无法恢复",
+  title: '提示',
+  content: "是否删除图片？",
   success (res) {
     if (res.confirm) {
-      console.log('用户点击确定')
+      photo.splice(e.currentTarget.dataset.index,1)
+      that.setData({
+        photos:photo
+      })
       //删除图片
     } else if (res.cancel) {
       console.log('用户点击取消')
@@ -625,21 +630,7 @@ unButtonCar:function(e){
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  //设置需要的数组
+    //设置需要的数组
     var tmp=this.data.singlePickRange;
     var age=[[],[]]
     var height=[[],[]]
@@ -668,13 +659,28 @@ unButtonCar:function(e){
       heightArrayOther:height
     })
     //设置基本信息
-  //  this.readBasicInfo()
+  // this.readBasicInfo()
     //设置择偶信息
-   // this.readOtherInfo()
+  //  this.readOtherInfo()
     //读取自我介绍
-  //  this.readIntroduceSelf()
+    this.readIntroduceSelf()
     //阅读相册
     this.readImage()
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+  
   },
 
   /**
@@ -735,10 +741,10 @@ unButtonCar:function(e){
     //console.log(heightOtherTmp)//工作
     //console.log(e.detail.value.age)//年龄
     //console.log(bathday)//年龄
-    console.log(this.data.introduceMine)//工作地点
+    //console.log(this.data.introduceMine)//工作地点
     //console.log(this.data.vocationMine)//身高
     //检查数据
-    if(this.checkData()==true){//数据合法
+    if(this.checkData()==false){//数据合法
       //基本信息和资产
       /*  this.writeBasicInfo(Number(e.detail.value.sex),bathday,this.data.workPlace,singlepick[0],singlepick[1],singlepick[2],singlepick[3],singlepick[4],this.data.vocationMine,
         singlepick[5],singlepick[6],singlepick[7],//资产情况
@@ -749,8 +755,8 @@ unButtonCar:function(e){
       )*/
       //自我介绍
      /* this.writeIntroduceSelf(this.data.introduceMine)*/
-      //处理照片
-
+      //保存照片
+      this.writeImage()
     }
 
     //保存基本信息
@@ -768,7 +774,6 @@ unButtonCar:function(e){
     }, 2000)*/
   },
   checkData:function(){
-    console.log("检查数据合法性",this.data.vocationMine)
     if(this.data.vocationMine=="")
       return false
     else
@@ -906,7 +911,7 @@ unButtonCar:function(e){
       }
     })
   },
-  //阅读相册(未完成 有Bug)
+  //阅读相册
   readImage:function(){
     var that=this
     const db = wx.cloud.database()
@@ -914,47 +919,29 @@ unButtonCar:function(e){
       _openid: '{openid}'
     }).get({
       success:function(res){
-        console.log("自我介绍",res.data.length)
+        console.log("自我介绍",res.data[0].fileID.length)
         var fileTmp=[]
-        if(res.data.length==0){
+        if(res.data[0].fileID.length==0){
           console.log("当前照片为空，请至少上传一张照片")
         }
         else{//已经存在 
-        
-          console.log("照片",res.data[0].fileID[0])
-          let Tmp=res.data[0].fileID
-          for(var i=0;i<res.data.length;i++)
-          {
-            //下载图片
-            wx.cloud.downloadFile({
-              fileID: "cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[i],
-              success: res => {
-                console.log("Tmp",i)
-                // get temp file path
-                console.log("res",res.tempFilePath)
-                this.fileTmp=this.fileTmp.concat(res.tempFilePath)
-             
-              },
-              fail: err => {
-                // handle error
-              }
-            })
-
-       
-
-          }
-          console.log(";i",fileTmp)
+        var fileTmp=[]
+        for(var i=0;i<res.data[0].fileID.length;i++){
+          console.log("i",i)
+          console.log("res.data.",res.data[0].fileID[i])
+            fileTmp=fileTmp.concat("cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[i])
+            console.log("照片11",fileTmp)
+        }
           console.log("照片",fileTmp)
+          that.setData({
+            photos:fileTmp
+          })
         }
       },
       fail:function(e){
         console.log("数据库加载失败",e)
       }
     })
-
-
-    var tmp=["https://6365-ceshi-fdybb-1302833646.tcb.qcloud.la/ouFO65Ypkw2b-YDuoJ7tl3sKXV_g1601263978000_0.png?sign=d619564ac90f6c3ce5dd7b4220967882&t=1601276745"]
- 
   },
   //保存基本信息和资产情况
   writeBasicInfo:function(sex,age,workPlace,height,weight,Nation,educational,marryStatus,vocation,
@@ -1117,6 +1104,103 @@ unButtonCar:function(e){
       console.log("数据库加载失败",e)
     }
   })
+  },
+  //保存相册
+  writeImage:function(){
+    var userPhotos=this.data.photos;
+  
+    if(userPhotos.length==0){
+      console.log("请上传图片")
+    }else{
+      for(var i=0;i<userPhotos.length;i++){
+        if(userPhotos[i][0]=="c"){//数据库中存在
+         console.log("文件前缀",i+"不操作")
+         userPhotos[i]= userPhotos[i].slice(48,100)
+        }
+        else if(userPhotos[i][0]=="h"){//数据库中不存在
+          console.log("文件前缀",i+"上传图片")
+          //生成文件名
+          var tmp
+          var Suffix
+          console.log(Math.floor(Math.random()*10000000))
+          console.log(app.globalData.openid)
+          tmp=app.globalData.openid+Date.parse(new Date())+Math.floor(Math.random()*10000000)+".png"
+          console.log(tmp)
+          this.doUpImg(userPhotos[i],tmp)
+          userPhotos[i]=tmp
+        }
+      }
+    }
+    console.log("数据库需要数据",userPhotos)
+    //存入数据库
+    this.writeImgDB(userPhotos)
+  },
+  //图片信息保存到数据库
+  writeImgDB:function(
+    text
+   ){
+   console.log("函数")
+   const db = wx.cloud.database()
+   db.collection('userPhotos').where({
+     _openid: '{openid}'
+   }).get({
+     success:function(res){
+ 
+       console.log(res.data.length)
+       if(res.data.length==0){
+         console.log("函数1")
+         db.collection('userPhotos').add({
+           // data 字段表示需新增的 JSON 数据
+           data: {
+            fileID:text
+           }
+         })
+       }
+       else{//已经存在
+         console.log("进入",res.data[0]._id)
+         app.globalData.openid = res.data[0]._openid
+         db.collection('userPhotos').doc(res.data[0]._id).update({
+           data: {
+             fileID:text
+           },
+           success: function(res) {
+             console.log("成功",res)
+           },
+           fail: function(res) {
+             console.log("失败",res)
+           }
+         })
+       }
+     },
+     fail:function(e){
+       console.log("数据库加载失败",e)
+     }
+   })
+   },
+  doUpImg:function(FilePath,name){
+    var that=this
+    wx.cloud.uploadFile({
+      cloudPath: name,
+      filePath: FilePath, // 文件路径
+    }).then(res => {
+      wx.hideLoading()
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+        duration: 2000
+      })
+      //get resource ID
+      console.log(res.fileID)
+    }).catch(error => {
+      // handle error
+      wx.hideLoading()
+
+      wx.showToast({
+        title: '保存失败',
+        icon: 'loading',
+        duration: 2000
+      })
+    })
   },
 
 })
