@@ -3,18 +3,13 @@ page {
   background-image: url(https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1320491610,1751286583&fm=26&gp=0.jpg);
 }
 .view-background {
- 
-
-  
   height: auto;
   width:auto;
-
 }
 .head-background {
   top: 500rpx;
   left: 500rpx;
-  height: 300rpx;
-  
+  height: 150px;
   border-radius: 40rpx;
   background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600937008483&di=5e1b3955e3b522a0b221616ee4dfda6c&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fd000baa1cd11728bb8fb7eb7c8fcc3cec2fd2c55.jpg);
 }
@@ -100,9 +95,9 @@ position:fixed;
   line-height: 70px;
   
 
-  background-color: rgb(187, 186, 186);
+  background-color: rgb(228, 227, 227);
   opacity: 0.5;
-  font-size: 20px;
+  font-size: 17px;
   color: rgb(0, 0, 0);
   z-index: 100;
   position: fixed;
@@ -151,8 +146,8 @@ position:fixed;
 .modily-text{
   /**display: flex;*/
   width: 100%;
-  margin-top: 60px;
+  margin-top: 55px;
 
-  margin-left: 520rpx;
+  margin-left: 480rpx;
 }
 

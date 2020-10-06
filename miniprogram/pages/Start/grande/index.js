@@ -2,6 +2,7 @@ const app = getApp()
 Page({
   data: {
     timer:'',//定义定时器形参，为空字符在这里插入代码片
+    percent:0//进度条
   },
   //直接显示
   onShow: function () {
@@ -35,27 +36,25 @@ Page({
     },
   man:function(){//男性
       console.log('男性');
-      var onOff = this.data.onOff;
-     
+      wx.showLoading({
+        title: '保存中',
+      })
       app.globalData.globalGrande=1
       this.upDataGande(0)
-      wx.redirectTo({//跳转
-        url: '../birthday/index'
-      })
+   
   },
   woman:function(){//女性
     console.log('女性');
-    var onOff = this.data.onOff;
- 
+    wx.showLoading({
+      title: '保存中',
+    })
     app.globalData.globalGrande=2
     this.upDataGande(1)
-    wx.redirectTo({//跳转
-      url: '../birthday/index'
-    })
 },
 
 upDataGande:function(sex){
   console.log("函数")
+  var that=this
   const db = wx.cloud.database()
   db.collection('userInfo').where({
     _openid: '{openid}'
@@ -69,6 +68,21 @@ upDataGande:function(sex){
           // data 字段表示需新增的 JSON 数据
           data: {
             grande:sex,
+          },
+          success: function(res) {
+            console.log("成功",res)
+              //
+              wx.redirectTo({//跳转
+                 url: '../birthday/index'
+                })
+          },
+          fail: function(res) {
+            console.log("失败",res)
+            wx.hideLoading()
+            wx.showToast({
+              icon:none,
+              title: '创建数据失败,请稍后重新注册',
+            })
           }
         })
       }
@@ -81,16 +95,34 @@ upDataGande:function(sex){
           },
           success: function(res) {
             console.log("成功",res)
+            wx.hideLoading()
+            wx.redirectTo({//跳转
+              url: '../birthday/index'
+            })
           },
           fail: function(res) {
             console.log("失败",res)
+            wx.hideLoading()
+            wx.showToast({
+              icon:none,
+              title: '数据修改失败,请稍后重新注册',
+            })
           }
         })
       }
     },
     fail:function(e){
       console.log("数据库加载失败",e)
+      wx.hideLoading()
+      wx.showToast({
+        icon:none,
+        title: '数据库加载失败,请稍后重新注册',
+      })
     }
   })
+},
+activeend:function(){
+  console.log("动画结束")
+
 }
 })

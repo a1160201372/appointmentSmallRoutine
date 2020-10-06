@@ -524,7 +524,9 @@ Page({
     console.log(this.data.typeInfo[0])//婚况
     console.log(this.data.typeInfo[1])//房子
     console.log(this.data.typeInfo[2])//车子
-
+    wx.showLoading({
+      title: '保存中',
+    })
     this.upDataGande(
       this.data.region,age,height,this.data.educationIndex,
       this.data.incomeIndex,this.data.typeInfo[0],
@@ -565,6 +567,11 @@ Page({
               })
             },
             fail: function(res) {
+              wx.hideLoading()
+              wx.showToast({
+                icon:none,
+                title: '创建数据库失败,请稍后重试',
+              })
               console.log("失败")
             }
           })
@@ -591,12 +598,22 @@ Page({
             },
             fail: function(res) {
               console.log("失败")
+              wx.hideLoading()
+              wx.showToast({
+                icon:none,
+                title: '保存数据失败,请稍后重试',
+              })
             }
           })
         }
       },
       fail:function(){
         console.log("数据库加载失败")
+        wx.hideLoading()
+        wx.showToast({
+          icon:none,
+          title: '数据库加载失败,请稍后重试',
+        })
       }
     })
   }

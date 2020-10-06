@@ -6,13 +6,14 @@ Page({
    */
   data: {
     urlImage:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600925623275&di=60db5f6f6b0d18ba0f3cfa416dd51e9e&imgtype=0&src=http%3A%2F%2Fbpic.588ku.com%2Fback_pic%2F03%2F57%2F11%2F9857a013261b7b6.jpg",//头像
-    loveMeNum:4,//我喜欢的人数
-    loveOtherNum:44,//喜欢我的用户
+    loveMeNum:0,//我喜欢的人数
+    loveOtherNum:0,//喜欢我的用户
     nickName:"空白",
     examineStatus:2,
     myAccount: ["微信号", "手机号", "意见反馈"],
     set:["手机认证","实名认证"],
     pickFunction:["meFunction"],
+    userid:0
   },
   //修改个人资料
   modilyFunction:function(){
@@ -130,6 +131,16 @@ Page({
       }
     })
   },
+  seeMe:function(){
+    console.log("看我")
+    //读取ID号
+    wx.showLoading({
+      title: '加载中...',
+    })
+    this.readuserID("userID")
+    
+   
+  },
   readExamineStatus:function(Database){
     var that=this
      const db = wx.cloud.database()
@@ -148,6 +159,30 @@ Page({
          console.log("数据库加载失败",e)
        }
      })
-   }
+   },
+   readuserID:function(Database){
+    var that=this
+     const db = wx.cloud.database()
+  
+     db.collection(Database).where({
+       _openid: '{openid}'
+     }).get({
+       success:function(res){
+
+       wx.hideLoading({
+
+       })
+        wx.navigateTo({
+          url: '../blindCard/index?id='+res.data[0].ID
+        });
+       
+         console.log("数据库里的数据",res.data[0].ID)
+       },
+       fail:function(e){
+         console.log("数据库加载失败",e)
+       }
+     })
+   },
+
 
 })

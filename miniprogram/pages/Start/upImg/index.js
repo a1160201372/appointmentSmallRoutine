@@ -139,15 +139,16 @@ Page({
     })
   },
   upDataID:function(){
-
+var that=this
     const db = wx.cloud.database()
-    db.collection('userInfo').where({
+    const _ = db.command;  
+    db.collection('userID').where({
 
     }).get({
       success:function(res){
         var tmp=res.data.length+1000
-        console.log("tmp",tmp)
-          db.collection('userID').add({
+        console.log("openID测试",res.data[0]._openid)
+        db.collection('userID').add({
             // data 字段表示需新增的 JSON 数据
             data: {
               ID:tmp,
@@ -156,17 +157,93 @@ Page({
             },
             success:function(res)
             {
-              console.log(res)
+              console.log("好的1",res)
             },
             fail:function(e){
-              console("失败",e)
+              console.log("失败",res)
+              wx.hideLoading()
+              wx.showToast({
+                icon:none,
+                title: '保存失败,请稍后重试',
+              })
             }
           })
-      
+
+          that.upDataIDNum("userInfo",tmp)
+          that.upDataIDNum("userIntroduce",tmp)
+          that.upDataIDNum("userOther",tmp)
+          that.upDataIDNum("userPhotos",tmp)
+         
 
       },
       fail:function(){
         console.log("数据库加载失败")
+        wx.hideLoading()
+        wx.showToast({
+          icon:none,
+          title: '数据库加载失败,请稍后重试',
+        })
+      }
+    })
+  },
+  upDataIDNum:function(table,ID){
+
+    var that=this
+    const db = wx.cloud.database()
+    db.collection(table).where({
+      _openid: '{openid}'
+    }).get({
+      success:function(res){
+
+        if(res.data.length==0){
+          db.collection(table).add({
+            // data 字段表示需新增的 JSON 数据
+            data: {
+              ID:ID,
+            },
+            success: function(res) {
+              console.log("成功",res)
+                //
+            },
+            fail: function(res) {
+              console.error("失败",res)
+              wx.hideLoading()
+              wx.showToast({
+                icon:none,
+                title: '保存失败,请稍后重试',
+              })
+            }
+          })
+          console.error("错误")
+        }
+        else{//已经存在
+          console.log("进入222",res.data[0]._id)
+          console.log("进入2dsdsd22",ID)
+          db.collection(table).doc(res.data[0]._id).update({
+            data: {
+              ID:ID,
+            },
+            success: function(res) {
+              console.log("成功上传",res)
+            },
+            fail: function(res) {
+              console.error("失败")
+              wx.hideLoading()
+              wx.showToast({
+                icon:none,
+                title: '保存失败,请稍后重试',
+              })
+            }
+          })
+        }
+      },
+      fail:function(){
+        console.error("数据库加载失败")
+        wx.hideLoading()
+        wx.showToast({
+          icon:none,
+          title: '数据库加载失败,请稍后重试',
+        })
       }
     })
   }

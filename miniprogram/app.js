@@ -33,15 +33,15 @@ App({
         if(res.data.length==0){
        
           console.log("未注册完成")
-       /*    wx.redirectTo({//跳转
+          wx.redirectTo({//跳转
               url: '../grande/index'
-          })*/
+          })
         }
         else{//已经存在
           console.log("已经注册完成")
-        /* wx.switchTab({
+        wx.switchTab({
             url: '../../main/mine/index'
-          })*/
+          })
         }
       },
       fail:function(){

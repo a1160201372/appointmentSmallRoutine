@@ -69,9 +69,10 @@ Page({
       if(this.checkDate()==true){//合法
         //上传数据库
         this.upDataGande()
-          wx.redirectTo({//跳转
-            url: '../maritalStatus/index'
-          })
+        wx.showLoading({
+          title: '保存中',
+        })
+      
       }else{
         wx.showToast({
           title: '您输入的日期不正确',
@@ -140,6 +141,11 @@ Page({
           console.log(res.data.length)
           if(res.data.length==0){
             console.log("数据库异常请重新注册")
+            wx.hideLoading()
+            wx.showToast({
+              icon:none,
+              title: '数据库异常请重新注册,或截图反馈',
+            })
           }
           else{//已经存在
             console.log("进入",res.data[0]._id)
@@ -149,15 +155,29 @@ Page({
               },
               success: function(res) {
                 console.log("成功",res)   
+                wx.hideLoading()
+                wx.redirectTo({//跳转
+                  url: '../nation/index'
+                })
               },
               fail: function() {
                 console.log("失败")
+                wx.hideLoading()
+                wx.showToast({
+                  icon:none,
+                  title: '数据保存失败，请稍后重试,或截图反馈',
+                })
               }
             })
           }
         },
         fail:function(){
           console.log("数据库加载失败")
+          wx.hideLoading()
+          wx.showToast({
+            icon:none,
+            title: '数据库加载失败,请稍后重试,或截图反馈',
+          })
         }
       }) 
     }

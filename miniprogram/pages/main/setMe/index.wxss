@@ -172,6 +172,9 @@ background-color: green;
 color:rgb(219, 230, 219);
 position:fixed;
 bottom:0;
+margin-bottom: 15px;
+font-size: 20px;
+font-style: normal;
 }
 .t1{
   

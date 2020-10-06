@@ -1,0 +1,25 @@
+<view bindtap = "back"  class="imageReturnSize" >
+ <image src="../../../images/return.png" > </image>
+</view>
+<!--标题-->
+<view>
+  <text>\n</text>
+  <text class="titleText">您的民族</text>
+  <!--
+<image src="{{genderImg}}"></image>
+-->
+<text>\n</text>
+<view class='imagesize'>
+  <image src='{{img}}' class='in-image' > </image>
+</view>
+<text>\n</text>
+</view>
+<view>
+  <picker-view indicator-style="height: 50px;" style="width: 100%; height: 250px;" value="{{value}}" bindchange="bindChange" bindpickstart="pickstartF" bindpickend="picksendF">
+    <picker-view-column>
+      <view class="center" wx:for="{{years}}" style="line-height: 50px">{{item}}</view>
+    </picker-view-column>
+   
+  </picker-view>
+  <button bindtap = "next" class='goodbutton'  hover-class="hover">下一步</button>
+</view>

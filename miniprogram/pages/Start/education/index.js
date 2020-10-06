@@ -23,6 +23,9 @@ Page({
   flag1:function(e){//下一步
  
     console.log(this.data.option[e.target.dataset.index])
+    wx.showLoading({
+      title: '保存中',
+    })
     this.upDataGande(e.target.dataset.index)
 
   /*  wx.redirectTo({//跳转
@@ -43,7 +46,11 @@ upDataGande:function(flag){
 
       console.log(res.data.length)
       if(res.data.length==0){
-     
+        wx.hideLoading()
+        wx.showToast({
+          icon:none,
+          title: '未找到您的数据,请稍后重新注册',
+        })
         console.log("失败")
       }
       else{//已经存在
@@ -60,12 +67,22 @@ upDataGande:function(flag){
           },
           fail: function(res) {
             console.log("失败")
+            wx.hideLoading()
+            wx.showToast({
+              icon:none,
+              title: '数据保存失败,请稍后重试',
+            })
           }
         })
       }
     },
     fail:function(){
       console.log("数据库加载失败")
+      wx.hideLoading()
+      wx.showToast({
+        icon:none,
+        title: '数据库加载失败,请稍后重试',
+      })
     }
   })
 }

@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    saveFlagTruly:[0,0,0,0],
     vocationMine:"",
     introduceMine:"",
     vocationDefault:"",
@@ -659,13 +660,13 @@ unButtonCar:function(e){
       heightArrayOther:height
     })
     //设置基本信息
-  // this.readBasicInfo()
+    this.readBasicInfo()
     //设置择偶信息
-  //  this.readOtherInfo()
+     this.readOtherInfo()
     //读取自我介绍
-    this.readIntroduceSelf()
+      this.readIntroduceSelf()
     //阅读相册
-    this.readImage()
+      this.readImage()
 
   },
 
@@ -723,59 +724,73 @@ unButtonCar:function(e){
   },
   //保存按钮
   formSubmit:function(e){
-    var singlepick=this.data.singlePickFlag
-    var bathday=[0,0,0]
-    var ageOtherTmp=this.data.ageFlagOther
-    var heightOtherTmp=this.data.heightFlagOther
-    var typeInfoTmp=this.data.typeInfo
-    ageOtherTmp[0]=ageOtherTmp[0]+18
-    ageOtherTmp[1]=ageOtherTmp[1]+19
-    heightOtherTmp[0]=heightOtherTmp[0]+140
-    heightOtherTmp[1]=heightOtherTmp[1]+141
+    var that=this
+    wx.showModal({
+      title: '提示',
+      content: '保存后需要重新审核，审核通过之前别人无法看到您。是否保存？',
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          wx.showLoading({
+            title: '保存中',
+          })
+          var singlepick=that.data.singlePickFlag
+          var bathday=[0,0,0]
+          var ageOtherTmp=that.data.ageFlagOther
+          var heightOtherTmp=that.data.heightFlagOther
+          var typeInfoTmp=that.data.typeInfo
+          ageOtherTmp[0]=ageOtherTmp[0]+18
+          ageOtherTmp[1]=ageOtherTmp[1]+19
+          heightOtherTmp[0]=heightOtherTmp[0]+140
+          heightOtherTmp[1]=heightOtherTmp[1]+141
+      
+          bathday[0]=Number(e.detail.value.age.slice(0,4))
+          bathday[1]=Number(e.detail.value.age.slice(5,7))
+          bathday[2]=Number(e.detail.value.age.slice(8,10))
+        
+          //console.log(ageOtherTmp)//工作
+          //console.log(heightOtherTmp)//工作
+          //console.log(e.detail.value.age)//年龄
+          console.log(bathday)//年龄
+          //console.log(that.data.introduceMine)//工作地点
+          //console.log(that.data.vocationMine)//身高
+          //检查数据
+          if(that.checkData()==true){//数据合法
+            //基本信息和资产
+              that.writeBasicInfo(Number(e.detail.value.sex),bathday,that.data.workPlace,singlepick[0],singlepick[1],singlepick[2],singlepick[3],singlepick[4],that.data.vocationMine,
+              singlepick[5],singlepick[6],singlepick[7],//资产情况
+            )
+            //择偶要求
+            that.writeOtherInfo(that.data.PlaceOther,ageOtherTmp,heightOtherTmp,
+            singlepick[8],singlepick[9],typeInfoTmp[0],typeInfoTmp[1],typeInfoTmp[2]
+            )
+            //自我介绍
+           that.writeIntroduceSelf(that.data.introduceMine)
+            //保存照片
+            that.writeImage()
+      
+            if(that.data.saveFlagTruly[0]+that.data.saveFlagTruly[1]+that.data.saveFlagTruly[2]
+              +that.data.saveFlagTruly[3]==4)       
+                 wx.hideLoading()
+          }
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
 
-    bathday[0]=Number(e.detail.value.age.slice(0,4))
-    bathday[1]=Number(e.detail.value.age.slice(5,7))
-    bathday[2]=Number(e.detail.value.age.slice(8,10))
 
-    //console.log(ageOtherTmp)//工作
-    //console.log(heightOtherTmp)//工作
-    //console.log(e.detail.value.age)//年龄
-    //console.log(bathday)//年龄
-    //console.log(this.data.introduceMine)//工作地点
-    //console.log(this.data.vocationMine)//身高
-    //检查数据
-    if(this.checkData()==false){//数据合法
-      //基本信息和资产
-      /*  this.writeBasicInfo(Number(e.detail.value.sex),bathday,this.data.workPlace,singlepick[0],singlepick[1],singlepick[2],singlepick[3],singlepick[4],this.data.vocationMine,
-        singlepick[5],singlepick[6],singlepick[7],//资产情况
-      )*/
-      //择偶要求
-     /* this.writeOtherInfo(this.data.PlaceOther,ageOtherTmp,heightOtherTmp,
-      singlepick[8],singlepick[9],typeInfoTmp[0],typeInfoTmp[1],typeInfoTmp[2]
-      )*/
-      //自我介绍
-     /* this.writeIntroduceSelf(this.data.introduceMine)*/
-      //保存照片
-      this.writeImage()
-    }
-
-    //保存基本信息
-
-
-   /* wx.showLoading({title: '保存中', mask: true});
-    app.globalData.headImage = this.data.photos[0]
-    setTimeout(function () {
-      wx.hideLoading()
-      wx.showToast({
-        title: '保存成功',
-        icon: 'success',
-        duration: 2000
-      })
-    }, 2000)*/
+  
   },
   checkData:function(){
-    if(this.data.vocationMine=="")
+    if(this.data.vocationMine==""){
+      wx.showToast({
+        title:  '职业不可为空',
+        icon: 'none',
+        duration: 2000
+      })
       return false
+    }
     else
       return true
   },
@@ -818,18 +833,35 @@ unButtonCar:function(e){
         }
         else{//已经存在
           var tmp=that.data.singlePickFlag
-          tmp[0]=res.data[0].height-150
-          //tmp[1]=res.data[0].height-150  //体重
-           //tmp[2]=res.data[0].height-150  //民族
+          tmp[0]=res.data[0].height-140
+          tmp[1]=res.data[0].weight-40  //体重
+           tmp[2]=res.data[0].nation+1 //民族
            tmp[3]=res.data[0].education   //学历
            tmp[4]=res.data[0].marryStatus //婚况
            tmp[5]=res.data[0].inCome //月薪
            tmp[6]=res.data[0].house //购房
            tmp[7]=res.data[0].car //购车
           console.log(res.data[0].height)
+          console.log("日期",res.data[0].bathday[0]+'-'+res.data[0].bathday[1]+'-'+res.data[0].bathday[2],)
+          var Month=""
+          var day=res.data[0].bathday[2]
+          if(res.data[0].bathday[1]<10){
+            Month='-0'+res.data[0].bathday[1]
+          }else{
+            Month="-"+res.data[0].bathday[1]
+          }
+          var day=res.data[0].bathday[2]
+          if(res.data[0].bathday[2]<10){
+            day='-0'+res.data[0].bathday[2]
+          }else{
+            day="-"+res.data[0].bathday[2]
+          }
+         var dataTmp=res.data[0].bathday[0]+Month+day
+       
+
           that.setData({
             sexFlag:res.data[0].grande,
-            date:res.data[0].bathday[0]+'-'+res.data[0].bathday[1]+'-'+res.data[0].bathday[2],
+            date:dataTmp,
             workPlace:res.data[0].workPlace,
             singlePickFlag:tmp,
             vocationMine:res.data[0].vocation
@@ -961,10 +993,11 @@ unButtonCar:function(e){
             data: {
               grande:sex,
               bathday:age,
+             
               workPlace:workPlace,
               height:height+140,
-              //体重
-              //民族
+              weight:weight+40,//体重
+              nation:Nation,//民族
               ed:educational,
               marryStatus:marryStatus,
               vocation:vocation,
@@ -991,10 +1024,15 @@ unButtonCar:function(e){
               inCome:inCome,
               house:house,
               car:car,
-
             },
             success: function(res) {
               console.log("成功",res)
+              wx.hideLoading()
+              wx.showToast({
+                title: '保存成功',
+                icon: 'success',
+                duration: 2000
+              })
             },
             fail: function(res) {
               console.log("失败",res)
@@ -1117,7 +1155,8 @@ unButtonCar:function(e){
          console.log("文件前缀",i+"不操作")
          userPhotos[i]= userPhotos[i].slice(48,100)
         }
-        else if(userPhotos[i][0]=="h"){//数据库中不存在
+      //  else if(userPhotos[i][0]=="h"){//数据库中不存在
+      else{
           console.log("文件前缀",i+"上传图片")
           //生成文件名
           var tmp
@@ -1176,7 +1215,40 @@ unButtonCar:function(e){
        console.log("数据库加载失败",e)
      }
    })
+
+   db.collection('userID').where({
+    _openid: '{openid}'
+  }).get({
+    success:function(res){
+
+      console.log(res.data.length)
+      if(res.data.length==0){
+        console.error("数据库ID错误")
+      }
+      else{//已经存在
+        console.log("进入",res.data[0]._id)
+        var flag=[1,"未审核"]
+        db.collection('userID').doc(res.data[0]._id).update({
+          data: {
+            review:flag
+          },
+          success: function(res) {
+            console.log("成功",res)
+          },
+          fail: function(res) {
+            console.log("失败",res)
+          }
+        })
+      }
+    },
+    fail:function(e){
+      console.log("数据库加载失败11",e)
+    }
+  })
+
    },
+
+
   doUpImg:function(FilePath,name){
     var that=this
     wx.cloud.uploadFile({
@@ -1202,5 +1274,4 @@ unButtonCar:function(e){
       })
     })
   },
-
 })

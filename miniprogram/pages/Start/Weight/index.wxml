@@ -1,0 +1,29 @@
+<view bindtap = "back"  class="imageReturnSize" >
+ <image src="../../../images/return.png" > </image>
+</view>
+ <text class="titleText">{{title}}</text>
+
+ <text>\n</text>
+<view class='imagesize'>
+  <image src='{{img}}' class='in-image' > </image>
+</view>
+
+
+<view   wx:for="{{row}}" wx:for-item="rowDataItem" class="content">  
+  <view  wx:if="{{(columnDataItem+rowDataItem*5)%10==0}}" class="t1" wx:for="{{column}}" wx:for-item="columnDataItem">  
+    <button bindtap = "flag1" data-id='{{columnDataItem+rowDataItem*5}}' class="getUserInfoBtn0" style="width: 10vmin;height: 8vmin;">{{columnDataItem+rowDataItem*5}}</button>
+  </view>
+
+  <view  wx:if="{{(columnDataItem+rowDataItem*5)%5==0&&(columnDataItem+rowDataItem*5)%10!=0}}" class="t1" wx:for="{{column}}" wx:for-item="columnDataItem">  
+    <button bindtap = "flag1" data-id='{{columnDataItem+rowDataItem*5}}' class="getUserInfoBtn5" style="width: 10vmin;height: 8vmin;">{{columnDataItem+rowDataItem*5}}</button>
+  </view>
+
+  <view wx:if="{{(columnDataItem+rowDataItem*5)%5!=0}}" class="t2" wx:for="{{column}}" wx:for-item="columnDataItem">  
+    <button bindtap = "flag1" data-id='{{columnDataItem+rowDataItem*5}}' class="getUserInfoBtn" style="width: 15vmin;height: 8vmin;">{{columnDataItem+rowDataItem*5}}</button>
+  </view>
+</view>  
+<text>\n</text>
+<text>\n</text>
+<text>\n</text>
+
+

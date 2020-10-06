@@ -3,9 +3,9 @@
 <text> \n</text>
 <view class="head-background">
   <text> \n</text>
-  <view  class='item_view'> 
+  <view  bindtap='seeMe' class='item_view'> 
     
-     <image class="user-avatar" bindtap='seeMe' src='{{urlImage}}'>  </image>
+     <image class="user-avatar" src='{{urlImage}}'>  </image>
      <text hidden="{{examineStatus!=1}}" class='text_num'>未审核</text>
   </view>
   <text>\n\n</text>

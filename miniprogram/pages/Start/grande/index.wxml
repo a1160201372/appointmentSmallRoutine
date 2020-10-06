@@ -1,4 +1,6 @@
 
+  <progress percent="{{percent}}" duration="30" stroke-width="3" bindactiveend="activeend" />
+
  <!--标题-->
 <view>
   <text class="titleText">\n您或他（他）是男神还是女神？</text>

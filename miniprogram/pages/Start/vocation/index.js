@@ -24,12 +24,11 @@ Page({
   },
   confirm:function(e){
     //逻辑操作
-
-    //跳转
-    wx.navigateTo({//跳转
-      url: '../income/index'
-    })
     console.log("保存",this.data.vocationSave);
+    wx.showLoading({
+      title: '保存中',
+    })
+    this.upDataGande(this.data.vocationSave)
   },
   modalinput:function(e){
     this.setData({
@@ -56,6 +55,9 @@ Page({
         if (res.confirm) {//保存
         
           console.log("点击",id);
+          wx.showLoading({
+            title: '保存中',
+          })
           that.upDataGande(id)
        /*   wx.redirectTo({//跳转
             url: '../income/index'
@@ -84,7 +86,11 @@ Page({
   
         console.log(res.data.length)
         if(res.data.length==0){
-       
+          wx.hideLoading()
+          wx.showToast({
+            icon:none,
+            title: '未找到您的数据,请稍后重新注册',
+          })
           console.log("失败")
         }
         else{//已经存在
@@ -101,12 +107,22 @@ Page({
             },
             fail: function(res) {
               console.log("失败")
+              wx.hideLoading()
+              wx.showToast({
+                icon:none,
+                title: '保存失败,请稍后重试',
+              })
             }
           })
         }
       },
       fail:function(){
         console.log("数据库加载失败")
+        wx.hideLoading()
+        wx.showToast({
+          icon:none,
+          title: '数据库加载失败,请稍后重试',
+        })
       }
     })
   }

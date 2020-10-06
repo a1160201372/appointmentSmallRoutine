@@ -1,29 +1,29 @@
 const app = getApp()
 Page({
   data: {
-    title:"您的身高（cm）：",
-    column:[140,141,142,143,144],//列
-    row:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],//行
+    title:"您的体重（Kg）：",
+    column:[40,41,42,43,44],//列
+    row:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],//行
     img:"",
   },
-  onLoad:function(){
+  onLoad:function(){//图片
     if(app.globalData.globalGrande==1)
     {
     this.setData({
-      img:"../../../images/heightMan.png"
+      img:"../../../images/weightMan.png"
     })
     }
     else{
       this.setData({
-        img:"../../../images/heightWoman.png"
+        img:"../../../images/weightWoman.png"
       })
     }
   },
   flag1:function(e){
     var that=this
     var id = e.currentTarget.dataset.id;
-    var  tmp="您选择的身高为："+id+"cm\n"
-   /* wx.showModal({
+ /*   var  tmp="您选择的身高为："+id+"Kg\n"
+    wx.showModal({
       title: '是否保存',
       content: tmp,
       confirmText:"保存",
@@ -68,12 +68,12 @@ Page({
           console.log("进入")
           db.collection('userInfo').doc(res.data[0]._id).update({
             data:{
-              height:flag
+              weight:flag
             },
             success: function(res) {
               console.log("成功",res)
                wx.redirectTo({//跳转
-                url: '../Weight/index'
+                url: '../vocation/index'
               })
             },
             fail: function(res) {
@@ -81,7 +81,7 @@ Page({
               wx.hideLoading()
               wx.showToast({
                 icon:none,
-                title: '保存数据失败,请稍后重试',
+                title: '保存失败,请稍后重试',
               })
             }
           })

@@ -18,6 +18,9 @@ Page({
   },
 	citySelectData(e) {
       console.log("测试",e.detail);
+      wx.showLoading({
+        title: '保存中',
+      })
     this.upDataGande(e.detail.data)
 
       /*
@@ -39,7 +42,11 @@ Page({
   
         console.log(res.data.length)
         if(res.data.length==0){
-       
+          wx.hideLoading()
+          wx.showToast({
+            icon:none,
+            title: '未找到用户数据,请稍后重试',
+          })
           console.log("失败")
         }
         else{//已经存在
@@ -56,12 +63,22 @@ Page({
             },
             fail: function(res) {
               console.log("失败")
+              wx.hideLoading()
+              wx.showToast({
+                icon:none,
+                title: '保存失败,请稍后重试',
+              })
             }
           })
         }
       },
       fail:function(){
         console.log("数据库加载失败")
+        wx.hideLoading()
+        wx.showToast({
+          icon:none,
+          title: '数据库加载失败,请稍后重试',
+        })
       }
     })
   }
