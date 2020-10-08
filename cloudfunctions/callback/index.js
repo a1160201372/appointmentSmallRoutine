@@ -16,11 +16,11 @@ exports.main = async (event, context) => {
     touser: OPENID,
     msgtype: 'text',
     text: {
-      content: '收到：' + event.Content,
+      content: '收到11：' + event.Content,
     }
   })
 
-  console.log(result)
+  console.log("客服",result)
 
   return result
 }

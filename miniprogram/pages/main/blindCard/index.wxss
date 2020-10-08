@@ -73,7 +73,7 @@
     border: 1rpx solid #f7abab;
     margin: 8rpx 10rpx;
     display: inline-block;
-    line-height: 5px;
+   
 
     border-radius: 98rpx;
     align-items: center;
@@ -86,7 +86,7 @@
     
     margin: 8rpx 10rpx;
     display: inline-block;
-    line-height: 5px;
+
 
     border-radius: 98rpx;
     align-items: center;

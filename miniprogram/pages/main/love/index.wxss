@@ -1,0 +1,67 @@
+/*@import '../common.wxss';*/
+
+page{
+    background-color: #FFFFFF;
+    height: 100%;
+}
+
+.weui-tabs-bar__wrp {
+   
+    margin-top: 10px;
+    
+}
+/*内容的class*/
+.weui-tabs-swiper {
+
+    width: 100%;
+    
+}
+
+.tab-content {
+  
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 40rpx;
+}
+
+.weui-tabs-bar__title {
+   
+    width: 375rpx;
+    margin: 0 auto;
+    text-align: center;
+   
+}
+
+.tab-bar-title__selected {
+
+  margin: 0 auto;
+   text-align: center;
+  width: 375rpx;
+    font-size: 20px;
+    font-weight: bold;
+}
+.user-avatar {
+
+    width: 350rpx;
+    height: 350rpx;
+    border-radius: 20rpx;
+
+}
+
+.item_view{
+
+    width: 350rpx;
+   padding: 10rpx;
+  margin-left: 5rpx;
+  margin-top: 20px;
+   background-color: aquamarine;
+   display: inline-block;
+}
+.textVo{
+    font-size: 20px;
+    font-weight: bold;
+}

@@ -18,7 +18,7 @@ App({
         traceUser: true,
       })
     }
-    this.upDataGande()
+   // this.upDataGande()
     this.globalData = {}
   },
   //读取数据库，是否完成注册

@@ -1,15 +1,13 @@
 {
   "pages": [
+    "pages/main/love/index",
     "pages/Start/upImg/index",
     "pages/main/mine/index",
     "pages/main/setMe/index",
-    
     "pages/Start/grande/index",
     "pages/Start/nation/index",
     "pages/Start/Weight/index",
     "pages/main/blindCard/index",
-   
-   
     "pages/Start/loverRequest/index",
     "pages/Start/carCondition/index",
     "pages/Start/houseCondition/index",
@@ -37,7 +35,7 @@
     "pages/im/im",
     "pages/im/room/room",
     "pages/loadingInterface/index"
-
+    
   ],
   "tabBar": {
     "custom": true,

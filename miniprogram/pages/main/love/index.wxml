@@ -1,0 +1,33 @@
+<mp-tabs 
+  tabs="{{tabs}}" 
+  activeTab="{{activeTab}}" 
+  swiperClass="weui-tabs-swiper"
+  bindtabclick="onTabCLick"
+  bindchange="onChange"
+  activeClass="tab-bar-title__selected"
+  tab-underline-color="#fda177"
+  swiperStyle="height:{{loveMeHeight}}rpx"
+> 
+<!--我喜欢的-->
+    <view slot="tab-content-{{0}}" >
+
+      <view wx:for="{{loveMeInfo}}" bindtap='seeMe' class='item_view' slot="tab-content-{{0}}"> 
+    
+        <image class="user-avatar" mode="aspectFill" src='{{urlImage}}'>  </image>
+        <view>
+        <text class="textVo">{{loveMeInfo[0].Info}}</text>
+        <text class="textVoNext">
+          本科 | 住址</text>
+        </view>
+
+      </view>
+      
+      </view>
+
+<!--喜欢我的-->
+    <view class="tab-content" slot="tab-content-{{1}}" >
+       1234 
+      </view>
+</mp-tabs>
+
+<button bindtap="ceshi">测试</button>

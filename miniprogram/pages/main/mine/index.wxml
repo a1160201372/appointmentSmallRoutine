@@ -5,7 +5,7 @@
   <text> \n</text>
   <view  bindtap='seeMe' class='item_view'> 
     
-     <image class="user-avatar" src='{{urlImage}}'>  </image>
+     <image class="user-avatar" mode="aspectFill" src='{{urlImage}}'>  </image>
      <text hidden="{{examineStatus!=1}}" class='text_num'>未审核</text>
   </view>
   <text>\n\n</text>
@@ -44,8 +44,22 @@
 			<view class="account-item"> {{item}} </view>
 			<image class="account-arrow" src="../../../images/arrow.png"></image>
 		</view>
+    <!--客户信息-->
+  
   </view>
 
+
+    <button class="buttonCustomerService" open-type="contact" bindcontact="onCustomerServiceButtonClick"
+    style="background-color: rgb(255, 255, 255);width: 100%;height: 50px;color:#000000"
+    >联系客服</button>
+    <button class="buttonCustomerService" open-type="feedback" 
+    style="background-color: rgb(255, 255, 255);width: 100%;height: 50px;color:#000000"
+    >意见反馈</button>
+    
+
+ 
+
+<text>\n\n\n\n</text>
 </view>
 
 

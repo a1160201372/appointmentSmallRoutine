@@ -50,7 +50,7 @@ justify-content:flex-end;
 }
 .userInfo{
   width: 700rpx;
-   height: 700rpx;
+   height: 600rpx;
    border-radius: 40rpx;
    
   object-fit: cover;

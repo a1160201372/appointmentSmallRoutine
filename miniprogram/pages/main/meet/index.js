@@ -10,6 +10,7 @@ Page({
       }
     },
   data: { 
+    userNum:2,
     eductionArry:["初中","高中","大专","本科","硕士","博士"],
     inComeArry:["1千以下","1~2千","2~3千","3~4千","4~8千","8千~1万","1~2万","2~5万","五万以上"],
     user:[
@@ -74,31 +75,31 @@ this.readID()
     console.log("从在",9)
   },
   onReachBottom:function() {
-    var that = this;
-    var userTmp=this.data.user;
-    var userServer=[
-      {
-        urlImage: "cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/ouFO65Ypkw2b-YDuoJ7tl3sKXV_gHead.png",
-        name: "程序员",
-        age: 34,
-        height: 168,
-        education: "本科",
-        income: "五千到一万"
-      }
-    ]
-    console.log(userTmp)
+   
+    var idArry=this.data.userID
+    var num=this.data.userNum
+    console.log("刷新",num)
+    
     wx.showLoading({
       title: '玩命加载中...',
     });
-    setTimeout(function () {
-      wx.hideLoading()
 
-      userTmp=userTmp.concat(userServer)
-      that.setData({
-        user:userTmp
+    //this.initialSetInfo(1002)
+
+    
+    if(this.data.userNum<this.data.userID.length)
+    {
+      this.initialSetInfo(idArry[this.data.userNum])
+      this.data.userNum++
+    }else{
+      setTimeout(function () {
+      wx.showToast({
+        title: '没有更多用户了',
+        icon: 'none',
+        duration: 2000
       })
-
-    }, 1000)
+    }, 2000)
+    }
   },
   ceshi:function(){
     /*
@@ -126,13 +127,12 @@ this.readID()
         {
           ID[i]=res.data[i].ID
         }
-        console.log("通过审核11",ID)
-        that.setData({
-          userID:ID
-        })
-      //显示信息
-        that.initialSetInfo(ID)
-      
+
+      //显示信息(默认显示一个)
+      for(var i=0;i<2;i++){
+        console.log("进行显示",ID[i])
+        that.initialSetInfo(ID[i])
+      }
         },
         fail:function(e){
           console.log("数据库加载失败",e)
@@ -143,14 +143,14 @@ this.readID()
   initialSetInfo:function(ID){
     console.log("用户信息",ID)
     var that=this
-    var userTmp=[]
+    var userTmp=this.data.user
     var IDTmp=ID
     var i=0
     const db = wx.cloud.database()
-    for(;i<ID.length;i++){
+    
     
       db.collection('userInfo').where({
-        ID:ID[i]
+        ID:ID
       }).get({
         success:function(res){
           var Tmp={
@@ -174,6 +174,7 @@ this.readID()
           that.readImage(res.data[0].ID,Tmp)
           userTmp.push(Tmp)
           console.log("临时数据",Tmp)
+          that.data.user=userTmp
           setTimeout(function () {
             wx.hideLoading()
             that.setData({
@@ -186,7 +187,7 @@ this.readID()
         }
       })
       
-   }
+   
    console.log("最终数据0",userTmp)
    
   

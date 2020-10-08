@@ -29,9 +29,14 @@ Page({
     switch(flag){
       case 0:
         console.log("本人")
-      /*  wx.navigateTo({
-          url: '../setMe/index',
-        })*/
+        wx.startSoterAuthentication({
+          requestAuthModes: ['fingerPrint'],
+          challenge: '123456',
+          authContent: '请用指纹解锁',
+          success(res) {
+            console.log("生物认证",res)
+          }
+       })
         break;
       case 1:
         console.log("择偶")

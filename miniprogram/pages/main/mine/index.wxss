@@ -1,7 +1,7 @@
 /* miniprogram/pages/main/mine/index.wxss */
-page {
-  background-image: url(https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1320491610,1751286583&fm=26&gp=0.jpg);
-}
+/*page {
+/*  background-image: url(https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1320491610,1751286583&fm=26&gp=0.jpg);
+}*/
 .view-background {
   height: auto;
   width:auto;
@@ -18,7 +18,7 @@ page {
   margin-left: 15rpx;
  
   z-index: 0;
-position:fixed;
+  position: absolute;
   width: 140rpx;
   height: 140rpx;
   border-radius: 50%;
@@ -33,7 +33,7 @@ position:fixed;
 
   border-radius: 40rpx;
 
-  font-size: 34rpx;
+  font-size: 18px;
   white-space: nowrap;
   color: #220114;
   background-color: rgb(243, 173, 82);
@@ -45,7 +45,7 @@ position:fixed;
   text-align: center;
   top:  60rpx;
   left: 150rpx;
-  font-size:20px;      /*设置文字字号*/
+  font-size:18px;      /*设置文字字号*/
   color:rgb(255, 255, 255);           /*设置文字颜色*/
   font-weight:bold;    /*设置字体加粗*/
   font-family:"宋体";   /*设置字体为宋体*/
@@ -70,7 +70,7 @@ position:fixed;
  }
  .typeInfoText{
   display:block;
-  font-size:15px;      /*设置文字字号*/
+  font-size:18px;      /*设置文字字号*/
   line-height: 17rpx;
   color: #3f3f3f;
  
@@ -97,16 +97,12 @@ position:fixed;
 
   background-color: rgb(228, 227, 227);
   opacity: 0.5;
-  font-size: 17px;
+  font-size: 18px;
   color: rgb(0, 0, 0);
   z-index: 100;
-  position: fixed;
+  position: absolute;
 }
 /**mine.wxss**/
-
-
-
-
 
 .profile, .account {
   display: flex;
@@ -118,7 +114,7 @@ position:fixed;
 
 .profile-item, .account-item {
   flex: 1;
-  font-size: 35rpx;
+  font-size: 18px
 }
 
 .profile-arrow, .account-arrow {
@@ -149,5 +145,28 @@ position:fixed;
   margin-top: 55px;
 
   margin-left: 480rpx;
+}
+.list {
+  margin-top: 40rpx;
+  height: auto;
+  width: 100%;
+  background: #fff;
+  padding: 0 40rpx;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: none;
+  border-right: none;
+  transition: all 300ms ease;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+.buttonCustomerService{
+  line-height: 35px;
+  text-align:left;
+  font-size: 18px;
+  font-weight:400;
+  border-bottom: 1rpx solid #f0f0f0;
+  vertical-align:middle ;
 }
 
