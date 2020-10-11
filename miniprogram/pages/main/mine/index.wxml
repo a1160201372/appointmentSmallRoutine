@@ -15,17 +15,17 @@
     
     
     <view class="imageReturnSize">
-  <view class="content">
+  <view bindtap="like" class="content">
     <text decode="{{true}}" class="typeNumText">
-     {{loveMeNum}}  </text>
+     {{loveMeNum[0]}}  </text>
     <text class="typeInfoText">
       我喜欢的
     </text>
 
   </view>
-  <view class="content">
+  <view bindtap="likeed" class="content">
     <text decode="{{true}}" class="typeNumText">
-      {{loveOtherNum}}   </text>
+      {{loveMeNum[1]}}   </text>
     <text class="typeInfoText">
       喜欢我的
     </text>

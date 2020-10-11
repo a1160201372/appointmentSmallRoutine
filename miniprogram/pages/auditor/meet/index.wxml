@@ -1,0 +1,24 @@
+
+
+<view style=" height: 100%;" class="all-view">
+
+
+
+  
+<view class="user-view" wx:for="{{user}}" >
+    <view bindtap="ceshi">
+      <image mode="aspectFill" class="userInfo"  bindtap="jumpBindCard" data-index="{{index}}" src='{{user[index].urlImage}}'>  </image>
+      
+        <text class="textNameInfo">{{user[index].name}} </text>
+        
+        <text >\n</text>
+   
+      <text class="textUserInfo">{{user[index].age}}岁  | {{user[index].height}}cm |  {{user[index].education}}  |  {{user[index].income}}
+      </text>
+    </view>
+    <text>\n</text>
+    <view class="divLine"></view>  <!-- 分割线 -->
+</view>
+<text>\n\n\n\n</text>
+
+</view>

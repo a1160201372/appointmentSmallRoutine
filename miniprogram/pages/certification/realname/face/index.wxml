@@ -1,0 +1,40 @@
+<!--miniprogram/pages/certification/realname/nameNum/index.wxml-->
+
+<view class='table'>
+  <text style="color:#02C4FF"> 填写身份信息 </text>
+  <text style="color:#646464"> ---> </text>
+  <text style="color:#02C4FF"> 人脸验证 </text>
+  <text style="color:#646464"> ---> </text>
+  <text style="color:#646464"> 验证成功 </text>
+</view>
+
+
+<text>\n</text>
+
+ <!--标题-->
+ <view>
+  <text class="titleText">请对准摄像头</text>
+</view>
+<text>\n</text>
+<view>
+
+
+<view>
+  
+    <camera device-position="front" flash="off" binderror="error" class="camera" >
+    
+    <cover-view wx:if="{{countdown}}" class="play">
+      <cover-text class="textNum">{{countdownNum}}</cover-text>
+    </cover-view>
+
+
+    </camera>
+
+
+
+
+</view>
+
+</view>
+
+<button style="  height:100rpx; width: 700rpx;" bindtap="startFace" hover-class="buttonNextHover" class="buttonNext">开始认证</button>

@@ -58,10 +58,10 @@ page{
    padding: 10rpx;
   margin-left: 5rpx;
   margin-top: 20px;
-   background-color: aquamarine;
+   
    display: inline-block;
 }
 .textVo{
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
 }

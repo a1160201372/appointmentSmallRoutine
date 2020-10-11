@@ -1,0 +1,138 @@
+/* miniprogram/pages/certification/realname/nameNum/index.wxss */
+.pick{
+
+  position: relative;
+  display:flex;      
+
+}
+.table{
+  margin-top: 10px;
+  position: relative;
+  display:flex;      
+  align-items:center;
+  justify-content: center;
+}
+.text{
+  
+  display: flex;
+  align-items:center;
+  justify-content: space-around ;
+
+  background-color: rgb(255, 255, 255);
+  font-size: 40rpx;
+  color: #666666;
+}
+.inputText{
+  display:flex;      
+  height: 50rpx;
+  width: 200rpx;
+  background-color: rgb(255, 255, 255);
+  font-size: 40rpx;
+  
+}
+.divLine{
+  background: #E0E3DA;
+  width: 710rpx;
+  height: 5rpx;
+  margin-left: 20rpx;
+ }
+ .ceshi{
+   color: rgb(102, 102, 102);
+ }
+ .buttonNext{
+
+   background-color:#2574EA;
+   color: white;
+
+   font-size: 55rpx;
+   align-items:center;
+   justify-content: center;
+   margin-top: 710rpx;
+ }
+ .buttonNextHover{
+  
+  background-color:#5795f1;
+  color: white;
+
+  font-size: 55rpx;
+  align-items:center;
+  justify-content: center;
+  margin-top: 710rpx;
+ }
+ .camera{
+
+  position: absolute;
+  width: 700rpx;
+  height: 700rpx;
+  margin-left: 25rpx;
+  border-radius: 50%;
+
+
+ }
+ .text_num{
+
+  width: 300rpx;
+  height: 300rpx;
+  margin-left: 25rpx;
+  margin-bottom: 1000rpx;
+  border-radius: 50%;
+  background-color: rgb(228, 227, 227);
+  opacity: 0.5;
+
+
+
+  z-index: 100;
+  position: absolute;
+  align-items:center;
+  justify-content: center;
+}
+.text_text{
+  font-size: 100rpx;
+}
+.titleText{
+
+	font-size:17pt;
+	display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+.camera_text{
+  font-size:90rpx;
+  margin-top: 500rpx;
+  margin-left: 240rpx;
+  align-items:center;
+  justify-content: center;
+
+}
+.controls {
+  position: relative;
+  top: 50%;
+  height: 80px;
+  margin-top: 40px;
+  margin-left: 80px;
+  display: flex;
+}
+
+.play, .pause {
+  align-items:center;
+  justify-content: center;
+  font-size: 300rpx;
+
+  background-color: white;
+  opacity: 0.5;
+  width: 700rpx;
+  height: 700rpx;
+
+  border-radius: 50%;
+}
+
+.img {
+  width: 20px;
+  height: 20px;
+  margin-top: 40px;
+}
+.textNum{
+ 
+  margin-left:275rpx;
+  
+}

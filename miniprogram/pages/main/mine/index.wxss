@@ -11,7 +11,8 @@
   left: 500rpx;
   height: 150px;
   border-radius: 40rpx;
-  background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600937008483&di=5e1b3955e3b522a0b221616ee4dfda6c&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fd000baa1cd11728bb8fb7eb7c8fcc3cec2fd2c55.jpg);
+  /*background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600937008483&di=5e1b3955e3b522a0b221616ee4dfda6c&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fd000baa1cd11728bb8fb7eb7c8fcc3cec2fd2c55.jpg);*/
+  background-color: rgb(247, 197, 91);
 }
 
 .user-avatar {
@@ -86,7 +87,8 @@
   align-items: center;
   justify-content: center;
 
-}.text_num{
+}
+.text_num{
   margin-left: 15rpx;
   width: 140rpx;
   height: 140rpx;

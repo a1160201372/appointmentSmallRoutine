@@ -1,0 +1,57 @@
+/* miniprogram/pages/certification/realname/nameNum/index.wxss */
+.pick{
+
+  position: relative;
+  display:flex;      
+
+}
+.table{
+  margin-top: 10px;
+  position: relative;
+  display:flex;      
+  align-items:center;
+  justify-content: center;
+}
+.text{
+  
+  display: flex;
+  align-items:center;
+  justify-content: space-around ;
+
+  background-color: rgb(255, 255, 255);
+  font-size: 40rpx;
+  color: #666666;
+}
+.inputText{
+  display:flex;      
+  height: 50rpx;
+  width: 200rpx;
+  background-color: rgb(255, 255, 255);
+  font-size: 40rpx;
+  
+}
+.divLine{
+  background: #E0E3DA;
+  width: 710rpx;
+  height: 5rpx;
+  margin-left: 20rpx;
+ }
+ .ceshi{
+   color: rgb(102, 102, 102);
+ }
+ .buttonNext{
+   background-color:#2574EA;
+   color: white;
+   margin-top: 50px;
+   font-size: 55rpx;
+   align-items:center;
+   justify-content: center;
+ }
+ .buttonNextHover{
+  background-color:#5795f1;
+  color: white;
+  margin-top: 50px;
+  font-size: 55rpx;
+  align-items:center;
+  justify-content: center;
+ }

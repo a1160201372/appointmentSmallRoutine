@@ -9,25 +9,31 @@
   swiperStyle="height:{{loveMeHeight}}rpx"
 > 
 <!--我喜欢的-->
-    <view slot="tab-content-{{0}}" >
-
-      <view wx:for="{{loveMeInfo}}" bindtap='seeMe' class='item_view' slot="tab-content-{{0}}"> 
-    
-        <image class="user-avatar" mode="aspectFill" src='{{urlImage}}'>  </image>
+    <view slot="tab-content-{{0}}">
+      <view wx:for="{{loveMeInfo[0]}}" bindtap='myLovefu'  data-index="{{index}}" class='item_view'> 
+        <image class="user-avatar" mode="aspectFill" src='{{loveMeInfo[0][index].urlImage}}'>  </image>
         <view>
-        <text class="textVo">{{loveMeInfo[0].Info}}</text>
+        <text class="textVo">{{loveMeInfo[0][index].Info}}</text>
         <text class="textVoNext">
-          本科 | 住址</text>
+        {{loveMeInfo[0][index].ed}} | {{loveMeInfo[0][index].place}}</text>
         </view>
-
       </view>
-      
       </view>
 
 <!--喜欢我的-->
-    <view class="tab-content" slot="tab-content-{{1}}" >
-       1234 
+    <view slot="tab-content-{{1}}" >
+
+    <view wx:for="{{loveMeInfo[1]}}" bindtap='seeMe' class='item_view'> 
+    <image  class="user-avatar" mode="aspectFill" src='{{loveMeInfo[1][index].urlImage}}'>  </image>
+    <view>
+    <text class="textVo">{{loveMeInfo[1][index].Info}}</text>
+    <text class="textVoNext">
+    {{loveMeInfo[1][index].ed}} | {{loveMeInfo[1][index].place}}</text>
+    </view>
+  </view>
+
       </view>
+    
 </mp-tabs>
 
-<button bindtap="ceshi">测试</button>
+

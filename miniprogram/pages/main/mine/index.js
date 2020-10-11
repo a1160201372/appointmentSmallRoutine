@@ -1,19 +1,32 @@
 // miniprogram/pages/main/mine/index.js
 var app = getApp();
 Page({
+
+
+  like:function(){
+    wx.navigateTo({
+      url: '../love/index?id=0',
+    })
+  },
+  likeed:function(){
+    wx.navigateTo({
+      url: '../love/index?id=1',
+    })
+  },
+
   /**
    * 页面的初始数据
    */
   data: {
     urlImage:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600925623275&di=60db5f6f6b0d18ba0f3cfa416dd51e9e&imgtype=0&src=http%3A%2F%2Fbpic.588ku.com%2Fback_pic%2F03%2F57%2F11%2F9857a013261b7b6.jpg",//头像
-    loveMeNum:0,//我喜欢的人数
-    loveOtherNum:0,//喜欢我的用户
+    loveMeNum:[null,null],//我喜欢的人数,喜欢我的
+   
     nickName:"空白",
     examineStatus:2,
     myAccount: ["微信号", "手机号", "意见反馈"],
     set:["手机认证","实名认证"],
     pickFunction:["meFunction"],
-    userid:0
+    mineID:null
   },
   //修改个人资料
   modilyFunction:function(){
@@ -40,9 +53,9 @@ Page({
         break;
       case 1:
         console.log("择偶")
-      /*  wx.navigateTo({
-          url: '../../Start/loverRequest/index',
-        })*/
+        wx.navigateTo({
+          url: '../../certification/realname/nameNum/index',
+        })
         break;
         case 2:
           console.log("设置")
@@ -74,6 +87,9 @@ Page({
     //设置头像以及审核状态
     this.readExamineStatus("userID")
     this.readImage("userPhotos")
+    //读取数量
+    this.readLoveNum("myLove",0)
+    this.readLoveNum("loveMe",1)
     //设置底部导航栏
     if (typeof this.getTabBar === 'function' &&
     this.getTabBar()) {
@@ -126,6 +142,8 @@ Page({
     }).get({
       success:function(res){
         var Img=	"cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[0]
+        that.data.mineID=res.data[0].ID
+     
         that.setData({
           urlImage:Img
         })
@@ -159,6 +177,29 @@ Page({
           examineStatus:res.data[0].review[0]
          })
          console.log("数据库里的数据",res.data[0].review[0])
+       },
+       fail:function(e){
+         console.log("数据库加载失败",e)
+       }
+     })
+   },
+   readLoveNum:function(Database,flag){
+    var that=this
+     const db = wx.cloud.database()
+     
+     db.collection(Database).where({
+      _openid: '{openid}'
+     }).get({
+       success:function(res){
+      var numTmp= that.data.loveMeNum
+
+      console.log("喜欢数量",numTmp)
+      numTmp[flag]=res.data[0].myLove.length
+        console.log("数据库里的数据333",res.data[0].myLove.length)
+        that.setData({
+          loveMeNum:numTmp
+        })
+
        },
        fail:function(e){
          console.log("数据库加载失败",e)

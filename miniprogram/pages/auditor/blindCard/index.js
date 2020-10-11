@@ -1,9 +1,5 @@
 // miniprogram/pages/main/blindCard/index.js
-const textColorY="#ef4136"
-const backColorY="#fffffb"
 
-const textColorN="#130c0e"
-const backColorN="#fffffb"
 Page({
 
   /**
@@ -20,8 +16,8 @@ Page({
     interval: 3000, //自动切换时间间隔,3s
     duration: 1000, //  滑动动画时长1s
 
-    followBackColor:"f15b6c",
-    followColor:"#f15b6c",
+    followBackColor:"red",
+    followColor:"#ffffff",
 
     user:"",
     userID:"ID:3365",
@@ -81,11 +77,7 @@ Page({
   },
   follow:function (e) {
 
-    wx.showLoading({
-      title: '加载中',
-    })
-    this.writeMylove("myLove",this.data.mineID,this.data.userID)
-    this.writeMylove("loveMe",this.data.userID,this.data.mineID)
+   this.pass()
    
    
   },
@@ -353,8 +345,8 @@ Page({
             success: function(res) {
               console.log("成功",res)
               that.setData({
-                followBackColor:backColorY,
-                followColor:textColorY,
+                followBackColor:"#ffffff",
+                followColor:"#ff00ff",
               })
                 //
             },
@@ -374,14 +366,14 @@ Page({
           switch(flag){
             case -1://不存在
             that.setData({
-              followBackColor:backColorN,
-              followColor:textColorN,
+              followBackColor:"#ffffff",
+              followColor:"#ff00ff",
             })
             break;
               default://存在，取消关注
               that.setData({
-                followBackColor:backColorY,
-                followColor:textColorY,
+                followBackColor:"red",
+                followColor:"#ffffff",
               })
               break;
           }
@@ -427,14 +419,13 @@ Page({
             },
             success: function(res) {
               console.log("成功",res)
-              
             },
             fail: function(res) {
               console.log("失败",res)
               wx.hideLoading()
               wx.showToast({
                 icon:none,
-                title: '创建数据失败,请检查网络',
+                title: '创建数据失败,请稍后重新注册',
               })
             }
           })
@@ -464,34 +455,20 @@ Page({
               myLove:myLove
             },
             success: function(res) {
-               wx.hideLoading()
               console.log("成功1",myLove)
-              if(mineID==that.data.mineID)
-              {
               if(myLoveFlag==0)
               {
                 that.setData({
-                  followBackColor:backColorY,
-                  followColor:textColorY,
-                })
-                wx.showToast({
-                  icon:none,
-                  title: '关注成功',
-                  duration: 2000,
+                  followBackColor:"red",
+                  followColor:"#ffffff",
                 })
               }
               else{
                 that.setData({
-                  followBackColor:backColorN,
-                  followColor:textColorN,
-                })
-                wx.showToast({
-                  icon:none,
-                  title: '取消成功',
-                  duration: 2000,
+                  followBackColor:"#ffffff",
+                  followColor:"#ff00ff",
                 })
               }
-            }
             
             },
             fail: function(res) {
@@ -549,7 +526,79 @@ Page({
 			flag=-1;
     }
     return flag
-	}
+  },
+  pass:function(){
+    console.log("审核通过")
+    var appid='wxe2d696931db8a3cf';
+    var secret='6ed2ebe5949ff90813633a6db1274cb4';
+    var httpaccess_token=""
+    var that=this
+    wx.request({
+      url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxe2d696931db8a3cf&secret=6ed2ebe5949ff90813633a6db1274cb4', //仅为示例，并非真实的接口地址
+      data: {
+
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+
+
+        that.send(res.data.access_token)
+
+        console.log(res.data.access_token)
+      }
+    })
+  },
+  send:function(access_token){
+    wx.request({
+      url: 'https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token='+access_token, //仅为示例，并非真实的接口地址
+      data: {
+        "touser": "ouFO65Ypkw2b-YDuoJ7tl3sKXV_g",
+        "template_id": "nmhJ_6jdqSN3BnSdsoslu6Pz2nsmTjn3LmYZ6bveGCk",
+     //   "page": "index",//不跳转
+        //"miniprogram_state":"developer",
+        "lang":"zh_CN",
+        "data": {
+            "thing1": {
+                "value": "339208499"
+            },
+           
+            "time3": {
+                "value": "2015年01月05日"
+            } ,
+            "phrase2": {
+              "value": "我的"
+          },
+        }
+      },
+      method:"POST",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+
+
+
+
+        console.log(res.data)
+      }
+    })
+  },
+  ceshi:function(){
+    wx.requestSubscribeMessage({   // 调起消息订阅界面
+      tmplIds: ["nmhJ_6jdqSN3BnSdsosluxTTSaXhpmwupVpd3bPhyRY"],
+      success (res) { 
+        console.log('订阅消息 成功 ');
+        console.log(res);
+      },
+      fail (er){
+        console.log("订阅消息 失败 ");
+        console.log(er);
+      }
+    })     
+
+  }
    
 
 })

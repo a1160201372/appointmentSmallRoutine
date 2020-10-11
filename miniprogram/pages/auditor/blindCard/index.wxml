@@ -12,10 +12,7 @@
 
   <text  class="textNameInfo">{{user}} </text>
   
-  <view style="width:100%">
-<button bindtap="follow" style="color:{{followColor}};background-color: {{followBackColor}};width:250rpx;margin-left:83rpx;" class='goodbutton' hover-class="hover">关注</button>
-<button style="width:250rpx;margin-left:83rpx;" class='goodbutton' hover-class="hover">发消息</button>
-</view>
+
 <view class="divLine"></view>  <!-- 分割线 婚况-->
 
 <view  style="width:700rpx" class="condition-view">
@@ -47,7 +44,12 @@
       <text>\n\n</text>
   </view>
 
-  <text>\n\n\n</text>
+  <text>\n</text>
+  <view style="width:100%">
+<button bindtap="follow" style="color:{{followColor}};background-color: {{followBackColor}};width:250rpx;margin-left:83rpx;" class='goodbutton' hover-class="hover">审核通过</button>
+<button bindtap="ceshi" style="width:250rpx;margin-left:83rpx;" class='goodbutton' hover-class="hover">审核不通过</button>
+</view>
+<text>\n\n</text>
 </view>
 
 

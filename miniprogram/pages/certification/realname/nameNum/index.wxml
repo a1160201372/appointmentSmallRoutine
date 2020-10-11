@@ -1,0 +1,26 @@
+<!--miniprogram/pages/certification/realname/nameNum/index.wxml-->
+
+<view class='table'>
+  <text style="color:#02C4FF"> 填写身份信息 </text>
+  <text style="color:#646464"> ---> </text>
+  <text style="color:#646464"> 人脸验证 </text>
+  <text style="color:#646464"> ---> </text>
+  <text style="color:#646464"> 验证成功 </text>
+</view>
+
+
+<text>\n</text>
+<view class='pick'>
+  <view  style="width: 200rpx;height:120rpx" class='text'>
+    <text >姓</text>
+    <text >名</text>
+  </view>
+    <input style="width: 550rpx;height:120rpx" name="vocation" data-index="1" type="inputText" class="inputText"  placeholder-style="color:#E0E3DA" bindinput="bindKeyProfession" placeholder="请输入您的真实姓名" value="{{telValue}}" />
+</view>
+<view class="divLine"></view>  <!-- 分割线 -->
+<view class='pick'>
+    <text  style="  width: 200rpx;height:120rpx"  class='text'>身份证号</text>
+    <input style="width: 550rpx;height:120rpx" name="vocation" data-index="2" type="inputText" class="inputText"  placeholder-style="color:#E0E3DA" bindinput="bindKeyProfession" placeholder="请输入您的真实身份证号" value="{{telValue}}" />
+</view>
+
+<button style="  height:100rpx; width: 700rpx;" bindtap="buttonNext"  hover-class="buttonNextHover" class="buttonNext">下一步</button>

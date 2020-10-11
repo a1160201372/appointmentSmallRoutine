@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "相亲小程序",
+  "usingComponents": {},
+
+  "onReachBottomDistance": 40
+}

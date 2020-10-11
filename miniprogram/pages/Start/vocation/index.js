@@ -46,28 +46,11 @@ Page({
     }
     
     else{
+      wx.showLoading({
+        title: '保存中',
+      })
+      that.upDataGande(id)
   
-    wx.showModal({
-      title: '是否保存',
-      content: tmp,
-      confirmText:"保存",
-      success (res) {
-        if (res.confirm) {//保存
-        
-          console.log("点击",id);
-          wx.showLoading({
-            title: '保存中',
-          })
-          that.upDataGande(id)
-       /*   wx.redirectTo({//跳转
-            url: '../income/index'
-          })*/
-
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
 
     }
 
