@@ -1,0 +1,44 @@
+/* miniprogram/pages/chat/im/index.wxss */
+.user-avatar {
+
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+margin-top: 10rpx;
+margin-left: 10rpx;
+display: inline-block;
+}
+.textVo{
+  font-size: 40rpx;
+ /* font-weight: bold;*/
+  display: inline-block;
+  height: 50rpx;
+}
+
+
+.item_view{
+
+  display: flex;
+padding: 20rpx;
+position: relative;
+line-height: 30rpx;
+display:flex;      
+flex-direction: row;
+}
+.main_dan{
+  margin-left: 30rpx;
+  margin-top: 10rpx;
+  display: inline-block;
+  /*background-color: lawngreen;*/
+}
+.textVoNext{
+  font-size: 30rpx;
+}
+.divLine{
+  background: #E0E3DA;
+
+  width: 550rpx;
+  height: 5rpx;
+  margin-top: 40rpx;
+
+ }

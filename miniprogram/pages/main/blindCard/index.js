@@ -138,6 +138,17 @@ Page({
   onShareAppMessage: function () {
 
   },
+  news:function(){
+    
+
+    wx.navigateTo({
+      url: '../../chat/room/room?userID='+this.data.userID+'&mineID='+this.data.mineID
+    });
+    
+
+
+
+  },
   //读取用户openID
   readOpenId:function(ID){
     var that=this

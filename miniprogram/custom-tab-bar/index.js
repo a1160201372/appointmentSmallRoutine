@@ -8,12 +8,19 @@ Component({
       iconPath: "/images/tab/icon_component.png",
       selectedIconPath: "/images/tab/icon_component_HL.png",
       text: "遇见"
+    },
+    {
+      pagePath: "/pages/main/im/index",
+      iconPath: "/images/tab/icon_API.png",
+      selectedIconPath: "/images/tab/icon_API_HL.png",
+      text: "消息"
     }, {
       pagePath: "/pages/main/mine/index",
       iconPath: "/images/tab/icon_API.png",
       selectedIconPath: "/images/tab/icon_API_HL.png",
       text: "我的"
-    }]
+    }
+  ]
   },
   attached() {
   },

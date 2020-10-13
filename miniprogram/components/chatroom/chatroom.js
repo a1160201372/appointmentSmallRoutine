@@ -8,7 +8,7 @@ Component({
   properties: {
     envId: String,
     collection: String,
-    groupId: String,
+    groupId: Array,
     groupName: String,
     userInfo: Object,
     onGetUserInfo: {
@@ -17,6 +17,8 @@ Component({
     getOpenID: {
       type: Function,
     },
+    nickName:String,
+    nickUrl:String,
   },
 
   data: {
@@ -163,8 +165,8 @@ Component({
         const doc = {
           _id: `${Math.random()}_${Date.now()}`,
           groupId: this.data.groupId,
-          avatar: this.data.userInfo.avatarUrl,
-          nickName: this.data.userInfo.nickName,
+          avatar: this.data.nickUrl,
+          nickName: this.data.nickName,
           msgType: 'text',
           textContent: e.detail.value,
           sendTime: new Date(),
@@ -210,8 +212,8 @@ Component({
           const doc = {
             _id: `${Math.random()}_${Date.now()}`,
             groupId: this.data.groupId,
-            avatar: this.data.userInfo.avatarUrl,
-            nickName: this.data.userInfo.nickName,
+            avatar: this.data.nickUrl,
+            nickName: this.data.nickName,//设置人物昵称
             msgType: 'image',
             sendTime: new Date(),
             sendTimeTS: Date.now(), // fallback

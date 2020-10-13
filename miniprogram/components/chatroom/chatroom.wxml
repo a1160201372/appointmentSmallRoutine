@@ -25,11 +25,11 @@
     >
       <image 
         class="avatar"
-        src="{{item.avatar}}"
+        src="{{nickUrl}}"
         mode="scaleToFill"
-      ></image> 
+      ></image> <!--头像-->
       <view class="main">
-        <view class="nickname">{{item.nickName}}</view>
+        <view class="nickname">{{nickName}}</view><!--昵称-->
         <block wx:if="{{item.msgType === 'image'}}">
           <view class="image-wrapper">
             <view class="loading" wx:if="{{item.writeStatus > -1}}">{{item.writeStatus}}%</view>
@@ -39,13 +39,13 @@
               class="image-content" 
               style="{{item.imgStyle}}"
               mode="scallToFill" 
-              bindtap="onMessageImageTap"></image>
+              bindtap="onMessageImageTap"></image><!--聊天内容图片-->
           </view>
         </block>
         <block wx:else>
           <view class="text-wrapper">
             <view class="loading" wx:if="{{item.writeStatus === 'pending'}}">···</view>
-            <view class="text-content">{{item.textContent}}</view>
+            <view class="text-content">{{item.textContent}}</view> <!--聊天内容-->
           </view>
         </block>
       </view>
@@ -54,7 +54,7 @@
 
   <!-- message sender -->
   <view class="footer">
-    <view class="message-sender" wx:if="{{userInfo}}">
+    <view class="message-sender" >
       <input 
         class="text-input"
         type="text"
@@ -71,14 +71,14 @@
         bindtap="onChooseImage"
       ></image>
     </view>
-
+<!--
     <view class="message-sender" wx:if="{{!userInfo}}">
       <button 
         open-type="getUserInfo" 
         bindgetuserinfo="onGetUserInfo"
         class="userinfo"
       >请先登录后参与聊天</button>
-    </view>
+    </view>-->
   </view>
 
 </view>
