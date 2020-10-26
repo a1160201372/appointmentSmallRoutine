@@ -13,7 +13,7 @@
   <text  class="textNameInfo">{{user}} </text>
   
   <view style="width:100%">
-<button bindtap="follow" style="color:{{followColor}};background-color: {{followBackColor}};width:250rpx;margin-left:83rpx;" class='goodbutton' hover-class="hover">关注</button>
+<button bindtap="follow" style="color:{{followColor}};background-color: {{followBackColor}};width:250rpx;margin-left:83rpx;" class='goodbutton' hover-class="hover">{{followText}}</button>
 <button style="width:250rpx;margin-left:83rpx;" bindtap="news" class='goodbutton' hover-class="hover">发消息</button>
 </view>
 <view class="divLine"></view>  <!-- 分割线 婚况-->

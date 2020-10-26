@@ -23,13 +23,25 @@
       id="item-{{index}}"
       class="message {{openId == item._openid ? 'message__self' : ''}}"
     >
+
+    <view wx:if="{{chats[index].nickName==mineID}}" >
       <image 
         class="avatar"
         src="{{nickUrl}}"
         mode="scaleToFill"
       ></image> <!--头像-->
+    </view>
+    
+    <view wx:else >
+      <image 
+        class="avatar"
+        src="{{nickUrlOther}}"
+        mode="scaleToFill"
+      ></image> <!--头像-->
+    </view>
+
       <view class="main">
-        <view class="nickname">{{nickName}}</view><!--昵称-->
+     <!--  <view class="nickname">{{nickName}}</view><!--昵称-->
         <block wx:if="{{item.msgType === 'image'}}">
           <view class="image-wrapper">
             <view class="loading" wx:if="{{item.writeStatus > -1}}">{{item.writeStatus}}%</view>

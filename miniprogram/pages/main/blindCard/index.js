@@ -14,7 +14,7 @@ Page({
       
      
     ],
-
+    followText:"关注",
     indicatorDots: true, //是否显示面板指示点
     autoplay: true, //是否自动切换
     interval: 3000, //自动切换时间间隔,3s
@@ -139,11 +139,11 @@ Page({
 
   },
   news:function(){
-    
 
-    wx.navigateTo({
-      url: '../../chat/room/room?userID='+this.data.userID+'&mineID='+this.data.mineID
-    });
+    //this.writeMylove("new",this.data.mineID,this.data.userID)
+    this.readImageTo(this.data.mineID,this.data.userID,this.data.userImgOther,this.data.imgUrls[0])
+
+   
     
 
 
@@ -364,6 +364,7 @@ Page({
             success: function(res) {
               console.log("成功",res)
               that.setData({
+                followText:"已关注",
                 followBackColor:backColorY,
                 followColor:textColorY,
               })
@@ -385,12 +386,14 @@ Page({
           switch(flag){
             case -1://不存在
             that.setData({
+              followText:"关注",
               followBackColor:backColorN,
               followColor:textColorN,
             })
             break;
               default://存在，取消关注
               that.setData({
+                followText:"已关注",
                 followBackColor:backColorY,
                 followColor:textColorY,
               })
@@ -482,6 +485,7 @@ Page({
               if(myLoveFlag==0)
               {
                 that.setData({
+                  followText:"已关注",
                   followBackColor:backColorY,
                   followColor:textColorY,
                 })
@@ -493,6 +497,7 @@ Page({
               }
               else{
                 that.setData({
+                  followText:"关注",
                   followBackColor:backColorN,
                   followColor:textColorN,
                 })
@@ -534,7 +539,7 @@ Page({
       }
     })
    },
-   
+   //查询关注列表
    find:function(arry,num) {
     var start = 0;
     var flag=0;
@@ -560,7 +565,45 @@ Page({
 			flag=-1;
     }
     return flag
-	}
+  },
+      //读取用户图片,用于跳转
+      readImageTo:function(ID,userID,mineImg,userImg){
+        var that=this
+        var openid=this.data.openid
+        console.log("图片",this.data.openid) 
+          const db = wx.cloud.database()
+          db.collection('userPhotos').where({
+            ID: ID
+          }).get({
+            success:function(res){
+              var tmp
+              console.log("自我介绍",res.data.length)
+              if(res.data.length==0){//没有用户ID
+                console.log("无图片") 
+              }
+              else{//已经存在 
+              console.log("图片界面",res.data[0].fileID) 
+                tmp=res.data[0].fileID
+                for(var i=0;i<res.data[0].fileID.length;i++)
+                {
+                  tmp[i]="cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[i]
+                }
+                console.log("图片界面sss",tmp) 
+         
+              }
+              wx.navigateTo({
+                url: '../../chat/room/room?userID='+userID//别人ID
+                            +'&mineID='+ID//自己ID
+                            +'&nickName='+"测试"//昵称
+                            +'&userImgOther='+userImg//自己头像
+                            +'&userImg='+tmp//别人头像
+              });
+            },
+            fail:function(e){
+              console.log("数据库加载失败",e)
+            }
+          })
+     },
    
 
 })

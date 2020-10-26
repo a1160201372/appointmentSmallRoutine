@@ -13,7 +13,7 @@
 
  <!--标题-->
  <view>
-  <text class="titleText">请对准摄像头</text>
+  <text class="titleText">{{tital}}</text>
 </view>
 <text>\n</text>
 <view>
@@ -23,13 +23,17 @@
   
     <camera device-position="front" flash="off" binderror="error" class="camera" >
     
-    <cover-view wx:if="{{countdown}}" class="play">
-      <cover-text class="textNum">{{countdownNum}}</cover-text>
-    </cover-view>
+    
+       
+      <image class="img" src="../../../../images/top_fin.png">
+        
+        </image>
+        <text  wx:if="{{countdown==true}}" decode="{{true}}" space="{{true}}" class="textNum">{{countdownNum}}</text>
+   <!-- -->
 
 
     </camera>
-
+   
 
 
 

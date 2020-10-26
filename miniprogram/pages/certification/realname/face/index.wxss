@@ -60,31 +60,26 @@
   margin-top: 710rpx;
  }
  .camera{
-
   position: absolute;
   width: 700rpx;
   height: 700rpx;
   margin-left: 25rpx;
-  border-radius: 50%;
-
-
  }
  .text_num{
-
-  width: 300rpx;
-  height: 300rpx;
-  margin-left: 25rpx;
-  margin-bottom: 1000rpx;
+  margin-left: 15rpx;
+  width: 140rpx;
+  height: 140rpx;
   border-radius: 50%;
+
+  line-height: 70px;
+  
+
   background-color: rgb(228, 227, 227);
   opacity: 0.5;
-
-
-
+  font-size: 18px;
+  color: rgb(0, 0, 0);
   z-index: 100;
   position: absolute;
-  align-items:center;
-  justify-content: center;
 }
 .text_text{
   font-size: 100rpx;
@@ -96,14 +91,7 @@
   align-items: center;
   justify-content: center; 
 }
-.camera_text{
-  font-size:90rpx;
-  margin-top: 500rpx;
-  margin-left: 240rpx;
-  align-items:center;
-  justify-content: center;
 
-}
 .controls {
   position: relative;
   top: 50%;
@@ -126,13 +114,30 @@
   border-radius: 50%;
 }
 
-.img {
-  width: 20px;
-  height: 20px;
-  margin-top: 40px;
-}
+
 .textNum{
+  margin-top: 50rpx;
+  margin-left: auto;
+  width: 700rpx;
+  height: 700rpx;
+  background-color: rgb(255, 255, 255);
+  opacity: 0.5;
+  color: rgb(0, 0, 0);
+  z-index: 100;
+  position: absolute;
+  font-size: 400rpx;
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.img{
  
-  margin-left:275rpx;
-  
+ 
+  z-index: 50;
+  position: absolute;
+  width: 700rpx;
+  height: 700rpx;
+ 
+  overflow:hidden;
 }

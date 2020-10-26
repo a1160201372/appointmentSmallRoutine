@@ -1,19 +1,17 @@
 <!--miniprogram/pages/chat/im/index.wxml-->
-<!--      <view wx:for="{{loveMeInfo[0]}}" bindtap='myLovefu'  data-index="{{index}}" class='item_view'> 
+    <view wx:for="{{loveMeInfo}}" bindtap='myLovefu'  data-index="{{index}}" class='item_view'> 
       
-        <image wx:if="{{loveMeInfo[0][index].urlImage}}" class="user-avatar" mode="aspectFill" src="{{loveMeInfo[0][index].urlImage}}">  </image>
+        <image wx:if="{{loveMeInfo[index].urlImage}}" class="user-avatar" mode="aspectFill" src="{{loveMeInfo[index].urlImage}}">  </image>
    
 
         <view class="main_dan">
-        <text class="textVo">{{loveMeInfo[0][index].Info}}</text>
+        <text class="textVo">{{loveMeInfo[index].ed}}</text>
         <text class="textVoNext">
-          {{loveMeInfo[0][index].ed}}</text>
-          <view class="divLine"></view>  <!-- 分割线 --
+          {{loveMeInfo[index].textContent}}</text>
+          <view class="divLine"></view>  
         </view>
 
       </view>
-    -->
 
-    <button bindtap="ceshi">ceshi
-    </button>
 
+ 

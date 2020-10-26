@@ -1,25 +1,21 @@
 {
   "pages": [
-    "pages/main/meet/index",
-    "pages/main/blindCard/index",
-    
-    "pages/chat/room/room",
-  
- 
-    
-    
     "pages/certification/realname/face/index",
     "pages/main/Main/index",
-  
+    "pages/Start/upImg/index",
+    
+    "pages/main/meet/index",
+    "pages/main/blindCard/index",
+
+    "pages/chat/room/room",
     "pages/auditor/blindCard/index",
     "pages/main/mine/index",
     "pages/Start/grande/index",
     "pages/auditor/meet/index",
     "pages/certification/realname/nameNum/index",
     "pages/certification/realname/index",
-    "pages/Start/upImg/index",
+    
     "pages/main/love/index",
-   
     "pages/main/setMe/index",
     "pages/Start/nation/index",
     "pages/Start/Weight/index",

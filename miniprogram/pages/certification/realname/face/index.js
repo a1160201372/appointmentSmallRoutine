@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tital:"请点击“开始验证”按钮",
     countdown:false,
     countdownNum:3
   },
@@ -73,6 +74,9 @@ Page({
   },
   countdown:function(){
     var that=this
+    that.setData({
+      countdownNum:3
+    })
     setTimeout(function () {
       that.setData({
         countdownNum:2

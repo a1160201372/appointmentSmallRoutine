@@ -2,6 +2,10 @@ const app = getApp()
 
 Page({
   data: {
+    nickName:"ceshi",
+    
+    userImg:"",
+    userImgOther:"",
     avatarUrl: './user-unlogin.png',
     userInfo: null,
     logged: false,
@@ -15,19 +19,34 @@ Page({
     // functions for used in chatroom components
     onGetUserInfo: null,
     getOpenID: null,
+
+    //ID号
+
+    mineID:null,
+    userID:null
   },
 
   onLoad: function(e) {
 
     var groupId=[]
+    var nickName=e.nickName
+    var userImg=e.userImg
+    var userImgOther=e.userImgOther
     groupId[0]=Number(e.userID)
     groupId[1]=Number(e.mineID)
+
     groupId.sort((a, b) => a - b);
-    console.log("标志",groupId)
+    console.log("标志0",groupId)
+    console.log("标志1",nickName)
+    console.log("标志2",userImg)
 
     this.setData({
-      chatRoomGroupId:groupId
-      
+      mineID:e.mineID,
+      userID:e.userID,
+      chatRoomGroupId:groupId,
+      nickName:nickName,
+      userImg:userImg,
+      userImgOther:userImgOther
     })
   
 

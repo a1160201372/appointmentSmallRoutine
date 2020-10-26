@@ -23,7 +23,7 @@
 <!--喜欢我的-->
     <view slot="tab-content-{{1}}" >
 
-    <view wx:for="{{loveMeInfo[1]}}" bindtap='seeMe' class='item_view'> 
+    <view wx:for="{{loveMeInfo[1]}}" bindtap='seeMe'  data-index="{{index}}"  class='item_view'> 
     <image  class="user-avatar" mode="aspectFill" src='{{loveMeInfo[1][index].urlImage}}'>  </image>
     <view>
     <text class="textVo">{{loveMeInfo[1][index].Info}}</text>

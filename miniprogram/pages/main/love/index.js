@@ -21,6 +21,7 @@ Page({
   
   //  tabFlag:0,//状态
   },
+
   onLoad: function (options) {
 
     wx.showLoading({
@@ -218,6 +219,22 @@ myLovefu:function(e){
   console.log("进入",id)*/
   wx.navigateTo({
     url: '../blindCard/index?userID='+user[0][num].id+'&mineID='+this.data.mineID
+  });
+
+},
+seeMe:function(e){
+  var user=this.data.loveMeInfo
+  var num=e.currentTarget.dataset.index
+  console.log("跳转数值",e.currentTarget.dataset.index)
+  console.log("跳转",user[0][num].id)
+
+  /*
+  var id=[0,0]
+  id[0]=user[e.currentTarget.dataset.index].ID
+  id[1]=this.data.mineID
+  console.log("进入",id)*/
+  wx.navigateTo({
+    url: '../blindCard/index?userID='+user[1][num].id+'&mineID='+this.data.mineID
   });
 
 }

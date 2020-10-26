@@ -65,11 +65,11 @@ Page({
         icon: 'success',
         duration: 2000
       })
-      setTimeout(function () {
+    /*  setTimeout(function () {
         wx.switchTab({
           url: '../../main/mine/index'
         })
-      }, 2200)
+      }, 2200)*/
       // get resource ID
       console.log(res.fileID)
     }).catch(error => {
@@ -151,10 +151,45 @@ var that=this
      
     }).get({
       success:function(res){
-        var tmp=res.data.length+1000+1
+        var tmp=res.data.length+1000
+        console.log("外面tmp",tmp)
+        var arry=res.data
+        var Arry=[]
+        var i=0
        //var tmp=1001
         console.log("openID测试",tmp)
-     
+        for(var i=0;i<res.data.length;i++){
+          Arry[i]=res.data[i].ID
+        }
+        Arry.sort((a, b) => a - b);
+
+        console.log("排序",Arry)
+        var flag=0
+        while(flag!=-1){
+          var tmp =Number((Math.random()*(90000-10000+1)+10000).toFixed(0))
+    
+          flag=find(Arry,tmp)
+          
+          if(flag==-1){
+            console.log("存储ID",tmp)
+            that.upDataIDNum("userID",tmp)
+            that.upDataIDNum("userInfo",tmp)
+            that.upDataIDNum("userIntroduce",tmp)
+            that.upDataIDNum("userOther",tmp)
+            that.upDataIDNum("userPhotos",tmp)
+  
+            that.upDataIDNumLove("loveMe",tmp)
+            that.upDataIDNumLove("myLove",tmp)
+            that.upDataIDNumLove("new",tmp)
+          }
+          
+            
+        }
+
+        
+
+        //生成ID信息
+/*
           that.upDataIDNum("userID",tmp)
           that.upDataIDNum("userInfo",tmp)
           that.upDataIDNum("userIntroduce",tmp)
@@ -163,8 +198,37 @@ var that=this
 
           that.upDataIDNumLove("loveMe",tmp)
           that.upDataIDNumLove("myLove",tmp)
-         
+*/
+         //查重
+        /* while(randomNum()){
 
+         }*/
+          function find(arry,num) {
+            var start = 0;
+            var flag=0;
+            var end =arry.length-1;
+            while(start<=end) {//当查找完成时，结束位置会小于起始位置
+              //先定义中间值
+              var middle = Math.floor((start+end)/2);
+              if(num<arry[middle]) {
+                //如果要查找的数小于等于中间数则取前半部分
+                end = middle-1;
+              }else if(num>arry[middle]){
+                //如果要查找大于中间数则取后半部分
+                start = middle+1;
+              }else{
+              console.log("你要找的在第"+middle+"号位置");
+              flag=middle;
+        
+                break;
+              }
+            }
+            if(start>end) {
+              console.log("该数组中没有您要找的数");
+              flag=-1;
+            }
+            return flag
+          }
       },
       fail:function(){
         console.log("数据库加载失败")
@@ -299,5 +363,6 @@ var that=this
         })
       }
     })
-  }
+  },
+
 })

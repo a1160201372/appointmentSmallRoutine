@@ -8,8 +8,13 @@
     userInfo="{{userInfo}}"
     onGetUserInfo="{{onGetUserInfo}}"
     getOpenID="{{getOpenID}}"
-    nickName="1234"
-    nickUrl="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600937008483&di=5e1b3955e3b522a0b221616ee4dfda6c&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fd000baa1cd11728bb8fb7eb7c8fcc3cec2fd2c55.jpg"
+
+  
+    mineID="{{mineID}}"
+    userID="{{userID}}"
+
+    nickUrl="{{userImg}}"
+    nickUrlOther="{{userImgOther}}"
 
   ></chatroom>
 </view>

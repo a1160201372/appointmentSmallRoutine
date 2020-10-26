@@ -179,6 +179,7 @@ this.readMineID()
           userTmp.push(Tmp)
           console.log("临时数据",Tmp)
           that.data.user=userTmp
+          
           setTimeout(function () {
             wx.hideLoading()
             that.setData({
