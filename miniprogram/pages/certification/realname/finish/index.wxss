@@ -1,0 +1,110 @@
+/* miniprogram/pages/certification/realname/nameNum/index.wxss */
+
+.table{
+  margin-top: 10px;
+  position: relative;
+  display:flex;      
+  align-items:center;
+  justify-content: center;
+}
+.textTitle{
+  font-size: 37rpx;
+  color: #161111;
+  font-weight:bold;
+}
+.textInfo{
+  font-size: 37rpx;
+  color: #161111;
+}
+.inputText{
+  display:flex;      
+  height: 50rpx;
+  width: 200rpx;
+  background-color: rgb(255, 255, 255);
+  font-size: 40rpx;
+  
+}
+.divLine{
+  background: #E0E3DA;
+  width: 710rpx;
+  height: 5rpx;
+  margin-left: 20rpx;
+ }
+ .ceshi{
+   color: rgb(102, 102, 102);
+ }
+ .buttonNext{
+   background-color:#2574EA;
+   color: white;
+   margin-top: 50px;
+   font-size: 55rpx;
+   align-items:center;
+   justify-content: center;
+ }
+ .buttonNextHover{
+  background-color:#5795f1;
+  color: white;
+  margin-top: 50px;
+  font-size: 55rpx;
+  align-items:center;
+  justify-content: center;
+ }
+ .attestationImg1{
+  width: 100rpx;
+  height: 100rpx;
+  margin-left: 119rpx;
+  margin-bottom: 30rpx;
+ }
+ .mainicon{
+  width: 750rpx;
+  height: 450rpx;
+
+display: flex;
+justify-content: center; 
+align-items:center; 
+ 
+ }
+
+ .attestationText{
+   font-size: 34rpx;
+color: rgb(1, 189, 1);
+ }
+ .main{
+   background-color: rgb(255, 255, 255);
+ 
+
+ }
+ .pick{
+  display: flex;
+  height: 120rpx;
+  position: relative;
+  flex-direction: row;
+  width: 700rpx;
+  margin-left: 25rpx;
+  border-bottom: 2rpx solid rgb(107, 107, 107);
+}
+.pickLiftMust-view{
+  display: flex;
+  flex: 1; /* 重要 */
+  flex-direction: row;
+  justify-content:left; 
+  align-items:center;
+}
+
+.pickRight-view{
+
+  display: flex;
+  position: relative;
+ align-items:center;
+ word-break:break-all;
+ word-wrap: break-word;
+ white-space: pre-line;
+align-items:center;
+}
+.divLine{
+  background: #b4b4b4;
+  width: 700rpx;
+  height: 5rpx;
+  margin-left: 25rpx;
+
+ }

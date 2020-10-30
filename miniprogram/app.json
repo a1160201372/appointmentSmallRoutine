@@ -1,23 +1,18 @@
 {
   "pages": [
+    "pages/main/Main/index",
+    "pages/certification/realname/nameNum/index",
+    "pages/certification/realname/face/index",
+    "pages/certification/realname/finish/index",
+    "pages/certification/realname/index",
+    "pages/Start/upImg/index",
     "pages/main/meet/index",
     "pages/chat/room/room",
-   
-    "pages/certification/realname/face/index",
-    "pages/main/Main/index",
-    "pages/Start/upImg/index",
-    
-   
     "pages/main/blindCard/index",
-
-
     "pages/auditor/blindCard/index",
     "pages/main/mine/index",
     "pages/Start/grande/index",
     "pages/auditor/meet/index",
-    "pages/certification/realname/nameNum/index",
-    "pages/certification/realname/index",
-    
     "pages/main/love/index",
     "pages/main/setMe/index",
     "pages/Start/nation/index",
@@ -63,8 +58,8 @@
       },
       {
         "pagePath": "pages/main/im/index",
-        "iconPath": "images/tab/icon_API.png",
-        "selectedIconPath": "images/tab/icon_API_HL.png",
+        "iconPath": "images/tab/message.png",
+        "selectedIconPath": "images/tab/message_HL.png",
         "text": "消息"
       }, {
         "pagePath": "pages/main/meet/index",

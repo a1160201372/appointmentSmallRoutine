@@ -1,0 +1,34 @@
+<!--miniprogram/pages/certification/realname/nameNum/index.wxml-->
+
+<view class='table'>
+  <text style="color:#02C4FF"> 填写身份信息 </text>
+  <text style="color:#02C4FF"> ---> </text>
+  <text style="color:#02C4FF"> 人脸验证 </text>
+  <text style="color:#02C4FF"> ---> </text>
+  <text style="color:#02C4FF"> 验证成功 </text>
+</view>
+
+<view class='main'>
+
+<view class='mainicon'>
+  <view>
+    <image class="attestationImg1" src="../../../../images/Attestation.png"></image>
+    <text class="attestationText">
+          您已经通过了实名认证</text>
+    </view>
+  </view>
+
+    <view  wx:for="{{info}}" class="pick">
+    <view  class='pickLiftMust-view'>
+      <text class='textTitle'>{{info[0][index]}}</text>
+      </view>
+       <view class='pickRight-view'>
+      <text class='textInfo'>{{info[1][index]}}</text>
+    </view>
+  </view>
+</view>
+<view style="display: flex;justify-content: center; ">
+  <text style="font-size:25rpx; margin-top: 20rpx;color:rgb(107, 107, 107);">身份证号只供平台确认信息使用</text>
+</view>
+
+

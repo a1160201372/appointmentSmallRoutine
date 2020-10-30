@@ -141,3 +141,10 @@
  
   overflow:hidden;
 }
+.imgLoad{
+  z-index: 50;
+  position: absolute;
+  width: 700rpx;
+  height: 700rpx;
+  overflow:hidden;
+}

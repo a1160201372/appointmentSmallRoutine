@@ -3,7 +3,7 @@
     <swiper class="swiper_box" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{false}}" duration="{{duration}}" circular='true'>
       <block wx:for="{{imgUrls}}" wx:key="{{imgUrls}}">
         <swiper-item>
-          <image mode="aspectFill" src="{{item}}"  class="indexSlide" />
+          <image bindtap="Previewing" data-index="{{index}}" mode="aspectFill" src="{{item}}"  class="indexSlide" />
         </swiper-item>
       </block>
     </swiper>

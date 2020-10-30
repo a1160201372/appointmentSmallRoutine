@@ -25,6 +25,7 @@ Page({
   },
     UpHeadImg:function(){
   },
+  //选择图片
   doChooseHeadImg:function(){
     const that=this
     wx.chooseImage({
@@ -43,10 +44,10 @@ Page({
         wx.showLoading({
           title: '保存中',
         })
-        //存入数据库（时间戳，照片数量）
-
-       that.upDataGande(tempFilePaths)
-
+      //上传图片
+       var timestamp = Date.parse(new Date());
+       var fileName = [  "123"+"/"+"ini"+Math.ceil(Math.random()*99992363)+"_"+ Math.ceil(Math.random()*99992363) +timestamp+"_0.png"]
+       that.doUpHeadImg(tempFilePaths,fileName[0])
       }
     })
   },
@@ -58,6 +59,10 @@ Page({
       cloudPath: name,
       filePath: FilePath, // 文件路径
     }).then(res => {
+      var fileName=[]
+    fileName[0]=res.fileID
+      console.log("文件ID",res.fileID)
+      that.upDataGande(fileName)
       that.upDataID()
       wx.hideLoading()
       wx.showToast({
@@ -65,6 +70,7 @@ Page({
         icon: 'success',
         duration: 2000
       })
+      
     /*  setTimeout(function () {
         wx.switchTab({
           url: '../../main/mine/index'
@@ -83,7 +89,7 @@ Page({
       })
     })
   },
-  upDataGande:function(tempFilePaths){
+  upDataGande:function(fileName){
     var that=this
     console.log("函数")
     console.log("数据")
@@ -92,10 +98,7 @@ Page({
       _openid: '{openid}'
     }).get({
       success:function(res){
-        var timestamp = Date.parse(new Date());
-      //  var fileName =  [app.globalData.openid +timestamp+"_0.png"]
-      
-      var fileName = [  "ini"+Math.ceil(Math.random()*99992363)+"_"+ Math.ceil(Math.random()*99992363) +timestamp+"_0.png"]
+       
        
         console.log("数据",fileName)
         if(res.data.length==0){
@@ -110,7 +113,12 @@ Page({
             },
             success: function(res) {
               console.log("成功",res)
-              that.doUpHeadImg(tempFilePaths,fileName[0])
+                   setTimeout(function () {
+        wx.switchTab({
+          url: '../../main/mine/index'
+        })
+      }, 1000)
+                
             },
             fail: function(res) {
               console.log("失败")
@@ -129,7 +137,12 @@ Page({
             },
             success: function(res) {
               console.log("成功上传",res)
-              that.doUpHeadImg(tempFilePaths,fileName[0])
+              setTimeout(function () {
+                wx.switchTab({
+                  url: '../../main/mine/index'
+                })
+              }, 1000)
+             
             },
             fail: function(res) {
               console.log("失败")
@@ -172,15 +185,20 @@ var that=this
           
           if(flag==-1){
             console.log("存储ID",tmp)
-            that.upDataIDNum("userID",tmp)
-            that.upDataIDNum("userInfo",tmp)
-            that.upDataIDNum("userIntroduce",tmp)
-            that.upDataIDNum("userOther",tmp)
-            that.upDataIDNum("userPhotos",tmp)
-  
-            that.upDataIDNumLove("loveMe",tmp)
-            that.upDataIDNumLove("myLove",tmp)
-            that.upDataIDNumLove("new",tmp)
+            that.upDataIDNum("userID",tmp) //用户ID信息
+            that.upDataIDNum("userInfo",tmp)//用户基本信息
+            that.upDataIDNum("userIntroduce",tmp)//用户自我介绍
+            that.upDataIDNum("userOther",tmp)//用户择偶要求
+            that.upDataIDNum("userPhotos",tmp)//用户照片
+            that.upDataIDNum("userImportant",tmp)//用户的隐私信息（姓名，身份证号）
+            that.upDataIDNum("userPayInfo",tmp)//用户支付信息
+
+            
+            that.upDataIDNumLove("loveMe",tmp)//关注我的
+            that.upDataIDNumLove("myLove",tmp)//我关注的
+            that.upDataIDNumLove("new",tmp)//聊天记录
+
+            //广场相关
           }
           
             
@@ -241,14 +259,12 @@ var that=this
     })
   },
   upDataIDNum:function(table,ID){
-
     var that=this
     const db = wx.cloud.database()
     db.collection(table).where({
       _openid: '{openid}'
     }).get({
       success:function(res){
-
         if(res.data.length==0){
           db.collection(table).add({
             // data 字段表示需新增的 JSON 数据
@@ -256,6 +272,7 @@ var that=this
               ID:ID,
             },
             success: function(res) {
+              
               console.log("成功",res)
                 //
             },
@@ -268,7 +285,6 @@ var that=this
               })
             }
           })
-          console.error("错误")
         }
         else{//已经存在
           console.log("进入222",res.data[0]._id)
@@ -330,7 +346,6 @@ var that=this
               })
             }
           })
-          console.error("错误")
         }
         else{//已经存在
           console.log("进入222",res.data[0]._id)

@@ -8,6 +8,7 @@ Page({
           selected: 0
         })
       }
+      this.readMineID()
     },
   data: { 
     userNum:2,
@@ -38,10 +39,9 @@ Page({
     
   ],*/
     imgUrls: [//推荐栏图片
-      'https:////res.wx.qq.com/wxdoc/dist/assets/img/iconList1.81fb9326.jpg',
-      'https:////res.wx.qq.com/wxdoc/dist/assets/img/iconList1.81fb9326.jpg',
-      'https:////res.wx.qq.com/wxdoc/dist/assets/img/iconList1.81fb9326.jpg',
-      'https:////res.wx.qq.com/wxdoc/dist/assets/img/iconList1.81fb9326.jpg',
+      "http://pic17.nipic.com/20111102/6997422_155259626308_2.jpg",
+      "http://pic17.nipic.com/20111102/6997422_155259626308_2.jpg",
+      "http://pic17.nipic.com/20111102/6997422_155259626308_2.jpg"
     ],
     indicatorDots: true, //是否显示面板指示点
     autoplay: true, //是否自动切换
@@ -57,8 +57,8 @@ Page({
     })
     
 //读取数据库中的通过审核的ID号
-this.readID()
-this.readMineID()
+    this.readID()
+    this.readMineID()
   },
   onShow:function(){
     console.log("我的ID", app.globalData.mineID)
@@ -107,6 +107,8 @@ this.readMineID()
   },
   ceshi:function(){
     console.log("测试")
+    this.readMineID();
+    /*
     wx.request({
       url: 'http://quan.suning.com/getSysTime.do', //仅为示例，并非真实的接口地址
       data: {
@@ -120,7 +122,7 @@ this.readMineID()
         console.log("时间格式",res.data.sysTime2)
         console.log("时间戳",Number(res.data.sysTime1))
       }
-    })
+    })*/
     /*
     wx.navigateTo({
       url: '../blindCard/index',
@@ -228,8 +230,7 @@ this.readMineID()
           }
           else{//已经存在 
           console.log("图片界面",res.data[0].fileID) 
-            
-            Tmp.urlImage="cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[0]
+            Tmp.urlImage=res.data[0].fileID[0]
             console.log("用户信息",user) 
           }
         },
@@ -240,27 +241,52 @@ this.readMineID()
   },
   //读取自己的ID号
   readMineID:function(){
-    var that=this
-      const db = wx.cloud.database()
-      db.collection('userInfo').where({
-        _openid: '{openid}'
-      }).get({
-        success:function(res){
-          console.log("自我介绍",res.data.length)
-          if(res.data.length==0){//没有用户ID
-            console.log("无图片") 
+
+    const that=this
+    try {
+      var value = wx.getStorageSync('MineID')
+      if (value) {
+        // Do something with return value
+        that.data.mineID= value
+       console.log("读取本地MineID",value)
+      }
+      else{
+        //读取数据
+  
+        const db = wx.cloud.database()
+        db.collection('userInfo').where({
+          _openid: '{openid}'
+        }).get({
+          success:function(res){
+            console.log("自我介绍",res.data.length)
+            if(res.data.length==0){//没有用户ID
+              console.log("无图片") 
+            }
+            else{//已经存在 
+            console.log("图片界面",res.data[0].fileID) 
+              that.data.mineID=res.data[0].ID
+             //存储数据
+             try {
+              wx.setStorageSync('MineID', res.data[0].ID)
+              that.data.mineID= res.data[0].ID
+            } catch (e) {
+              console.error("save error：",e) 
+             }
+             
+            }
+          },
+          fail:function(e){
+            console.log("数据库加载失败",e)
           }
-          else{//已经存在 
-          console.log("图片界面",res.data[0].fileID) 
-            that.data.mineID=res.data[0].ID
-           
-            console.log("用户信息",user) 
-          }
-        },
-        fail:function(e){
-          console.log("数据库加载失败",e)
-        }
-      })
+        })
+
+        console.log("不存在MineID",value)
+      }
+    } catch (e) {
+      // Do something when catch error
+      console.error("读取异常",e)
+    }
+
   },
   jumpBindCard:function(e){
     var user=this.data.user

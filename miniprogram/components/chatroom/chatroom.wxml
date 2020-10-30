@@ -21,17 +21,15 @@
       wx:for="{{chats}}"
       wx:key="{{item._id}}"
       id="item-{{index}}"
-      class="message {{openId == item._openid ? 'message__self' : ''}}"
+      class="message {{mineID == item.ID ? 'message__self' : ''}}"
     >
-
-    <view wx:if="{{chats[index].nickName==mineID}}" >
+    <view wx:if="{{chats[index].ID==mineID}}" >
       <image 
         class="avatar"
         src="{{nickUrl}}"
         mode="scaleToFill"
       ></image> <!--头像-->
     </view>
-    
     <view wx:else >
       <image 
         class="avatar"
@@ -56,7 +54,9 @@
         </block>
         <block wx:else>
           <view class="text-wrapper">
-            <view class="loading" wx:if="{{item.writeStatus === 'pending'}}">···</view>
+            <view class="loading" wx:if="{{item.writeStatus === 'pending'}}">
+           <!-- <image src="./dots.gif"></image>-->...
+            </view>
             <view class="text-content">{{item.textContent}}</view> <!--聊天内容-->
           </view>
         </block>

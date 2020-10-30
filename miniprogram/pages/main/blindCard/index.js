@@ -80,16 +80,31 @@ Page({
    //this.readFollow("myLove",this.data.mineID,100)
   },
   follow:function (e) {
+    if(this.data.mineID==this.data.userID){
+      wx.showToast({
+        icon:"none",
+        title: '不能关注自己',
+        duration: 2000,
+      })
+    }else{
+      wx.showLoading({
+        title: '加载中',
+      })
+      this.writeMylove("myLove",this.data.mineID,this.data.userID)
+      this.writeMylove("loveMe",this.data.userID,this.data.mineID)
+    }
 
-    wx.showLoading({
-      title: '加载中',
-    })
-    this.writeMylove("myLove",this.data.mineID,this.data.userID)
-    this.writeMylove("loveMe",this.data.userID,this.data.mineID)
    
    
   },
-
+  //预览图片
+  Previewing:function(e){
+    console.log(e.target.dataset.index)
+    wx.previewImage({
+      current:this.data.imgUrls[e.target.dataset.index],
+      urls: this.data.imgUrls
+  })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -141,7 +156,16 @@ Page({
   news:function(){
 
     //this.writeMylove("new",this.data.mineID,this.data.userID)
-    this.readImageTo(this.data.mineID,this.data.userID,this.data.userImgOther,this.data.imgUrls[0])
+    if(this.data.mineID!=this.data.userID){
+      wx.showToast({
+        icon:"none",
+        title: '不能给自己发消息',
+        duration: 2000,
+      })
+    }else{
+      this.readImageTo(this.data.mineID,this.data.userID,this.data.userImgOther,this.data.imgUrls[0])
+    }
+
 
    
     
@@ -194,7 +218,7 @@ Page({
               var tmp=res.data[0].fileID
               for(var i=0;i<res.data[0].fileID.length;i++)
               {
-                tmp[i]="cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[i]
+                tmp[i]=res.data[0].fileID[i]
               }
               console.log("图片界面sss",tmp) 
               that.setData({
@@ -374,7 +398,7 @@ Page({
               console.log("失败",res)
               wx.hideLoading()
               wx.showToast({
-                icon:none,
+                icon:"none",
                 title: '创建数据失败,请稍后重新注册',
               })
             }
@@ -447,7 +471,7 @@ Page({
               console.log("失败",res)
               wx.hideLoading()
               wx.showToast({
-                icon:none,
+                icon:"none",
                 title: '创建数据失败,请检查网络',
               })
             }
@@ -490,7 +514,7 @@ Page({
                   followColor:textColorY,
                 })
                 wx.showToast({
-                  icon:none,
+                  icon:"none",
                   title: '关注成功',
                   duration: 2000,
                 })
@@ -502,7 +526,7 @@ Page({
                   followColor:textColorN,
                 })
                 wx.showToast({
-                  icon:none,
+                  icon:"none",
                   title: '取消成功',
                   duration: 2000,
                 })
@@ -513,7 +537,7 @@ Page({
             fail: function(res) {
               console.log("失败",res)
               wx.showToast({
-                icon:none,
+                icon:"none",
                 title: '数据修改失败,请稍后重新注册',
                 duration: 2000,
               })
@@ -533,7 +557,7 @@ Page({
         console.log("数据库加载失败",e)
         wx.hideLoading()
         wx.showToast({
-          icon:none,
+          icon:"none",
           title: '数据库加载失败,请稍后重新注册',
         })
       }
@@ -586,7 +610,7 @@ Page({
                 tmp=res.data[0].fileID
                 for(var i=0;i<res.data[0].fileID.length;i++)
                 {
-                  tmp[i]="cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[i]
+                  tmp[i]=res.data[0].fileID[i]
                 }
                 console.log("图片界面sss",tmp) 
          

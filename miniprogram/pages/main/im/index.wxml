@@ -1,16 +1,12 @@
 <!--miniprogram/pages/chat/im/index.wxml-->
     <view wx:for="{{loveMeInfo}}" bindtap='myLovefu'  data-index="{{index}}" class='item_view'> 
-      
         <image wx:if="{{loveMeInfo[index].urlImage}}" class="user-avatar" mode="aspectFill" src="{{loveMeInfo[index].urlImage}}">  </image>
-   
-
         <view class="main_dan">
         <text class="textVo">{{loveMeInfo[index].ed}}</text>
         <text class="textVoNext">
           {{loveMeInfo[index].textContent}}</text>
           <view class="divLine"></view>  
         </view>
-
       </view>
 
 

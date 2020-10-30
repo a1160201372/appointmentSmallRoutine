@@ -11,8 +11,8 @@ Component({
     },
     {
       pagePath: "/pages/main/im/index",
-      iconPath: "/images/tab/icon_API.png",
-      selectedIconPath: "/images/tab/icon_API_HL.png",
+      iconPath: "/images/tab/message.png",
+      selectedIconPath: "/images/tab/message_HL.png",
       text: "消息"
     }, {
       pagePath: "/pages/main/mine/index",

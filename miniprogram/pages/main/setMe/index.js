@@ -96,6 +96,7 @@ Page({
     openID:"",
     head:"",
  
+    mineID:0,
   },
   bindinputMyself:function(e){
     console.log(e.detail)
@@ -631,6 +632,7 @@ unButtonCar:function(e){
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.readMineID()
     //设置需要的数组
     var tmp=this.data.singlePickRange;
     var age=[[],[]]
@@ -725,6 +727,12 @@ unButtonCar:function(e){
   //保存按钮
   formSubmit:function(e){
     var that=this
+    if(this.data.photos.length==0){
+      wx.showToast({
+        title: '请上传图片',
+        icon:"none"
+      })
+    }else{
     wx.showModal({
       title: '提示',
       content: '保存后需要重新审核，审核通过之前别人无法看到您。是否保存？',
@@ -769,16 +777,14 @@ unButtonCar:function(e){
             //保存照片
             that.writeImage()
       
-            if(that.data.saveFlagTruly[0]+that.data.saveFlagTruly[1]+that.data.saveFlagTruly[2]
-              +that.data.saveFlagTruly[3]==4)       
-                 wx.hideLoading()
+           
           }
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
       }
     })
-
+  }
 
   
   },
@@ -814,22 +820,6 @@ unButtonCar:function(e){
         console.log(res.data.length)
         if(res.data.length==0){
           console.log("数据丢失，请重新输入您的信息")
-         /* db.collection('userInfo').add({
-            // data 字段表示需新增的 JSON 数据
-            data: {
-              grande:0,
-              bathday:[2000,1,1],
-              car:0,
-              education:0,
-              grande:0,
-              height:160,
-              house:0,
-              inCome:0,
-              marryStatus:0,
-              marryTime:0,
-            
-            }
-          })*/
         }
         else{//已经存在
           var tmp=that.data.singlePickFlag
@@ -857,8 +847,6 @@ unButtonCar:function(e){
             day="-"+res.data[0].bathday[2]
           }
          var dataTmp=res.data[0].bathday[0]+Month+day
-       
-
           that.setData({
             sexFlag:res.data[0].grande,
             date:dataTmp,
@@ -961,7 +949,7 @@ unButtonCar:function(e){
         for(var i=0;i<res.data[0].fileID.length;i++){
           console.log("i",i)
           console.log("res.data.",res.data[0].fileID[i])
-            fileTmp=fileTmp.concat("cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[i])
+            fileTmp=fileTmp.concat(res.data[0].fileID[i])
             console.log("照片11",fileTmp)
         }
           console.log("照片",fileTmp)
@@ -1153,20 +1141,19 @@ unButtonCar:function(e){
       for(var i=0;i<userPhotos.length;i++){
         if(userPhotos[i][0]=="c"){//数据库中存在
          console.log("文件前缀",i+"不操作")
-         userPhotos[i]= userPhotos[i].slice(48,100)
+         //userPhotos[i]= userPhotos[i].slice(48,100)
         }
       //  else if(userPhotos[i][0]=="h"){//数据库中不存在
       else{
           console.log("文件前缀",i+"上传图片")
           //生成文件名
           var tmp
-          var Suffix
-          console.log(Math.floor(Math.random()*10000000))
-          console.log(app.globalData.openid)
-          tmp=app.globalData.openid+Date.parse(new Date())+Math.floor(Math.random()*10000000)+".png"
-          console.log(tmp)
+          var fileID
+          var Suffix=userPhotos[i].substring(userPhotos[i].length-4,userPhotos[i].length)
+          tmp=this.data.mineID+"/"+Date.parse(new Date())+Math.floor(Math.random()*10000000)+Suffix
+          fileID="cloud://ywyn-8gje3m95ad7d5066.7977-ywyn-8gje3m95ad7d5066-1304072182/"+tmp
           this.doUpImg(userPhotos[i],tmp)
-          userPhotos[i]=tmp
+          userPhotos[i]=fileID
         }
       }
     }
@@ -1273,5 +1260,51 @@ unButtonCar:function(e){
         duration: 2000
       })
     })
+  },
+  readMineID:function(){
+    const that=this
+    try {
+      var value = wx.getStorageSync('MineID')
+      if (value) {
+        // Do something with return value
+        that.data.mineID= value
+       console.log("读取本地MineID",value)
+      }
+      else{
+        //读取数据
+        const db = wx.cloud.database()
+        db.collection('userInfo').where({
+          _openid: '{openid}'
+        }).get({
+          success:function(res){
+            console.log("自我介绍",res.data.length)
+            if(res.data.length==0){//没有用户ID
+              console.log("无图片") 
+            }
+            else{//已经存在 
+        
+              that.data.mineID=res.data[0].ID
+             //存储数据
+             try {
+              wx.setStorageSync('MineID', res.data[0].ID)
+              that.data.mineID= res.data[0].ID
+            } catch (e) {
+              console.error("save error：",e) 
+             }
+             
+            }
+          },
+          fail:function(e){
+            console.log("数据库加载失败",e)
+          }
+        })
+
+        console.log("不存在MineID",value)
+      }
+    } catch (e) {
+      // Do something when catch error
+      console.error("读取异常",e)
+    }
+
   },
 })

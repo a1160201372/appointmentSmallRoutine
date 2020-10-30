@@ -18,21 +18,21 @@
         {{loveMeInfo[0][index].ed}} | {{loveMeInfo[0][index].place}}</text>
         </view>
       </view>
+      <text wx:if="{{loveMeInfo[0][0].ed==undefined}}">没有人关注您</text>
       </view>
 
 <!--喜欢我的-->
-    <view slot="tab-content-{{1}}" >
-
+  <view slot="tab-content-{{1}}" >
     <view wx:for="{{loveMeInfo[1]}}" bindtap='seeMe'  data-index="{{index}}"  class='item_view'> 
-    <image  class="user-avatar" mode="aspectFill" src='{{loveMeInfo[1][index].urlImage}}'>  </image>
-    <view>
-    <text class="textVo">{{loveMeInfo[1][index].Info}}</text>
-    <text class="textVoNext">
-    {{loveMeInfo[1][index].ed}} | {{loveMeInfo[1][index].place}}</text>
-    </view>
-  </view>
-
+      <image  class="user-avatar" mode="aspectFill" src='{{loveMeInfo[1][index].urlImage}}'>  </image>
+      <view>
+      <text class="textVo">{{loveMeInfo[1][index].Info}}</text>
+      <text class="textVoNext">
+      {{loveMeInfo[1][index].ed}} | {{loveMeInfo[1][index].place}}</text>
       </view>
+    </view>
+    <text wx:if="{{loveMeInfo[1][0].ed==undefined}}">没有人关注您</text>
+  </view>
     
 </mp-tabs>
 

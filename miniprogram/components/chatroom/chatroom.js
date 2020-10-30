@@ -205,6 +205,7 @@ Component({
 
         const doc = {
           _id: `${Math.random()}_${Date.now()}`,
+          ID:chatMineID,
           groupId: this.data.groupId,
           avatar: this.data.nickUrl,
           nickName: this.data.nickName,
@@ -244,7 +245,7 @@ Component({
               _id: chatUserID,//纪录对方ID
               msgType: 'text',
               textContent: e.detail.value,
-              sendTime: new Date(),
+              sendTime: db.serverDate(),
               sendTimeTS: Date.now(), // fallback
             }
 
@@ -321,6 +322,11 @@ Component({
     },
 //发送图片
     async onChooseImage(e) {
+      const db = this.db
+      const _ = db.command
+ 
+      const chatMineID=Number(this.data.mineID) 
+      const chatUserID=Number(this.data.userID)
       wx.chooseImage({
         count: 1,
         sourceType: ['album', 'camera'],
@@ -332,7 +338,7 @@ Component({
             avatar: this.data.nickUrl,
             nickName: this.data.nickName,//设置人物昵称
             msgType: 'image',
-            sendTime: new Date(),
+            sendTime:db.serverDate(),
             sendTimeTS: Date.now(), // fallback
           }
 
@@ -349,8 +355,82 @@ Component({
           })
           this.scrollToBottom(true)
 
+          //纪录己方通讯时间
+        await db.collection("new").where({
+          ID: chatMineID,
+        }).get({
+          success: function(res) {
+            console.log("纪录己方通讯时间",res)
+            var myLove=res.data[0].myLove
+            var _id1=res.data[0]._id
+            //console.error("传入数组ID", _id)
+            const docMine = {
+              _id: chatUserID,//纪录对方ID
+              msgType: 'image',
+              textContent:"[图片]",
+              sendTime: db.serverDate(),
+              sendTimeTS: Date.now(), // fallback
+            }
+
+            const myLoveNew=abc(myLove,docMine,chatUserID);//生成myLove数组
+            
+            console.log("函数返回值",myLoveNew)
+             
+             save("new",_id1,myLoveNew,chatMineID)//上传
+
+          }
+        })
+
+        function abc(myLove,Adddoc,ID){
+        var flag=find(myLove,ID)
+        console.log("函数返回值11",flag)
+        switch(flag){
+          case -1://不存在
+         //排序
+            break;
+          default://存在，取消关注
+          myLove.splice(flag,1)
+         
+            console.log("存在",myLove)
+            break;
+        }
+        myLove.push(Adddoc)
+        console.log("函数返回值",myLove)
+        return myLove
+        }
+
+        function save(table,doc_id,myLove,mineID){
+          //初始化
+          const db = wx.cloud.database()
+          const _ = db.command
+          console.log("保存函数1", table)
+          console.log("保存函数2", doc_id)
+          console.log("保存函数3", myLove)
+          db.collection(table).doc(doc_id).set({
+            data:{
+              ID:mineID,
+              myLove:myLove,
+            },
+           
+            success: function(res) {
+              console.log("更新成功",res.data)
+            }
+          })
+        }
+        //查询数据
+        function find(arry,num) {
+          console.log("查找数组",arry);
+          var flag=-1;
+
+          for(var i=0;i<arry.length;i++){
+            console.log("查询数组",arry[i]._id)
+            if(arry[i]._id==num)
+              flag=i
+        }
+        return flag
+        }
           const uploadTask = wx.cloud.uploadFile({
-            cloudPath: `${this.data.openId}/${Math.random()}_${Date.now()}.${res.tempFilePaths[0].match(/\.(\w+)$/)[1]}`,
+            cloudPath: `${this.data.groupId}/${Math.random()}_${Date.now()}.${res.tempFilePaths[0].match(/\.(\w+)$/)[1]}`,
             filePath: res.tempFilePaths[0],
             config: {
               env: envId,
@@ -408,7 +488,6 @@ Component({
         }).exec()
       }).exec()
     },
-
     async onScrollToUpper() {
       if (this.db && this.data.chats.length) {
         const { collection } = this.properties

@@ -33,15 +33,10 @@ page {
   border-radius: 30rpx;
 }
 .pick{
-
-
- 
-    display: flex;
- 
+  display: flex;
   padding: 20rpx;
   position: relative;
   line-height: 30rpx;
- 
   display:flex;      
   flex-direction: row;
 }

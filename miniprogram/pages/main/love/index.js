@@ -37,7 +37,7 @@ Page({
       activeTab:tabsFlag
     })
 
-    
+
 
     const titles = ['我喜欢的', '喜欢我的']
     const tabs = titles.map(item => ({title: item}))
@@ -89,7 +89,8 @@ ceshi:function(){
         console.log("喜欢",res.data[0].myLove)
         that.data.mineID=res.data[0].ID
         ID=res.data[0].myLove
-    
+        wx.hideLoading()
+  
       console.log("进行显示11",ID)
     //显示信息(默认显示一个)
     if(res.data[0].myLove.length!=0)
@@ -99,11 +100,9 @@ ceshi:function(){
           that.initialSetInfo(ID[i],flag)
         }
     }else{
-
-    }
     
+    }
    
-
       },
       fail:function(e){
         console.log("数据库加载失败",e)
@@ -181,6 +180,12 @@ readImage:function(ID,Tmp,userTmp,flag){
       success:function(res){
         console.log("自我介绍",res.data.length)
         if(res.data.length==0){//没有用户ID
+        
+          wx.showToast({
+            title: '你还没有关注的对象',
+            icon: 'none',
+            duration: 2000
+            })
           console.log("无图片") 
         //  userTmp.push(Tmp)
         }

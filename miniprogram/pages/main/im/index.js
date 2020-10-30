@@ -21,6 +21,8 @@ Page({
 
     ],//喜欢我的
     myLoveInfo:[],//我喜欢的
+
+    gotoFlag:0,
   },
 
   /**
@@ -30,31 +32,8 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    //this.readMineID("userID")
-    const that=this
-    const db = wx.cloud.database()
-    const watcher = db.collection('new').where({ID:11329}).watch({
-      onChange: function(snapshot) {
-        console.log('snapshot', snapshot.docs[0].myLove)
-        var tmp=snapshot.docs[0].myLove
-        for(var i=0;i<tmp.length;i++){
-            
-          that.show(tmp[i],tmp[i]._id,i,tmp.length)
-        }
-  
-        setTimeout(function () {
-          wx.hideLoading({})
-          that.setData({
-            loveMeInfo:tmp
-          })
-        }, 1000)
-      
+    this.readMineID("userID")
 
-      },
-      onError: function(err) {
-        console.error('the watch closed because of error', err)
-      }
-    })
     
 
   },
@@ -81,9 +60,13 @@ Page({
   },
   myLovefu:function(e){
     console.log("测试",e.currentTarget.dataset.index)
+ 
     //跳转聊天信息
+    if(this.data.gotoFlag==0)
     this.readImageTo(this.data.mineID,Number(this.data.loveMeInfo[e.currentTarget.dataset.index]._id)
       ,"13",this.data.loveMeInfo[e.currentTarget.dataset.index].urlImage)
+
+      this.data.gotoFlag=1
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -119,10 +102,7 @@ Page({
   onShareAppMessage: function () {
 
   },
-  //阅读发过消息的
-  readInfo:function(){
 
-  },
   ceshi:function(){
   
  
@@ -136,30 +116,79 @@ Page({
 
       
       },
-      //读取自己ID
-      readMineID:function(Database){
-        var that=this
-         const db = wx.cloud.database()
-      
-         db.collection(Database).where({
-           _openid: '{openid}'
-         }).get({
-           success:function(res){
+      readNew:function(mineID){
+        const that=this
+        const db = wx.cloud.database()
+        const watcher = db.collection('new').where({ID:mineID}).watch({
+          onChange: function(snapshot) {
+            console.log('snapshot', snapshot.docs[0].myLove)
+            var tmp=snapshot.docs[0].myLove
+            for(var i=0;i<tmp.length;i++){
+              that.show(tmp[i],tmp[i]._id,i,tmp.length)
+              that.readInfo(tmp[i])
+            }
+            setTimeout(function () {
+              wx.hideLoading({})
+              that.setData({
+                loveMeInfo:tmp
+              })
+            }, 1000)
+          
     
-             that.data.mineID=res.data[0].ID
-             that.readInfo(res.data[0].ID)
-            // that.readInfo(res.data[0].ID)
-         
-             console.log("数据库里的数据",res.data[0])
-           },
-           fail:function(e){
-             console.log("数据库加载失败",e)
-           }
-         })
-       },
+          },
+          onError: function(err) {
+            console.error('the watch closed because of error', err)
+          }
+        })
+      },
+      //读取自己ID
+      readMineID:function(dbtab){
+        const that=this
+        try {
+          var value = wx.getStorageSync('MineID')
+          if (value) {
+            // Do something with return value
+            that.data.mineID= value
+            that.readNew(Number(value))
+           console.log("读取本地MineID",value)
+          }
+          else{
+            //读取数据
+            const db = wx.cloud.database()
+            db.collection(dbtab).where({
+              _openid: '{openid}'
+            }).get({
+              success:function(res){
+                console.log("自我介绍",res.data.length)
+                if(res.data.length==0){//没有用户ID
+                  console.log("无图片") 
+                }
+                else{//已经存在 
+                console.log("图片界面",res.data[0].fileID) 
+                  that.data.mineID=res.data[0].ID
+                 //存储数据
+                 try {
+                  wx.setStorageSync('MineID', res.data[0].ID)
+                  that.data.mineID= res.data[0].ID
+                  that.readNew(Number(res.data[0].ID))
+                } catch (e) {
+                  console.error("save error：",e) 
+                 }                 
+                }
+              },
+              fail:function(e){
+                console.log("数据库加载失败",e)
+              }
+            }) 
+            console.log("不存在MineID",value)
+          }
+        } catch (e) {
+          // Do something when catch error
+          console.error("读取异常",e)
+        }
+      },
        //聊天用户
        readInfo:function(mineID){
-        
         const db = wx.cloud.database()
         const _ = db.command
         const that=this
@@ -172,33 +201,19 @@ Page({
           success:function(res){
 
           console.log("聊天信息",res.data[0].myLove)
-            var tmp=res.data[0].myLove
-     
-  
-           
+            var tmp=res.data[0].myLove  
             //读取头像
             for(var i=0;i<tmp.length;i++){
-            
               that.show(tmp[i],tmp[i]._id,i,tmp.length)
             }
-      
             setTimeout(function () {
               that.setData({
                 loveMeInfo:tmp
               })
-            }, 500)
-          
-    
-    
-          //  that.data.mineID=res.data[0].ID
-
-          //  that.readInfo(res.data[0].ID)
-        
-           
+            }, 1500)
           },
           fail: console.error
         })
-
        },
         show:function(arry,ID,i,iMax){
         console.log("i值",i)
@@ -206,7 +221,6 @@ Page({
         const db = wx.cloud.database()
         const _ = db.command
        // const that_1=that
-       
             db.collection('userPhotos').where({
               ID: ID
             }).get({
@@ -217,7 +231,7 @@ Page({
                 }
                 else{//已经存在 
                 console.log("图片界面",res.data[0].fileID) 
-                  arry.urlImage="cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[0]
+                  arry.urlImage=res.data[0].fileID[0]
                   console.log("图片信息",arry)
                 }
               },
@@ -235,21 +249,14 @@ Page({
                   console.log("无图片") 
                 }
                 else{//已经存在 
-             
                   arry.ed=res.data[0].vocation
                   console.log("图片信息",arry)
-
-    
                 }
               },
               fail:function(e){
                 console.log("数据库加载失败",e)
               }
             })
-    
-
-
-
       },
       //读取自己的聊天信息
        showInfo:function(){
@@ -284,7 +291,6 @@ Page({
                   tmp[i]="cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[i]
                 }
                 console.log("图片界面sss",tmp) 
-         
               }
               wx.navigateTo({
                 url: '../../chat/room/room?userID='+userID//别人ID
@@ -299,5 +305,4 @@ Page({
             }
           })
      },
-
 })
