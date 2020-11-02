@@ -113,11 +113,9 @@ Page({
             },
             success: function(res) {
               console.log("成功",res)
-                   setTimeout(function () {
-        wx.switchTab({
-          url: '../../main/mine/index'
-        })
-      }, 1000)
+              
+              that.subscribe()
+                  
                 
             },
             fail: function(res) {
@@ -137,12 +135,7 @@ Page({
             },
             success: function(res) {
               console.log("成功上传",res)
-              setTimeout(function () {
-                wx.switchTab({
-                  url: '../../main/mine/index'
-                })
-              }, 1000)
-             
+              that.subscribe()
             },
             fail: function(res) {
               console.log("失败")
@@ -308,7 +301,7 @@ var that=this
         }
       },
       fail:function(){
-        console.error("数据库加载失败")
+        console.error("数据库加载失败",table)
         wx.hideLoading()
         wx.showToast({
           icon:none,
@@ -379,5 +372,100 @@ var that=this
       }
     })
   },
-
+  subscribe:function(){
+    wx.showModal({
+      title: '温馨提示',
+      content: '为更好的促进您与买家的交流，服务号需要在您的书籍成交时向您发送消息',
+      confirmText:"同意",
+      cancelText:"拒绝",
+      success: function (res) {
+          if (res.confirm) {
+             //调用订阅消息
+              console.log('用户点击确定');
+              
+              //调用订阅
+              requestSubscribe();
+          } else if (res.cancel) {
+              console.log('用户点击取消');
+              ///显示第二个弹说明一下
+              wx.showModal({
+                title: '温馨提示',
+                content: '拒绝后您将无法获取实时的与卖家（买家）的交易消息',
+                confirmText:"知道了",
+                showCancel:false,
+                success: function (res) {
+                  ///点击知道了的后续操作 
+                    setTimeout(function () {
+                    wx.switchTab({
+                      url: '../../main/mine/index'
+                    })
+                  }, 1000)
+                  ///如跳转首页面 
+                }
+            });
+          }
+      }
+  })
+  function requestSubscribe(){
+    console.log("查询权限")
+    wx.getSetting({
+      withSubscriptions: true,
+      success (res) {
+        console.log("查询权限1",res)
+        if(res.subscriptionsSetting.mainSwitch==false){
+          openMySetting()
+        }else{
+          requestSubscribe()
+        }
+      }
+    })
+//没有开启订阅时
+  function openMySetting(){
+    wx.showModal({
+      title: '检测到您没有开启消息订阅，是否前去开启',
+    //  content: '为更好的促进您与买家的交流，服务号需要在您的书籍成交时向您发送消息',
+      confirmText:"确定",
+      cancelText:"取消",
+      success: function (res) {
+          if (res.confirm) {
+             //调用订阅消息
+              console.log('用户点击确定');
+              wx.openSetting({})        //打开设置界面   
+          } else if (res.cancel) {
+              console.log('用户点击取消');
+              ///显示第二个弹说明一下
+              wx.showModal({
+                title: '温馨提示',
+                content: '拒绝后您将无法获取实时的与卖家（买家）的交易消息',
+                confirmText:"知道了",
+                showCancel:false,
+                success: function (res) {
+                  ///点击知道了的后续操作 
+                  setTimeout(function () {
+                    wx.switchTab({
+                      url: '../../main/mine/index'
+                    })
+                  }, 1000)
+                  ///如跳转首页面 
+                }
+            });
+          }
+      }
+    });
+  }
+   //添加订阅消息
+   function requestSubscribe(){
+    wx.requestSubscribeMessage({
+      tmplIds: ["nmhJ_6jdqSN3BnSdsosluxTTSaXhpmwupVpd3bPhyRY"],
+      success (res) {  
+        setTimeout(function () {
+        wx.switchTab({
+          url: '../../main/mine/index'
+        })
+      }, 1000) }
+    })
+  }
+  
+  }
+  },
 })

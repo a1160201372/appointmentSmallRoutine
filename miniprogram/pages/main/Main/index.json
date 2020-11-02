@@ -1,4 +1,9 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "相亲小程序"
+  "navigationBarTitleText": "相亲小程序",
+  "permissions": {
+    "openapi": [
+      "templateMessage.send"
+    ]
+  }
 }

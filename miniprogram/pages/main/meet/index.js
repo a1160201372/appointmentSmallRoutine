@@ -150,7 +150,7 @@ Page({
         }
 
       //显示信息(默认显示一个)
-      for(var i=0;i<2;i++){
+      for(var i=0;i<1;i++){
         console.log("进行显示",ID[i])
         that.initialSetInfo(ID[i])
       }
@@ -167,9 +167,7 @@ Page({
     var userTmp=this.data.user
     var IDTmp=ID
     var i=0
-    const db = wx.cloud.database()
-    
-    
+    const db = wx.cloud.database() 
       db.collection('userInfo').where({
         ID:ID
       }).get({
@@ -208,11 +206,7 @@ Page({
           console.log("数据库加载失败",e)
         }
       })
-      
-   
    console.log("最终数据0",userTmp)
-   
-  
   },
   //读取用户头像
   readImage:function(ID,Tmp){

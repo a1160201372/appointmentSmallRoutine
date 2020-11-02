@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {},
+  "dependencies" :{
+    "wx-server-sdk":"*"
+  }
 }

@@ -6,6 +6,8 @@ cloud.init()
 // 云函数入口函数
 exports.main = async (event, context) => {
   console.log(event)
+  let { userInfo, a, b} = event
+  console.log("云函数",a)
   switch (event.action) {
     case 'requestSubscribeMessage': {
       return requestSubscribeMessage(event)
@@ -28,7 +30,7 @@ exports.main = async (event, context) => {
 async function requestSubscribeMessage(event) {
   // 此处为模板 ID，开发者需要到小程序管理后台 - 订阅消息 - 公共模板库中添加模板，
   // 然后在我的模板中找到对应模板的 ID，填入此处
-  return '请到管理后台申请模板 ID 然后在此替换' // 如 'N_J6F05_bjhqd6zh2h1LHJ9TAv9IpkCiAJEpSw0PrmQ'
+  return 'nmhJ_6jdqSN3BnSdsosluxTTSaXhpmwupVpd3bPhyRY' // 如 'N_J6F05_bjhqd6zh2h1LHJ9TAv9IpkCiAJEpSw0PrmQ'
 }
 
 async function sendSubscribeMessage(event) {

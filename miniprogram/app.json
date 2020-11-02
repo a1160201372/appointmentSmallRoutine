@@ -77,5 +77,10 @@
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
-  "style": "v2"
+  "style": "v2",
+  "permissions": {
+    "openapi": [
+      "templateMessage.send"
+    ]
+  }
 }

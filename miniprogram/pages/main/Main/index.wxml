@@ -6,3 +6,5 @@
 <view>
   <text class="titleText">广告页</text>
 </view>
+<view bindtap="ceshi">订阅消息</view>
+<view bindtap="ceshi1">发送</view>
