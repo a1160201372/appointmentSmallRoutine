@@ -25,8 +25,11 @@ Page({
             })
           }
         },
-        fail:function(){
-          console.log("数据库加载失败")
+        fail:function(e){
+          console.log("数据库加载失败",e)
+          wx.showToast({
+            title: '数据库加载错误',
+          })
         }
       })
     }

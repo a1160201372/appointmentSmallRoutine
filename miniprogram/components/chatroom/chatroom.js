@@ -83,7 +83,7 @@ Component({
     async initRoom() {
       //初始化
       this.try(async () => {
-        await this.initOpenID()
+      //  await this.initOpenID()
 
         const { envId, collection } = this.properties
         const db = this.db = wx.cloud.database({
@@ -109,7 +109,7 @@ Component({
       }, '初始化失败')
     },
 
-    async initOpenID() {
+   /* async initOpenID() {
       return this.try(async () => {
         const openId = await this.getOpenID()
 
@@ -118,7 +118,7 @@ Component({
         })
       }, '初始化 openId 失败')
     },
-
+*/
     async initWatch(criteria) {
       this.try(() => {
         const { collection } = this.properties
@@ -237,7 +237,7 @@ Component({
           ID: chatMineID,
         }).get({
           success: function(res) {
-            console.log("纪录己方通讯时间",res)
+            console.log("纪录己方通讯时间文",res)
             var myLove=res.data[0].myLove
             var _id1=res.data[0]._id
             //console.error("传入数组ID", _id)
@@ -360,7 +360,7 @@ Component({
           ID: chatMineID,
         }).get({
           success: function(res) {
-            console.log("纪录己方通讯时间",res)
+            console.log("纪录己方通讯时间图",res)
             var myLove=res.data[0].myLove
             var _id1=res.data[0]._id
             //console.error("传入数组ID", _id)

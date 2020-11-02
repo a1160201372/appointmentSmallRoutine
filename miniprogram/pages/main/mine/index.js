@@ -22,8 +22,9 @@ Page({
    
     nickName:"空白",
     examineStatus:2,
-    myAccount: ["微信号", "手机号", "意见反馈"],
-    set:["手机认证","实名认证"],
+   // myAccount: ["微信号", "手机号", "意见反馈"],
+    myAccount:[''],
+    set:["实名认证"],//认证
     pickFunction:["meFunction"],
     mineID:null
   },

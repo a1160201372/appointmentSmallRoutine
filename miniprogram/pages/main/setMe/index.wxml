@@ -62,10 +62,10 @@
 </view>
 </view>
 
-
+<!--
 <view class="main1">
   <view class='basicInfo-text'><text>联系方式(暂时不可用)</text></view>
-  <view class="divLine"></view>  <!-- 分割线 -->
+  <view class="divLine"></view>  <!-- 分割线 --
 <view class='pick'>
 <view class='pickLiftMust-view'>
     <text class='text'>手机号</text>
@@ -74,7 +74,7 @@
     <input name="vocation" data-index="2" type="inputText" class="inputText"  placeholder-style="color:#F76260" bindinput="bindKeyProfession" placeholder="请填写" value="{{telValue}}" />
   </view>
 </view>
-  <view class="divLine"></view>  <!-- 分割线 -->
+  <view class="divLine"></view>  <!-- 分割线 --
   <view class='pickend'>
 <view class='pickLiftMust-view'>
     <text class='text'>微信号</text>
@@ -83,10 +83,10 @@
     <input name="vocation" type="inputText" data-index="3" class="inputText"  placeholder-style="color:#F76260" bindinput="bindKeyProfession" placeholder="请填写" value="{{telValue}}" />
   </view>
 </view>
-  <view class="divLine"></view>  <!-- 分割线 -->
+  <view class="divLine"></view>  <!-- 分割线 --
 
 </view>
- 
+-->
 
 <view class="main1">
   <view class='basicInfo-text'><text>资产情况</text></view>

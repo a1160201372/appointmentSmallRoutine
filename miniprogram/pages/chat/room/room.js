@@ -31,25 +31,25 @@ Page({
     var nickName=e.nickName
     var userImg=e.userImg
     var userImgOther=e.userImgOther
-    //groupId[0]=Number(e.userID)
-    //groupId[1]=Number(e.mineID)
+    groupId[0]=Number(e.userID)
+    groupId[1]=Number(e.mineID)
     
-    groupId[0]=Number(74798)
-    groupId[1]=Number(74798)
+   // groupId[0]=Number(74798)
+    //groupId[1]=Number(74798)
     groupId.sort((a, b) => a - b);
     console.log("标志0",groupId)
     console.log("标志1",nickName)
     console.log("标志2",userImg)
 
     this.setData({
-      mineID:74798,
+      mineID:e.mineID,
       userID:e.userID,
       chatRoomGroupId:groupId,
       nickName:nickName,
-     // userImg:userImg,
-     // userImgOther:userImgOther
-     userImg: " http://pic.rmb.bdstatic.com/9619bd4b6f54160c5c81c6525f35f88b.jpeg",
-     userImgOther:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600937008483&di=5e1b3955e3b522a0b221616ee4dfda6c&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fd000baa1cd11728bb8fb7eb7c8fcc3cec2fd2c55.jpg"
+      userImg:userImg,
+      userImgOther:userImgOther
+    /* userImg: " http://pic.rmb.bdstatic.com/9619bd4b6f54160c5c81c6525f35f88b.jpeg",
+     userImgOther:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600937008483&di=5e1b3955e3b522a0b221616ee4dfda6c&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fd000baa1cd11728bb8fb7eb7c8fcc3cec2fd2c55.jpg"*/
     })
   
 

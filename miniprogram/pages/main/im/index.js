@@ -55,7 +55,7 @@ Page({
       selected: 1
     })
   }
- 
+  this.data.gotoFlag=0
   
   },
   myLovefu:function(e){
@@ -63,10 +63,9 @@ Page({
  
     //跳转聊天信息
     if(this.data.gotoFlag==0)
-    this.readImageTo(this.data.mineID,Number(this.data.loveMeInfo[e.currentTarget.dataset.index]._id)
+    this.readImageTo(Number(this.data.mineID),Number(this.data.loveMeInfo[e.currentTarget.dataset.index]._id)
       ,"13",this.data.loveMeInfo[e.currentTarget.dataset.index].urlImage)
 
-      this.data.gotoFlag=1
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -285,11 +284,8 @@ Page({
               }
               else{//已经存在 
               console.log("图片界面",res.data[0].fileID) 
-                tmp=res.data[0].fileID
-                for(var i=0;i<res.data[0].fileID.length;i++)
-                {
-                  tmp[i]="cloud://ceshi-fdybb.6365-ceshi-fdybb-1302833646/"+res.data[0].fileID[i]
-                }
+                tmp=res.data[0].fileID[0]
+              
                 console.log("图片界面sss",tmp) 
               }
               wx.navigateTo({

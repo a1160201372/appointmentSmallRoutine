@@ -40,7 +40,7 @@
   </view>
 
 <view class="account-wrapper1">
-		<view class="account" wx:for="{{myAccount}}">
+	<!--	<view class="account" wx:for="{{myAccount}}">
 			<view class="account-item"> {{item}} </view>
 			<image class="account-arrow" src="../../../images/arrow.png"></image>
 		</view>
