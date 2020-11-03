@@ -1,5 +1,4 @@
 const app = getApp()
-
 Page({
   data: {
     nickName:"ceshi",
@@ -22,7 +21,24 @@ Page({
     //ID号
 
     mineID:null,
-    userID:null
+    userID:null,
+     lineHeight: 24,
+    functionShow: false,
+    emojiShow: false,
+    comment: "",
+    focus: false,
+    cursor: 0,
+    _keyboardShow: false,
+    emojiSource: 'https://res.wx.qq.com/wxdoc/dist/assets/img/emoji-sprite.b5bd1fe0.png',
+    parsedComment: [
+      {
+        content:'吐',
+        imageClass:"smiley_19",
+        type:2
+
+
+      }
+  ]
   },
 
   onLoad: function(e) {
@@ -31,19 +47,19 @@ Page({
     var nickName=e.nickName
     var userImg=e.userImg
     var userImgOther=e.userImgOther
-    groupId[0]=Number(e.userID)
-    groupId[1]=Number(e.mineID)
+   // groupId[0]=Number(e.userID)
+    //groupId[1]=Number(e.mineID)
     
-   // groupId[0]=Number(74798)
-    //groupId[1]=Number(74798)
+    groupId[0]=Number(43473)
+    groupId[1]=Number(43473)
     groupId.sort((a, b) => a - b);
     console.log("标志0",groupId)
     console.log("标志1",nickName)
     console.log("标志2",userImg)
 
     this.setData({
-      mineID:e.mineID,
-      userID:e.userID,
+      mineID:43473,
+      userID:43473,
       chatRoomGroupId:groupId,
       nickName:nickName,
       userImg:userImg,

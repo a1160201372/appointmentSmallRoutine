@@ -32,10 +32,123 @@ Component({
     scrollTop: 0,
     scrollToMessage: '',
     hasKeyboard: false,
-    date :""
+    date :"",
+
+    lineHeight: 24,
+    functionShow: false,
+    emojiShow: false,
+    comment: "",
+    focus: false,
+    cursor: 0,
+    _keyboardShow: false,
+    emojiSource: 'https://res.wx.qq.com/wxdoc/dist/assets/img/emoji-sprite.b5bd1fe0.png',
+    parsedComment: []
   },
 
   methods: {
+    onkeyboardHeightChange(e) {
+      const {height} = e.detail
+      this.setData({
+        keyboardHeight: height
+      })
+    },
+  
+    hideAllPanel() {
+      this.setData({
+        functionShow: false,
+        emojiShow: false
+      })
+    },
+    showEmoji() {
+      this.setData({
+        functionShow: false,
+        emojiShow: this.data._keyboardShow || !this.data.emojiShow
+      })
+    },
+    showFunction() {
+      this.setData({
+        functionShow: this.data._keyboardShow || !this.data.functionShow,
+        emojiShow: false
+      })
+    },
+    chooseImage() {},
+    onFocus() {
+      this.data._keyboardShow = true
+      this.hideAllPanel()
+    },
+    onBlur(e) {
+      this.data._keyboardShow = false
+      this.data.cursor = e.detail.cursor || 0
+    },
+    onInput(e) {
+      const value = e.detail.value
+      this.data.comment = value
+    },
+    onConfirm() {
+      this.onsend()
+    },
+    insertEmoji(evt) {
+      const emotionName = evt.detail.emotionName
+      const { cursor, comment } = this.data
+      const newComment =
+        comment.slice(0, cursor) + emotionName + comment.slice(cursor)
+      this.setData({
+        comment: newComment,
+        cursor: cursor + emotionName.length
+      })
+    },
+    onsend() {
+      const emojiInstance = this.selectComponent('.mp-emoji')
+      this.emojiNames = emojiInstance.getEmojiNames()
+      this.parseEmoji = emojiInstance.parseEmoji
+  
+      const parsedCommentNew = this.data.parsedComment
+      const parsedComment = this.parseEmoji(this.data.comment)
+   
+      parsedCommentNew.push(parsedComment)
+      this.onConfirmSendText(parsedComment)
+
+      this.setData({
+        comment: ''
+      })
+    },
+    deleteEmoji: function() {
+      const pos = this.data.cursor
+      const comment = this.data.comment
+      let result = '',
+        cursor = 0
+  
+      let emojiLen = 6
+      let startPos = pos - emojiLen
+      if (startPos < 0) {
+        startPos = 0
+        emojiLen = pos
+      }
+      const str = comment.slice(startPos, pos)
+      const matchs = str.match(/\[([\u4e00-\u9fa5\w]+)\]$/g)
+      // 删除表情
+      if (matchs) {
+        const rawName = matchs[0]
+        const left = emojiLen - rawName.length
+        if (this.emojiNames.indexOf(rawName) >= 0) {
+          const replace = str.replace(rawName, '')
+          result = comment.slice(0, startPos) + replace + comment.slice(pos)
+          cursor = startPos + left
+        }
+        // 删除字符
+      } else {
+        let endPos = pos - 1
+        if (endPos < 0) endPos = 0
+        const prefix = comment.slice(0, endPos)
+        const suffix = comment.slice(pos)
+        result = prefix + suffix
+        cursor = endPos
+      }
+      this.setData({
+        comment: result,
+        cursor: cursor
+      })
+    },
     onGetUserInfo(e) {
       this.properties.onGetUserInfo(e)
     },
@@ -90,19 +203,15 @@ Component({
           env: envId,
         })
         const _ = db.command
+        var parsedComment=[]
+        const { data: initList } = await db.collection(collection).where(this.mergeCommonCriteria()).orderBy('sendTime', 'desc').get()
 
-        const { data: initList } = await db.collection(collection).where(this.mergeCommonCriteria()).orderBy('sendTimeTS', 'desc').get()
-        for(var i=0;i<initList.length;i++){
-          initList[i].data=this.formatTime(initList[i].sendTime)
-
-        }
         console.log('init query chats', initList)
-
         this.setData({
+          parsedComment,
           chats: initList.reverse(),
           scrollTop: 10000,
         })
-
         this.initWatch(initList.length ? {
           sendTimeTS: _.gt(initList[initList.length - 1].sendTimeTS),
         } : {})
@@ -147,14 +256,13 @@ Component({
 
     onRealtimeMessageSnapshot(snapshot) {
       console.warn(`收到消息`, snapshot)
-
       if (snapshot.type === 'init') {
-        this.setData({
+       /* this.setData({
           chats: [
             ...this.data.chats,
             ...[...snapshot.docs].sort((x, y) => x.sendTimeTS - y.sendTimeTS),
           ],
-        })
+        })*/
         this.scrollToBottom()
         this.inited = true
       } else {
@@ -182,7 +290,7 @@ Component({
           }
         }
         this.setData({
-          chats: chats.sort((x, y) => x.sendTimeTS - y.sendTimeTS),
+          chats: chats.sort((x, y) => x.sendTime - y.sendTime),
         })
         if (hasOthersMessage || hasNewMessage) {
           this.scrollToBottom()
@@ -190,13 +298,11 @@ Component({
       }
     },
 //发送文字
-
-    async onConfirmSendText(e) {
+    async onConfirmSendText(textArry) {
       this.try(async () => {
-        if (!e.detail.value) {
+        if (!textArry) {
           return
         }
-
         const { collection } = this.properties
         const db = this.db
         const _ = db.command
@@ -210,7 +316,7 @@ Component({
           avatar: this.data.nickUrl,
           nickName: this.data.nickName,
           msgType: 'text',
-          textContent: e.detail.value,
+          textContent: textArry,
           sendTime: db.serverDate(),
           sendTimeTS: Date.now(), // fallback
         }   
@@ -232,7 +338,7 @@ Component({
         })
         console.log("己方ID",chatMineID)
         console.log("对方ID",chatUserID)
-//纪录己方通讯时间
+    //纪录己方通讯时间
         await db.collection("new").where({
           ID: chatMineID,
         }).get({
@@ -244,20 +350,15 @@ Component({
             const docMine = {
               _id: chatUserID,//纪录对方ID
               msgType: 'text',
-              textContent: e.detail.value,
+              textContent: textArry,
               sendTime: db.serverDate(),
               sendTimeTS: Date.now(), // fallback
             }
-
             const myLoveNew=abc(myLove,docMine,chatUserID);//生成myLove数组
-            
             console.log("函数返回值",myLoveNew)
-             
              save("new",_id1,myLoveNew,chatMineID)//上传
-
           }
         })
-
         function abc(myLove,Adddoc,ID){
         var flag=find(myLove,ID)
         console.log("函数返回值11",flag)
@@ -324,7 +425,6 @@ Component({
     async onChooseImage(e) {
       const db = this.db
       const _ = db.command
- 
       const chatMineID=Number(this.data.mineID) 
       const chatUserID=Number(this.data.userID)
       wx.chooseImage({
@@ -333,6 +433,7 @@ Component({
         success: async res => {
           const { envId, collection } = this.properties
           const doc = {
+            ID:chatMineID,
             _id: `${Math.random()}_${Date.now()}`,
             groupId: this.data.groupId,
             avatar: this.data.nickUrl,
@@ -341,7 +442,6 @@ Component({
             sendTime:db.serverDate(),
             sendTimeTS: Date.now(), // fallback
           }
-
           this.setData({
             chats: [
               ...this.data.chats,
@@ -489,13 +589,14 @@ Component({
       }).exec()
     },
     async onScrollToUpper() {
+      console.log("触顶")
       if (this.db && this.data.chats.length) {
         const { collection } = this.properties
         const _ = this.db.command
         const { data } = await this.db.collection(collection).where(this.mergeCommonCriteria({
-          sendTimeTS: _.lt(this.data.chats[0].sendTimeTS),
-        })).orderBy('sendTimeTS', 'desc').get()
-        this.data.chats.unshift(...data.reverse())
+          sendTime: _.lt(this.data.chats[0].sendTime),
+        })).orderBy('sendTime', 'desc').get()
+        this.data.chats.unshift(...data.reverse())//在前面添加元素
         this.setData({
           chats: this.data.chats,
           scrollToMessage: `item-${data.length}`,
