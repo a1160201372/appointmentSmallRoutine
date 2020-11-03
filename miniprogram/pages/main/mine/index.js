@@ -24,9 +24,52 @@ Page({
     examineStatus:2,
    // myAccount: ["微信号", "手机号", "意见反馈"],
     myAccount:[''],
-    set:["实名认证"],//认证
+    set:[
+      {
+        name:"手机认证",
+        openType:"getPhoneNumber"
+      },
+      {
+        name:"实名认证",
+        openType:""
+      }
+   
+    
+    ],//认证
     pickFunction:["meFunction"],
     mineID:null
+  },
+  getPhoneNumber (e) { 
+    wx.login({
+      success (res) {
+        if (res.code) {
+          console.log("code",res.code)
+          //发起网络请求
+          wx.request({
+            url: 'http://127.0.0.1/PHP/demo.php',
+            data: {
+              code: res.code,
+              iv:e.detail.iv,
+              encryptedData:e.detail.encryptedData
+            },
+            method: "POST",
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            success (res) {
+              console.log("网站",res.data)
+            }
+          })
+
+    
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    })
+    console.log(e.detail.errMsg)
+    console.log(e.detail.iv)
+    console.log(e.detail.encryptedData)
   },
   //修改个人资料
   modilyFunction:function(){
@@ -41,14 +84,15 @@ Page({
     switch(flag){
       case 0:
         console.log("本人")
-        wx.startSoterAuthentication({
+        this.getPhoneNumber()
+    /*    wx.startSoterAuthentication({
           requestAuthModes: ['fingerPrint'],
           challenge: '123456',
           authContent: '请用指纹解锁',
           success(res) {
             console.log("生物认证",res)
           }
-       })
+       })*/
         break;
       case 1:
         console.log("择偶")

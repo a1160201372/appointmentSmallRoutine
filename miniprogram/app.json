@@ -1,5 +1,5 @@
 {
-  "pages": [
+  "pages": [ "pages/main/mine/index",
     "pages/main/Main/index",
     "pages/certification/realname/nameNum/index",
     "pages/certification/realname/face/index",
@@ -10,7 +10,7 @@
     "pages/chat/room/room",
     "pages/main/blindCard/index",
     "pages/auditor/blindCard/index",
-    "pages/main/mine/index",
+   
     "pages/Start/grande/index",
     "pages/auditor/meet/index",
     "pages/main/love/index",

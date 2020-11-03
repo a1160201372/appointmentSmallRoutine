@@ -33,11 +33,14 @@
 </view>
 
 <view class="account-wrapper">
-		<view bindtap="{{pickFunction[0]}}" data-index="{{index}}" class="account" wx:for="{{set}}">
-			<view class="account-item"> {{item}} </view>
-			<image class="account-arrow" src="../../../images/arrow.png"></image>
+		<view bindtap="{{pickFunction[0]}}" data-index="{{index}}" wx:for="{{set}}">
+      <button class="buttonCustomerService" open-type="{{item.openType}}" bindcontact="onCustomerServiceButtonClick" bindgetphonenumber="getPhoneNumber"
+    style="background-color: rgb(255, 255, 255);width: 100%;height: 50px;color:#000000"
+    >{{item.name}}</button>
 		</view>
   </view>
+
+
 
 <view class="account-wrapper1">
 	<!--	<view class="account" wx:for="{{myAccount}}">
