@@ -22,8 +22,11 @@
       wx:for="{{chats}}"
       wx:key="{{item._id}}"
       id="item-{{index}}"
-      class="message {{mineID == item.ID ? 'message__self' : ''}}"
     >
+    <view wx:if="{{(timestamp[index]-timestamp[index-1])>1000*60||index==0}}" class="timeView">
+     <view> {{date[index]}} </view>
+    </view>
+    <view  class="message {{mineID == item.ID ? 'message__self' : ''}}">
     <view wx:if="{{chats[index].ID==mineID}}" >
       <image 
         class="avatar"
@@ -77,6 +80,8 @@
         </block>
       </view>
     </view>
+
+  </view>
     <text>\n\n\n\n</text>
   </scroll-view>
 

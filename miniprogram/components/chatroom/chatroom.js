@@ -32,7 +32,8 @@ Component({
     scrollTop: 0,
     scrollToMessage: '',
     hasKeyboard: false,
-    date :"",
+    date :[],
+    timestamp:[],
 
     lineHeight: 24,
     functionShow: false,
@@ -46,6 +47,14 @@ Component({
   },
 
   methods: {
+    ceshi:function(){
+      console.log("隐藏")
+      this.setData({
+        keyboardHeight: 0,
+        functionShow: false,
+        emojiShow: false
+      })
+    },
     onkeyboardHeightChange(e) {
       const {height} = e.detail
       this.setData({
@@ -55,12 +64,14 @@ Component({
   
     hideAllPanel() {
       this.setData({
+       
         functionShow: false,
         emojiShow: false
       })
     },
     showEmoji() {
       this.setData({
+        keyboardHeight: 0,
         functionShow: false,
         emojiShow: this.data._keyboardShow || !this.data.emojiShow
       })
@@ -190,7 +201,7 @@ Component({
             s = '0' + s;
       }
       
-       return Y+'-'+M+'-'+D+' '+H+':'+m
+       return Y+'-'+M+'-'+D+' '+H+':'+m+":"+s
 },
 
     async initRoom() {
@@ -204,13 +215,33 @@ Component({
         })
         const _ = db.command
         var parsedComment=[]
+        var date=[]
+        var timestamp=[]
+        
         const { data: initList } = await db.collection(collection).where(this.mergeCommonCriteria()).orderBy('sendTime', 'desc').get()
+        for(var i=0;i<initList.length;i++){
 
+          //timestamp[i] = Date.parse(initList[i].sendTime);
+          //date[i]=this.formatTime(new Date(timestamp[i]))
+          var Difference=initList[i].sendTime.getTimezoneOffset()
+
+         
+            timestamp[i] = Date.parse(initList[i].sendTime);
+            date[i]=this.formatTime(new Date(timestamp[i]+1000*60*(Difference+480)))
+          
+     
+          
+        }
+       
         console.log('init query chats', initList)
+        console.log('init query time', date)
+        console.log('时间戳', timestamp)
         this.setData({
           parsedComment,
           chats: initList.reverse(),
           scrollTop: 10000,
+          date:date.reverse(),
+          timestamp:timestamp.reverse(),
         })
         this.initWatch(initList.length ? {
           sendTimeTS: _.gt(initList[initList.length - 1].sendTimeTS),
@@ -578,7 +609,6 @@ Component({
         this.setData(SETDATA_SCROLL_TO_BOTTOM)
         return
       }
-
       this.createSelectorQuery().select('.body').boundingClientRect(bodyRect => {
         this.createSelectorQuery().select(`.body`).scrollOffset(scroll => {
           if (scroll.scrollTop + bodyRect.height * 3 > scroll.scrollHeight) {

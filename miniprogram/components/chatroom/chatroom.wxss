@@ -399,4 +399,8 @@ page {
   width: 64px;
   height: 64px;
 }
-
+.timeView{
+  margin: 0 auto;
+  color: rgb(104, 104, 104);
+  text-align: center;
+}
