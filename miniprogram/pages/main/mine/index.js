@@ -1,7 +1,9 @@
 // miniprogram/pages/main/mine/index.js
 var app = getApp();
-Page({
 
+//const dbF = require('./function.js');//调用功能JS
+
+Page({
   like:function(){
     wx.navigateTo({
       url: '../love/index?id=0',
@@ -27,10 +29,14 @@ Page({
     set:[
       {
         name:"手机认证",
-        openType:"getPhoneNumber"
+        openType:""
       },
       {
         name:"实名认证",
+        openType:""
+      },
+      {
+        name:"测试",
         openType:""
       }
    
@@ -39,38 +45,9 @@ Page({
     pickFunction:["meFunction"],
     mineID:null
   },
-  getPhoneNumber (e) { 
-    wx.login({
-      success (res) {
-        if (res.code) {
-          console.log("code",res.code)
-          //发起网络请求
-          wx.request({
-            url: 'http://127.0.0.1/PHP/demo.php',
-            data: {
-              code: res.code,
-              iv:e.detail.iv,
-              encryptedData:e.detail.encryptedData
-            },
-            method: "POST",
-            header: {
-              "Content-Type": "application/x-www-form-urlencoded"
-            },
-            success (res) {
-              console.log("网站",res.data)
-            }
-          })
 
-    
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    })
-    console.log(e.detail.errMsg)
-    console.log(e.detail.iv)
-    console.log(e.detail.encryptedData)
-  },
+
+ 
   //修改个人资料
   modilyFunction:function(){
     console.log("修改")
@@ -84,15 +61,14 @@ Page({
     switch(flag){
       case 0:
         console.log("本人")
-        this.getPhoneNumber()
-    /*    wx.startSoterAuthentication({
-          requestAuthModes: ['fingerPrint'],
-          challenge: '123456',
-          authContent: '请用指纹解锁',
-          success(res) {
-            console.log("生物认证",res)
-          }
-       })*/
+        //查询认证结果
+
+        wx.showToast({
+          title: '正在查询认证状态',
+        })
+        //阅读认证信息
+       // that.readPhoto()
+  
         break;
       case 1:
         console.log("择偶")
@@ -102,8 +78,24 @@ Page({
         break;
         case 2:
           console.log("设置")
-          wx.navigateTo({
-            url: '../setLoverRequest/index',
+          
+          wx.cloud.callFunction({
+            name: 'phone',
+            data: {
+              phone: wx.cloud.CloudID('12354'), // 这个 CloudID 值到云函数端会被替换
+              obj: {
+                shareInfo: wx.cloud.CloudID('yyy'), // 非顶层字段的 CloudID 不会被替换，会原样字符串展示
+              }
+            },
+            success: res => {
+              console.log('[本地 [login] user openid: ', res)
+              console.log('[本地 [login] user openid11: ', res.result)
+           
+            },
+            fail: err => {
+              console.error('[本地错误 [login] ', err)
+         
+            }
           })
           break;
     }
@@ -112,8 +104,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.readExamineStatus("userID")
-    this.readMineID()
+ //   this.readExamineStatus("userID")
+//    this.readMineID()
   },
 readLove:function(mineID){
   const that=this
@@ -160,7 +152,9 @@ readLove:function(mineID){
    */
   onShow: function () {
 
-    this.readImage("userPhotos")
+  //  this.readImage("userPhotos") 调试
+
+
     //设置头像以及审核状态
    // this.readExamineStatus("userID")
    // this.readImage("userPhotos")
@@ -214,7 +208,6 @@ readLove:function(mineID){
   readImage:function(Database){
    var that=this
     const db = wx.cloud.database()
- 
     db.collection(Database).where({
       _openid: '{openid}'
     }).get({

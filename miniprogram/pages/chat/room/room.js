@@ -47,19 +47,19 @@ Page({
     var nickName=e.nickName
     var userImg=e.userImg
     var userImgOther=e.userImgOther
-   // groupId[0]=Number(e.userID)
-    //groupId[1]=Number(e.mineID)
+    groupId[0]=Number(e.userID)
+    groupId[1]=Number(e.mineID)
     
-    groupId[0]=Number(43473)
-    groupId[1]=Number(43473)
+   // groupId[0]=Number(43473)
+   // groupId[1]=Number(43473)
     groupId.sort((a, b) => a - b);
     console.log("标志0",groupId)
     console.log("标志1",nickName)
     console.log("标志2",userImg)
 
     this.setData({
-      mineID:43473,
-      userID:43473,
+      mineID:e.mineID,
+      userID:e.userID,
       chatRoomGroupId:groupId,
       nickName:nickName,
       userImg:userImg,

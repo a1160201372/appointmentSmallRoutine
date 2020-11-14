@@ -2,13 +2,7 @@
 Page({
   data: {
     title:"请问您的职业？",
-    vocation:[["市场/销售","医生","律师",],
-              ["教师","幼师","设计师"],
-              ["程序员","策划推广","客服人员"],
-              ["空姐","护士","服务员"],
-              ["营业员","导游","记者"],
-              ["摄影师","文员/秘书","行政人事"],
-              ["其他"]
+    vocation:[["其他"]
             ],
     hiddenmodalput:true,
     vocationSave:"",
@@ -16,11 +10,37 @@ Page({
     row:[0,1,2,3,4,5,6
           ]//行
   },
+  onLoad(){
+    this.readVocation()
+  },
+   //读取职业信息
+   readVocation:function(){
+    var that=this
+      const db = wx.cloud.database()
+      db.collection('system').where({
+        _id: "4c86bd845fa0b3540007d9721df62175"
+      }).get({
+        success:function(res){
+          console.log("自我介绍",res.data.length)
+          if(res.data.length==0){//没有用户ID
+            console.error("系统数据库错误") 
+          }
+          else{//已经存在 
+
+            that.setData({
+              vocation:res.data[0].vocation
+            })
+          }
+        },
+        fail:function(e){
+          console.log("数据库加载失败",e)
+        }
+      })
+  },
   bindinput:function(e){
     this.setData({
       vocationSave: e.detail.value
   });
-
   },
   confirm:function(e){
     //逻辑操作

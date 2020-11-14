@@ -1037,7 +1037,6 @@ unButtonCar:function(e){
   writeOtherInfo:function(
     workPlace,age,height,educational,inCome,marry,house,car
   ){
-  console.log("函数")
   const db = wx.cloud.database()
   db.collection('userOther').where({
     _openid: '{openid}'

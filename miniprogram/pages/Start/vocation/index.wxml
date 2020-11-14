@@ -3,7 +3,7 @@
 </view>
 <text>\n</text>
  <text class="titleText">{{title}}</text>
-<view  wx:key="*this" wx:for="{{row}}" wx:for-index="rowDataIndex" class="content">  
+<view  wx:key="*this" wx:for="{{vocation}}" wx:for-index="rowDataIndex" class="content">  
   <view wx:if="{{vocation[rowDataIndex][columnDataIndex]!=null}}" class="t1" wx:key="*this" wx:for="{{column}}" wx:for-index="columnDataIndex">  
     <button bindtap = "flag1" data-id='{{vocation[rowDataIndex][columnDataIndex]}}' class="getUserInfoBtn0" style="width: 31vmin;height: 10vmin;">{{vocation[rowDataIndex][columnDataIndex]}}</button>
   </view>

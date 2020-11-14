@@ -43,7 +43,10 @@ Component({
     cursor: 0,
     _keyboardShow: false,
     emojiSource: 'https://res.wx.qq.com/wxdoc/dist/assets/img/emoji-sprite.b5bd1fe0.png',
-    parsedComment: []
+    parsedComment: [],
+
+    refresherFlag:false
+
   },
 
   methods: {
@@ -64,7 +67,7 @@ Component({
   
     hideAllPanel() {
       this.setData({
-       
+        
         functionShow: false,
         emojiShow: false
       })
@@ -77,7 +80,9 @@ Component({
       })
     },
     showFunction() {
+
       this.setData({
+          keyboardHeight: 0,
         functionShow: this.data._keyboardShow || !this.data.functionShow,
         emojiShow: false
       })
@@ -217,25 +222,17 @@ Component({
         var parsedComment=[]
         var date=[]
         var timestamp=[]
-        
         const { data: initList } = await db.collection(collection).where(this.mergeCommonCriteria()).orderBy('sendTime', 'desc').get()
         for(var i=0;i<initList.length;i++){
 
-          //timestamp[i] = Date.parse(initList[i].sendTime);
-          //date[i]=this.formatTime(new Date(timestamp[i]))
           var Difference=initList[i].sendTime.getTimezoneOffset()
-
+          initList[i].timestamp = Date.parse(initList[i].sendTime);
          
-            timestamp[i] = Date.parse(initList[i].sendTime);
-            date[i]=this.formatTime(new Date(timestamp[i]+1000*60*(Difference+480)))
-          
-     
+          initList[i].date=this.formatTime(new Date(initList[i].timestamp+1000*60*(Difference+480)))
           
         }
-       
         console.log('init query chats', initList)
-        console.log('init query time', date)
-        console.log('时间戳', timestamp)
+
         this.setData({
           parsedComment,
           chats: initList.reverse(),
@@ -264,7 +261,6 @@ Component({
         const { collection } = this.properties
         const db = this.db
         const _ = db.command
-
         console.warn(`开始监听`, criteria)
         this.messageListener = db.collection(collection).where(this.mergeCommonCriteria(criteria)).watch({
           onChange: this.onRealtimeMessageSnapshot.bind(this),
@@ -284,16 +280,27 @@ Component({
         })
       }, '初始化监听失败')
     },
-
     onRealtimeMessageSnapshot(snapshot) {
       console.warn(`收到消息`, snapshot)
       if (snapshot.type === 'init') {
-       /* this.setData({
+
+       
+
+        this.setData({
           chats: [
             ...this.data.chats,
-            ...[...snapshot.docs].sort((x, y) => x.sendTimeTS - y.sendTimeTS),
+            ...[...snapshot.docs].sort((x, y) => x.sendTime - y.sendTime),
           ],
-        })*/
+        })
+        if(snapshot.docs.length>0){
+          for(var i=20;i<snapshot.docs.length+20;i++){
+            this.showTime(snapshot.docs[i-20].sendTime,i)
+          }
+        }    
+        this.data.chats.sort((x, y) => x.sendTime - y.sendTime),
+        this.setData({
+          chats:this.data.chats
+        })
         this.scrollToBottom()
         this.inited = true
       } else {
@@ -320,8 +327,12 @@ Component({
             }
           }
         }
+        chats.sort((x, y) => x.sendTime - y.sendTime)
+        this.data.chats=chats
+        
+        this.showTime(chats[chats.length-1].sendTime,chats.length-1)
         this.setData({
-          chats: chats.sort((x, y) => x.sendTime - y.sendTime),
+          chats:this.data.chats
         })
         if (hasOthersMessage || hasNewMessage) {
           this.scrollToBottom()
@@ -340,6 +351,12 @@ Component({
         const chatMineID=Number(this.data.mineID) 
         const chatUserID=Number(this.data.userID)
 
+        const timeLocal=new Date()
+
+        
+
+      
+
         const doc = {
           _id: `${Math.random()}_${Date.now()}`,
           ID:chatMineID,
@@ -352,6 +369,8 @@ Component({
           sendTimeTS: Date.now(), // fallback
         }   
         this.setData({
+         // timestamp,
+        //  date,
           textInputValue: '',
           chats: [
             ...this.data.chats,
@@ -362,10 +381,29 @@ Component({
             },
           ],
         })
-        this.scrollToBottom(true)
 
+        this.showTime(timeLocal,this.data.chats.length-1)
+        
+         this.setData({
+          chats:this.data.chats
+        })
+        this.scrollToBottom(true)
+        const that=this
         await db.collection(collection).add({
           data: doc,
+          success: function(res) {
+            // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+            db.collection(collection).doc(res._id).get({
+              success: function(res) {
+                // res.data 包含该记录的数据
+
+               that.showTime(res.data.sendTime,that.data.chats.length-1)
+                that.setData({
+                  chats:that.data.chats
+                })
+              }
+            })
+          }
         })
         console.log("己方ID",chatMineID)
         console.log("对方ID",chatUserID)
@@ -454,6 +492,7 @@ Component({
     },
 //发送图片
     async onChooseImage(e) {
+      const that=this
       const db = this.db
       const _ = db.command
       const chatMineID=Number(this.data.mineID) 
@@ -462,6 +501,13 @@ Component({
         count: 1,
         sourceType: ['album', 'camera'],
         success: async res => {
+          console.log("隐藏")
+          this.setData({
+            keyboardHeight: 0,
+            functionShow: false,
+            emojiShow: false
+          })
+          
           const { envId, collection } = this.properties
           const doc = {
             ID:chatMineID,
@@ -473,6 +519,11 @@ Component({
             sendTime:db.serverDate(),
             sendTimeTS: Date.now(), // fallback
           }
+          const timeLocal=new Date()
+          
+       
+         this.showTime(timeLocal,this.data.chats.length-1)
+          
           this.setData({
             chats: [
               ...this.data.chats,
@@ -573,6 +624,20 @@ Component({
                     ...doc,
                     imgFileID: res.fileID,
                   },
+                  success: function(res) {
+                    // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+                    db.collection(collection).doc(res._id).get({
+                      success: function(res) {
+                        // res.data 包含该记录的数据
+
+                      
+                        that.showTime(res.data.sendTime,that.data.chats.length-1)
+                        that.setData({
+                          chats:that.data.chats
+                        })
+                      }
+                    })
+                  }
                 })
               }, '发送图片失败')
             },
@@ -596,7 +661,18 @@ Component({
         },
       })
     },
+//获取时间并显示
+showTime:function(dateTime,i){
 
+  var Difference=dateTime.getTimezoneOffset()
+  var timestamp=Date.parse(dateTime);
+  this.data.chats[i].timestamp = Date.parse(dateTime);
+
+
+  this.data.chats[i].date=this.formatTime(new Date(timestamp+1000*60*(Difference+480)))
+
+  
+},
     onMessageImageTap(e) {
       wx.previewImage({
         urls: [e.target.dataset.fileid],
@@ -619,7 +695,15 @@ Component({
       }).exec()
     },
     async onScrollToUpper() {
+      //const that=this
       console.log("触顶")
+ 
+      setTimeout(() => {
+        this.setData({
+          refresherFlag: false,
+        })
+      }, 1500)
+      
       if (this.db && this.data.chats.length) {
         const { collection } = this.properties
         const _ = this.db.command
@@ -627,11 +711,27 @@ Component({
           sendTime: _.lt(this.data.chats[0].sendTime),
         })).orderBy('sendTime', 'desc').get()
         this.data.chats.unshift(...data.reverse())//在前面添加元素
-        this.setData({
-          chats: this.data.chats,
-          scrollToMessage: `item-${data.length}`,
-          scrollWithAnimation: false,
-        })
+           
+        for(var i=0;i<this.data.chats.length;i++){
+     
+          var Difference=this.data.chats[i].sendTime.getTimezoneOffset()
+          this.data.chats[i].timestamp = Date.parse(this.data.chats[i].sendTime);
+     
+          this.data.chats[i].date=this.formatTime(new Date(this.data.chats[i].timestamp+1000*60*(Difference+480)))
+          
+        }
+        
+
+        
+        setTimeout(() => {
+          this.setData({
+            chats: this.data.chats,
+            scrollToMessage: `item-${data.length}`,
+            scrollWithAnimation: false,
+          })
+        }, 1500)
+      
+
       }
     },
 

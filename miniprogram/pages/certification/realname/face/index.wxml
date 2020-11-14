@@ -18,7 +18,7 @@
 <view>
 
 <view>
-    <camera wx:if="{{cameraFlag}}" device-position="front" flash="off" binderror="error" class="camera" >    
+    <camera  device-position="front" flash="off" binderror="error" class="camera" >    
       <image class="img" src="../../../../images/top_fin.png">
         </image>
         <text  wx:if="{{countdown==true}}" decode="{{true}}" space="{{true}}" class="textNum">{{countdownNum}}</text>
@@ -26,4 +26,4 @@
     </camera>
 </view>
 </view>
-<button style="  height:100rpx; width: 700rpx;" bindtap="startFace" hover-class="buttonNextHover" class="buttonNext">开始认证</button>
+<button  style="height:100rpx; width: 700rpx;" bindtap="startFace" hover-class="buttonNextHover" class="buttonNext">开始认证</button>

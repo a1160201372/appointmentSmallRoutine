@@ -1,4 +1,5 @@
 /* miniprogram/pages/chat/im/index.wxss */
+@import'../../../components/emoji/index.wxss';
 .user-avatar {
 
   width: 100rpx;
@@ -32,13 +33,24 @@ flex-direction: row;
   /*background-color: lawngreen;*/
 }
 .textVoNext{
-  font-size: 30rpx;
+
+    font-size:24rpx;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 680rpx;
+    word-break:break-all;
+  
+  
 }
 .divLine{
   background: #E0E3DA;
 
   width: 550rpx;
   height: 5rpx;
-  margin-top: 40rpx;
+  margin-top: 20rpx;
 
  }

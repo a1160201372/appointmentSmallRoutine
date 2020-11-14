@@ -1,6 +1,6 @@
 {
   "pages": [ 
-    "pages/chat/room/room",
+ 
     "pages/main/mine/index",
     "pages/main/Main/index",
     "pages/certification/realname/nameNum/index",
@@ -9,10 +9,10 @@
     "pages/certification/realname/index",
     "pages/Start/upImg/index",
     "pages/main/meet/index",
- 
+    "pages/chat/room/room",
     "pages/main/blindCard/index",
     "pages/auditor/blindCard/index",
-   
+    "pages/certification/phone/index/index",
     "pages/Start/grande/index",
     "pages/auditor/meet/index",
     "pages/main/love/index",

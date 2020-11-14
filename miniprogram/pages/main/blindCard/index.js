@@ -156,7 +156,7 @@ Page({
   news:function(){
 
     //this.writeMylove("new",this.data.mineID,this.data.userID)
-    if(this.data.mineID!=this.data.userID){
+    if(this.data.mineID==this.data.userID){
       wx.showToast({
         icon:"none",
         title: '不能给自己发消息',

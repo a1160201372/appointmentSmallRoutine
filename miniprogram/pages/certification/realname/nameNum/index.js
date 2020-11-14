@@ -17,6 +17,7 @@ Page({
    */
   onLoad: function (options) {
     this.readMineID()
+
   },
 
   /**
@@ -71,6 +72,10 @@ Page({
     this.data.IDcard=e.detail.value
   },
   buttonNext:function(){
+    wx.redirectTo({
+      url: '../face/index?name='+"彭升智"+'&IDcard='+35646
+    })
+/*
     //检测与设置的是否相同
     if(this.data.name){
       this.checkMain(this.data.IDcard)
@@ -81,6 +86,7 @@ Page({
         duration:2000,
       })
     }
+    */
   },
 //检查身份证号的合法性
   checkMain:function(IdNumber){

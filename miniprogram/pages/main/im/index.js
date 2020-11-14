@@ -21,8 +21,9 @@ Page({
 
     ],//喜欢我的
     myLoveInfo:[],//我喜欢的
-
+    lineHeight:24,
     gotoFlag:0,
+     emojiSource: 'https://res.wx.qq.com/wxdoc/dist/assets/img/emoji-sprite.b5bd1fe0.png',
   },
 
   /**

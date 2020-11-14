@@ -34,7 +34,7 @@
 
 <view class="account-wrapper">
 		<view bindtap="{{pickFunction[0]}}" data-index="{{index}}" wx:for="{{set}}">
-      <button class="buttonCustomerService" open-type="{{item.openType}}" bindcontact="onCustomerServiceButtonClick" bindgetphonenumber="getPhoneNumber"
+      <button class="buttonCustomerService" open-type="{{item.openType}}" bindcontact="onCustomerServiceButtonClick" 
     style="background-color: rgb(255, 255, 255);width: 100%;height: 50px;color:#000000"
     >{{item.name}}</button>
 		</view>

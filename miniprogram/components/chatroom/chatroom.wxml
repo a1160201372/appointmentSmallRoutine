@@ -1,30 +1,37 @@
 
 <view class="chatroom">
-  <view class="header">
-    <!-- display number of people in the room -->
-    <view class="left"></view>
-    <!-- room name -->
-    <view class="middle">{{groupName}}</view>
-    <!-- reserved -->
-    <view class="right"></view>
-  </view>
 
-  <!-- chats -->
+
+  <!-- chats 
+  
+  bindscrolltoupper="onScrollToUpper"
+  -->
   <scroll-view 
     class="body" 
     scroll-y 
     scroll-with-animation="{{scrollWithAnimation}}"
     scroll-top="{{scrollTop}}" 
     scroll-into-view="{{scrollToMessage}}"
-    bindscrolltoupper="onScrollToUpper"
+    bindtap="ceshi"
+    style="height:90%"
+    refresher-enabled="true"
+    bindrefresherrefresh="onScrollToUpper"
+    refresher-triggered="{{refresherFlag}}"
   >
     <view 
       wx:for="{{chats}}"
       wx:key="{{item._id}}"
       id="item-{{index}}"
+      wx:if="{{(chats[index].timestamp-chats[index-1].timestamp)!=0}}" 
     >
-    <view wx:if="{{(timestamp[index]-timestamp[index-1])>1000*60||index==0}}" class="timeView">
-     <view> {{date[index]}} </view>
+    <view  wx:if="{{(chats[index].timestamp-chats[index-1].timestamp)>1000*60*3||index==0}}" class="timeView">
+     <view> {{chats[index].date}} </view>
+
+   <!--  <view> 1、{{chats[index-1].timestamp}} </view>
+     <view> 2、{{(chats[index].timestamp)}} </view>
+   
+     <view> 1-2：{{(chats[index].timestamp-chats[index-1].timestamp)}} </view>
+   -->
     </view>
     <view  class="message {{mineID == item.ID ? 'message__self' : ''}}">
     <view wx:if="{{chats[index].ID==mineID}}" >
@@ -65,6 +72,7 @@
           </view>
           <view class="record" hidden="{{chats.textContent.length === 0}}">
             <view class="comment">
+              
               <block wx:for="{{chats[index].textContent}}" wx:key="*this">
                 <block wx:if="{{item.type === 1}}">{{item.content}}</block>
                 <view 
@@ -116,7 +124,7 @@
 
   <view class="reply_wrp" style="bottom: {{keyboardHeight}}px">
   <view class="reply_tool">
-    <view hover-class="active" class="reply_button replay_quick_button">
+    <view bindtap="ceshi" hover-class="active" class="reply_button replay_quick_button">
       <image src="./images/reply_tool_keyboard.svg" mode='aspectFit' class="reply_tool_pic"></image>
     </view>
     <view class="reply_form_wrp">

@@ -8,7 +8,7 @@ Page({
   data: {
     IDcard:'',
     name:"",
-    cameraFlag:true,
+    cameraFlag:false,
     tital:"请点击“开始验证”按钮",
     countdown:false,
     countdownNum:3,
@@ -38,7 +38,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+   
+   
+ 
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -75,10 +77,63 @@ Page({
 
   },
   startFace:function(){
+    const that=this
     console.log("开始验证")
  
-    this.countdown()
+  
+    wx.getSetting({
+      success(res) {
+        if (res.authSetting['scope.camera']&&res.authSetting['scope.record']) {
+          console.log("已授权=====",res)
+          that.countdown()
+        } else {
+          console.log("未授权=====")
+            wx.showModal({
+              title: '检测到没有打开摄像头或麦克风权限，请问是否前去设置',
+              success (res) {
+              if (res.confirm) {
+              console.log('用户点击确定')
+              wx.openSetting({
+                success (res) {
+                  console.log("打开设置",res.authSetting)
+                  
+            
+
+                    wx.showToast({
+                      title: '设置完毕，请重新进行认证',
+                      icon:"none",
+                      complete (res) {
+                        setTimeout(function () {
+                          wx.switchTab({
+                            url: '../../../main/mine/index'
+                          })     
+                        }, 2000)
+
+                                                                    
+                      },
+                    })
+                  
+                }
+              })
+              } else if (res.cancel) {
+              console.log('用户点击取消')
+              wx.switchTab({
+                url: '../../../main/mine/index'
+              })
+              }
+              }
+            })
+        
+          // res.authSetting = {
+          //   "scope.userInfo": true,
+          //   "scope.userLocation": true
+          // }
+        }
+      }
+    })
+ 
   },
+
   countdown:function(){
     if(this.data.mainFlag==false)
     {
@@ -105,6 +160,7 @@ Page({
           countdown:false,
           tital:"正在采集信息..."
         })
+        
         that.startVideo()
       }, 3000)
       setTimeout(function () {
@@ -143,6 +199,7 @@ Page({
       },
       fail: (res) => {
         console.error("录像错误结束",res)
+
       }
     })
   },

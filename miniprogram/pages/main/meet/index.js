@@ -40,8 +40,6 @@ Page({
   ],*/
     imgUrls: [//推荐栏图片
       "http://pic17.nipic.com/20111102/6997422_155259626308_2.jpg",
-      "http://pic17.nipic.com/20111102/6997422_155259626308_2.jpg",
-      "http://pic17.nipic.com/20111102/6997422_155259626308_2.jpg"
     ],
     indicatorDots: true, //是否显示面板指示点
     autoplay: true, //是否自动切换
@@ -59,7 +57,35 @@ Page({
 //读取数据库中的通过审核的ID号
     this.readID()
     this.readMineID()
+    this.readAdPicture()
   },
+    //读取推广信息
+    readAdPicture:function(){
+      var that=this
+        const db = wx.cloud.database()
+        db.collection('system').where({
+          _id: "4c86bd845fa0b3540007d9721df62175"
+        }).get({
+          success:function(res){
+            console.log("自我介绍",res.data.length)
+            if(res.data.length==0){//没有用户ID
+              console.error("系统数据库错误") 
+            }
+            else{//已经存在 
+           
+              console.log("系统广告图片",res.data[0].AdPicture) 
+
+              that.setData({
+                imgUrls:res.data[0].AdPicture
+              })
+              
+            }
+          },
+          fail:function(e){
+            console.log("数据库加载失败",e)
+          }
+        })
+    },
   onShow:function(){
     console.log("我的ID", app.globalData.mineID)
       //设置底部导航栏
@@ -220,7 +246,7 @@ Page({
         success:function(res){
           console.log("自我介绍",res.data.length)
           if(res.data.length==0){//没有用户ID
-            console.log("无图片") 
+            console.erro("无用户头像信息：ID=",ID) 
           }
           else{//已经存在 
           console.log("图片界面",res.data[0].fileID) 

@@ -3,11 +3,24 @@
         <image wx:if="{{loveMeInfo[index].urlImage}}" class="user-avatar" mode="aspectFill" src="{{loveMeInfo[index].urlImage}}">  </image>
         <view class="main_dan">
         <text class="textVo">{{loveMeInfo[index].ed}}</text>
-        <text class="textVoNext">
-          {{loveMeInfo[index].textContent}}</text>
+        <view class="textVoNext">
+
+          <block wx:for="{{loveMeInfo[index].textContent}}" wx:key="*this">
+                <block style="font-size:24px ;"  wx:if="{{item.type === 1}}">{{item.content}}</block>
+                <view 
+                  wx:if="{{item.type === 2}}" 
+                  style="display: inline-block; width: {{lineHeight}}px; height: {{lineHeight}}px">
+                  <view 
+                    class="{{item.imageClass}}"
+                    style="background-image: url({{emojiSource}});transform-origin: 0 0; transform: scale({{lineHeight / 64}});"></view>
+                </view>
+              </block>
+        </view>
           <view class="divLine"></view>  
         </view>
       </view>
 
 
  
+ 
+       
