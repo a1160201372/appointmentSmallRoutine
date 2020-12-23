@@ -209,6 +209,11 @@ Page({
               wx.showToast({
                 title: '认证成功',
               })
+              setTimeout(function () {
+                wx.switchTab({
+                  url: '../../../main/mine/index'
+                })     
+              }, 2000)
             },
           })
         }

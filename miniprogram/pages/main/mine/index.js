@@ -34,10 +34,6 @@ Page({
       {
         name:"实名认证",
         openType:""
-      },
-      {
-        name:"测试",
-        openType:""
       }
    
     
@@ -56,18 +52,28 @@ Page({
     })
   },
   meFunction:function(e){
+    var that=this
     console.log(e.currentTarget.dataset.index)
     var flag=parseInt(e.currentTarget.dataset.index);
     switch(flag){
       case 0:
-        console.log("本人")
+        console.log("手机认证")
         //查询认证结果
 
-        wx.showToast({
+        wx.showLoading({
           title: '正在查询认证状态',
         })
         //阅读认证信息
-       // that.readPhoto()
+        setTimeout(function () {
+         
+          that.readPhoto(that.data.mineID)
+      
+          }, 1000)
+      
+
+      /*  wx.navigateTo({
+          url: '../../certification/phone/index/index',
+        })*/
   
         break;
       case 1:
@@ -100,12 +106,86 @@ Page({
           break;
     }
   },
+  readPhoto:function(mineID){
+    const db = wx.cloud.database()
+    try {
+      console.log("手机已认证,本地1") 
+      var value = wx.getStorageSync('minePhotoNum')
+      if(value){//已认证
+        console.log("手机已认证,本地") 
+        wx.hideLoading()
+      var tmp=value
+
+      var start=tmp.slice(0,3)
+      var end=tmp.slice(7,11)
+      
+      wx.showModal({
+        title: '您已完成了手机认证，是否重新认证',
+        content: '您的手机号码为：'+start+"****"+end,
+        success (res) {
+        if (res.confirm) {
+        console.log('用户点击确定')
+        } else if (res.cancel) {
+        console.log('用户点击取消')
+        }
+        }
+        })
+      }
+      else{ console.log("手机已认证,本地12") 
+    db.collection('userImportant').where({
+      ID: mineID
+    }).get({
+      success:function(res){
+
+        console.log("成功")
+       // wx.hideLoading()
+        console.log("自我介绍",res.data[0].phoneNum.phoneNumber)
+        if(res.data[0].phoneNum.phoneNumber){//已认证
+          console.log("手机已认证13") 
+          wx.setStorageSync('minePhotoNum',res.data[0].phoneNum.phoneNumber)
+          wx.hideLoading()
+        var tmp=res.data[0].phoneNum.phoneNumber
+
+        var start=tmp.slice(0,3)
+        var end=tmp.slice(7,11)
+        
+        wx.showModal({
+          title: '您已完成了手机认证，是否重新认证',
+          content: '您的手机号码为：'+start+"****"+end,
+          success (res) {
+          if (res.confirm) {
+          console.log('用户点击确定')
+          } else if (res.cancel) {
+          console.log('用户点击取消')
+          }
+          }
+          })
+        }
+        else{//已经存在 
+          console.log("手机未认证") 
+            wx.navigateTo({
+          url: '../../certification/phone/index/index',
+            })
+        }
+      },
+    })
+  }
+  }catch (e) {
+    // Do something when catch error
+    wx.hideLoading()
+    console.error("查询手机状态异常",e)
+    wx.showToast({
+      title: '查询异常',
+      icon:"none",
+    })
+  }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
- //   this.readExamineStatus("userID")
-//    this.readMineID()
+    this.readExamineStatus("userID")
+    this.readMineID()
   },
 readLove:function(mineID){
   const that=this
@@ -113,10 +193,8 @@ readLove:function(mineID){
   const watcher = db.collection('myLove').where({ID:mineID}).watch({
     onChange: function(snapshot) {
       var numTmp= that.data.loveMeNum
-
       console.log("喜欢数量",snapshot.docs[0].myLove.length)
       numTmp[0]=snapshot.docs[0].myLove.length
-      
         that.setData({
           loveMeNum:numTmp
         })
@@ -152,7 +230,7 @@ readLove:function(mineID){
    */
   onShow: function () {
 
-  //  this.readImage("userPhotos") 调试
+    this.readImage("userPhotos") 
 
 
     //设置头像以及审核状态

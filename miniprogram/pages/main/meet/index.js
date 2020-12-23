@@ -169,14 +169,15 @@ Page({
         success:function(res){
         console.log("通过审核",res.data[0].ID)
         console.log("通过审核1",res.data)
-
+          var num=res.data.length;
         for(var i=0;i<res.data.length;i++)
         {
           ID[i]=res.data[i].ID
         }
-
+        if(num>6)
+          num=6
       //显示信息(默认显示一个)
-      for(var i=0;i<1;i++){
+      for(var i=0;i<num;i++){
         console.log("进行显示",ID[i])
         that.initialSetInfo(ID[i])
       }
